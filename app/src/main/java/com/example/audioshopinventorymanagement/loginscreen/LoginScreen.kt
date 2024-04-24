@@ -9,10 +9,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.ViewComponents
-import com.example.audioshopinventorymanagement.ViewComponents.HeadLineWithTextAndLogo
-import com.example.audioshopinventorymanagement.ViewComponents.LoginInputFields
-import com.example.audioshopinventorymanagement.ViewComponents.LoginText
 import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,7 +37,8 @@ fun LoginScreen(
         )
         ViewComponents.LoginButtonAndLink(
             buttonText = "Login",
-            linkText = "Device Registration"
+            linkText = "Device Registration",
+            onClick = {}
         )
     }
 }

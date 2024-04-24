@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement
+package com.example.audioshopinventorymanagement.loginscreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,15 +26,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.Dark_Gray
 import com.example.audioshopinventorymanagement.ui.theme.Error_Red
 import com.example.audioshopinventorymanagement.ui.theme.Green
 import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
-import org.w3c.dom.Text
 
 object ViewComponents {
 
@@ -277,7 +276,10 @@ fun previewComponent(){
             .background(Light_Gray),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        ViewComponents.HeadLineWithTextAndLogo(headLineText = "Inventory Management", headLineLogo = R.drawable.audioshop_logo)
+        ViewComponents.HeadLineWithTextAndLogo(
+            headLineText = "Inventory Management",
+            headLineLogo = R.drawable.audioshop_logo
+        )
         ViewComponents.LoginText("Login")
         ViewComponents.LoginInputFields(
             usernameText = "Username",
