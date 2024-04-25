@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
 
@@ -22,7 +23,7 @@ fun LoginScreen(
             .background(Light_Gray),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        ViewComponents.HeadLineWithTextAndLogo(
+        AllViewComponents.HeadLineWithTextAndLogo(
             headLineText = "Inventory Management",
             headLineLogo = R.drawable.audioshop_logo
         )
@@ -38,7 +39,7 @@ fun LoginScreen(
         ViewComponents.LoginButtonAndLink(
             buttonText = "Login",
             linkText = "Device Registration",
-            onClick = {}
+            onClick = { loginScreenViewModel.onNavigateToStartScreen() }
         )
     }
 }

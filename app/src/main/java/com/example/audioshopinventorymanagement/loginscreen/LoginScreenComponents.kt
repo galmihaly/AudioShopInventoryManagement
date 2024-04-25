@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.Dark_Gray
@@ -36,73 +37,6 @@ import com.example.audioshopinventorymanagement.ui.theme.Green
 import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
 
 object ViewComponents {
-
-    @Composable
-    fun HeadLineWithTextAndLogo(headLineText: String, headLineLogo: Int) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Dark_Gray),
-        ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 20.dp, bottom = 10.dp)
-                ){
-                    Image(
-                        painter = painterResource(headLineLogo),
-                        contentDescription = null
-                    )
-                }
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp, bottom = 20.dp)
-                ){
-                    Text(
-                        text = headLineText,
-                        color = Color.White,
-                        fontSize = 20.sp,
-                        fontFamily = CustomFonts.RobotoMono_Bold,
-                    )
-                }
-            }
-        }
-    }
-
-    @Composable
-    fun HeadLineWithText(headLineText: String) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Dark_Gray),
-        ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 20.dp)
-                ){
-                    Text(
-                        text = headLineText,
-                        color = Color.White,
-                        fontSize = 20.sp,
-                        fontFamily = CustomFonts.RobotoMono_Bold,
-                    )
-                }
-            }
-        }
-    }
 
     @Composable
     fun LoginText(text: String){
@@ -266,31 +200,31 @@ object ViewComponents {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true, device = Devices.PIXEL_2)
-@Composable
-fun previewComponent(){
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Light_Gray),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        ViewComponents.HeadLineWithTextAndLogo(
-            headLineText = "Inventory Management",
-            headLineLogo = R.drawable.audioshop_logo
-        )
-        ViewComponents.LoginText("Login")
-        ViewComponents.LoginInputFields(
-            usernameText = "Username",
-            usernameError = "Error Message",
-            passwordText = "Password",
-            passwordError = "Error Message"
-        )
-        ViewComponents.LoginButtonAndLink(
-            buttonText = "Login",
-            linkText = "Device Registration",
-            onClick = {}
-        )
-    }
-}
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Preview(showBackground = true, device = Devices.PIXEL_2)
+//@Composable
+//fun previewComponent(){
+//    Column(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .background(Light_Gray),
+//        horizontalAlignment = Alignment.CenterHorizontally
+//    ) {
+//        AllViewComponents.HeadLineWithTextAndLogo(
+//            headLineText = "Inventory Management",
+//            headLineLogo = R.drawable.audioshop_logo
+//        )
+//        ViewComponents.LoginText("Login")
+//        ViewComponents.LoginInputFields(
+//            usernameText = "Username",
+//            usernameError = "Error Message",
+//            passwordText = "Password",
+//            passwordError = "Error Message"
+//        )
+//        ViewComponents.LoginButtonAndLink(
+//            buttonText = "Login",
+//            linkText = "Device Registration",
+//            onClick = {}
+//        )
+//    }
+//}
