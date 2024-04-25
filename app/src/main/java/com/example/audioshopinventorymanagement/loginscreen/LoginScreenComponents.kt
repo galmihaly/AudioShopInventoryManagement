@@ -91,7 +91,6 @@ object ViewComponents {
                 ),
                 singleLine = true
             )
-
         }
     }
 

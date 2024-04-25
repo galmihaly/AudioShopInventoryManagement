@@ -13,8 +13,8 @@ class ProductListScreenViewModel @Inject constructor(
 
     val navigationChannel = appNavigator.navigationChannel
 
-    fun onNavigateToProductListScreen() {
-        appNavigator.tryNavigateTo(Destination.ProductListScreen.fullRoute)
+    fun onNavigateToNewitemScreen() {
+        appNavigator.tryNavigateTo(Destination.NewItemScreen.fullRoute)
     }
 
     fun onNavigateToModifyItemScreen() {
