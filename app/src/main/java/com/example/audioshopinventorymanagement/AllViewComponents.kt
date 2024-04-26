@@ -2,8 +2,6 @@ package com.example.audioshopinventorymanagement
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -15,15 +13,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
@@ -37,7 +36,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -251,7 +249,7 @@ object AllViewComponents {
     }
 
     @Composable
-    private fun TextRowToCard(text: String, text2: String, color: Color){
+    fun TextRowToCard(key: String, value: String, color: Color, keyTextWeight: Float, valueStringTextWeight: Float){
         Row (
             modifier = Modifier
                 .fillMaxWidth()
@@ -260,11 +258,11 @@ object AllViewComponents {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(0.9f)
+                    .weight(keyTextWeight)
                     .padding(start = 30.dp),
             ){
                 Text(
-                    text = text,
+                    text = key,
                     color = Color.White,
                     fontFamily = CustomFonts.RobotoMono_Regular,
                     fontSize = 13.sp
@@ -273,11 +271,11 @@ object AllViewComponents {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1.1f)
+                    .weight(valueStringTextWeight)
                     .padding(end = 30.dp)
             ){
                 Text(
-                    text = text2,
+                    text = value,
                     color = color,
                     fontFamily = CustomFonts.RobotoMono_Regular,
                     fontSize = 13.sp
@@ -290,24 +288,24 @@ object AllViewComponents {
     @Composable
     fun ItemCard(
         cardNumber: Int,
-        deleteButtonLogo: Int,
         modifyButtonLogo: Int,
-        cardIndicatorLogo: Int,
-        deleteCardFunction: () -> Unit,
         modifyCardFunction: () -> Unit,
-        expandedCardFunction: Boolean
+        expandedCard: Boolean
     ){
 
-        var expanded by remember { mutableStateOf(expandedCardFunction) }
+        var isExpanded by remember { mutableStateOf(expandedCard) }
         var angle = 0f
+        var cardBorderIndicatorColor = Green
+
+        cardBorderIndicatorColor = if (isExpanded) Blue else Green
+        angle = if (isExpanded) 180f else 0f
 
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .clickable(onClick = {
-                    expanded = !expanded
-                    angle = if(expanded) 180f else 0f
+                    isExpanded = !isExpanded
                 })
                 .animateContentSize(
                     animationSpec = tween(
@@ -317,7 +315,7 @@ object AllViewComponents {
                     )
                 ),
             shape = RectangleShape,
-            border = BorderStroke(2.dp, Green),
+            border = BorderStroke(2.dp, cardBorderIndicatorColor),
             colors = CardColors(
                 containerColor = Dark_Gray,
                 contentColor = Dark_Gray,
@@ -337,7 +335,7 @@ object AllViewComponents {
                     Box(
                         modifier = Modifier
                             .size(30.dp)
-                            .background(Green),
+                            .background(cardBorderIndicatorColor),
                         contentAlignment = Alignment.Center,
                     ){
                         Text(
@@ -349,108 +347,142 @@ object AllViewComponents {
                     }
                     Box(
                         modifier = Modifier
-                            .size(30.dp)
-                            .background(Error_Red),
+                            .size(30.dp),
                         contentAlignment = Alignment.Center,
                     ){
-                        IconButton(
-                            onClick = deleteCardFunction,
-                            modifier = Modifier.fillMaxSize()
-                        ) {
-                            Icon(
-                                painter = painterResource(id = deleteButtonLogo),
-                                contentDescription = null,
-                                modifier = Modifier.size(18.dp),
-                                tint = Color.White
-                            )
-                        }
+                        Icon(
+                            imageVector = Icons.Filled.ArrowDropDown,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .rotate(angle),
+                            tint = Color.White
+                        )
                     }
                 }
 
-                TextRowToCard(text = "Barcode:", text2 = "123456789", Green)
-                TextRowToCard(text = "Product ID:", text2 = "01-01-0001", Color.White)
-                TextRowToCard(text = "Product Name:", text2 = "Sennheiser HD 560s", Color.White)
+                TextRowToCard(
+                    key = "Barcode:",
+                    value = "123456789",
+                    color = Green,
+                    keyTextWeight = 0.9f,
+                    valueStringTextWeight = 1.1f
+                )
+                TextRowToCard(
+                    key = "Product ID:",
+                    value = "01-01-0001",
+                    color = Color.White,
+                    keyTextWeight = 0.9f,
+                    valueStringTextWeight = 1.1f
+                )
+                TextRowToCard(
+                    key = "Product Name:",
+                    value = "Sennheiser HD 560s",
+                    color = Color.White,
+                    keyTextWeight = 0.9f,
+                    valueStringTextWeight = 1.1f
+                )
 
-                if(expanded){
-                    TextRowToCard(text = "Product Type:", text2 = "Headphone", Color.White)
-                    TextRowToCard(text = "Base Price:", text2 = "58.260" + " Ft", Color.White)
-                    TextRowToCard(text = "WholeSale Price:", text2 = "73.990" + " Ft", Color.White)
+                if(isExpanded){
+                    TextRowToCard(
+                        key = "Product Type:",
+                        value = "Headphone",
+                        color = Color.White,
+                        keyTextWeight = 0.9f,
+                        valueStringTextWeight = 1.1f
+                    )
+                    TextRowToCard(
+                        key = "Base Price:",
+                        value = "58.260" + " Ft",
+                        color = Color.White,
+                        keyTextWeight = 0.9f,
+                        valueStringTextWeight = 1.1f
+                    )
+                    TextRowToCard(
+                        key = "WholeSale Price:",
+                        value = "73.990" + " Ft",
+                        color = Color.White,
+                        keyTextWeight = 0.9f,
+                        valueStringTextWeight = 1.1f
+                    )
+
                     Spacer(modifier = Modifier.height(30.dp))
-                    TextRowToCard(text = "Device ID:", text2 = "ZTC-1", Color.White)
-                    TextRowToCard(text = "WareHouse ID:", text2 = "DE01", Color.White)
-                    TextRowToCard(text = "Stock ID:", text2 = "DE01-0001", Color.White)
-                    TextRowToCard(text = "Recorder Name:", text2 = "Tóth Elek", Color.White)
-                    TextRowToCard(text = "Recording Date:", text2 = "2024-04-17 12:13:58", Color.White)
-                }
 
-                Column{
-                    Row(
+                    TextRowToCard(
+                        key = "Device ID:",
+                        value = "ZTC-1",
+                        color = Color.White,
+                        keyTextWeight = 0.9f,
+                        valueStringTextWeight = 1.1f
+                    )
+                    TextRowToCard(
+                        key = "WareHouse ID:",
+                        value = "DE01",
+                        Color.White,
+                        keyTextWeight = 0.9f,
+                        valueStringTextWeight = 1.1f
+                    )
+                    TextRowToCard(
+                        key = "Stock ID:",
+                        value = "DE01-0001",
+                        Color.White,
+                        keyTextWeight = 0.9f,
+                        valueStringTextWeight = 1.1f
+                    )
+                    TextRowToCard(
+                        key = "Recorder Name:",
+                        value = "Tóth Elek",
+                        Color.White,
+                        keyTextWeight = 0.9f,
+                        valueStringTextWeight = 1.1f
+                    )
+                    TextRowToCard(
+                        key = "Recording Date:",
+                        value = "2024-04-17 12:13:58",
+                        Color.White,
+                        keyTextWeight = 0.9f,
+                        valueStringTextWeight = 1.1f
+                    )
+
+                    Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .wrapContentHeight(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .size(30.dp)
-                                .background(Green)
-                        ){
-                            IconButton(
+                            .wrapContentHeight()
+                            .padding(vertical = 10.dp),
+                        contentAlignment = Alignment.Center,
+                    ){
+                        Row {
+                            Button(
                                 onClick = modifyCardFunction,
-                                modifier = Modifier.fillMaxSize()
-                            ) {
-                                Icon(
-                                    painter = painterResource(id = cardIndicatorLogo),
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .size(18.dp)
-                                        .rotate(angle),
-                                    tint = Color.White
+                                modifier = Modifier.wrapContentSize(),
+                                shape = RectangleShape,
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Blue
                                 )
-                            }
-                        }
-                        Box(
-                            modifier = Modifier
-                                .size(30.dp)
-                                .background(Blue)
-                        ){
-                            IconButton(
-                                onClick = modifyCardFunction,
-                                modifier = Modifier.fillMaxSize()
                             ) {
                                 Icon(
                                     painter = painterResource(id = modifyButtonLogo),
-                                    contentDescription = null,
+                                    contentDescription = "Modify",
                                     modifier = Modifier.size(18.dp),
                                     tint = Color.White
+                                )
+                                Spacer(modifier = Modifier.width(15.dp))
+                                Text(
+                                    text = "Modify",
+                                    color = Color.White,
+                                    fontFamily = CustomFonts.RobotoMono_Regular,
+                                    fontSize = 18.sp
                                 )
                             }
                         }
                     }
-
-//                Box(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .wrapContentHeight(),
-//                    contentAlignment = Alignment.BottomEnd,
-//                ){
-//                    Box(
-//                        modifier = Modifier
-//                            .size(30.dp)
-//                            .background(Blue)
-//                    ){
-//                        IconButton(
-//                            onClick = modifyCardFunction,
-//                            modifier = Modifier.fillMaxSize()
-//                        ) {
-//                            Icon(
-//                                painter = painterResource(id = modifyButtonLogo),
-//                                contentDescription = null,
-//                                modifier = Modifier.size(18.dp),
-//                                tint = Color.White
-//                            )
-//                        }
-//                    }
+                }
+                else{
+                    Box(
+                        modifier = Modifier
+                            .height(30.dp)
+                            .fillMaxWidth()
+                    )
                 }
             }
         }
@@ -463,11 +495,8 @@ object AllViewComponents {
 fun previewComponent(){
     AllViewComponents.ItemCard(
         cardNumber = 1,
-        deleteButtonLogo = R.drawable.card_delete_logo,
         modifyButtonLogo = R.drawable.modify_logo,
-        cardIndicatorLogo = R.drawable.bottom_arrow_logo,
-        deleteCardFunction = {},
         modifyCardFunction = {},
-        expandedCardFunction = false
+        expandedCard = false
     )
 }

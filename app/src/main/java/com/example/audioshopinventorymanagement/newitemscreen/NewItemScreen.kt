@@ -59,7 +59,7 @@ fun NewItemScreen(
                         onClick = { newItemScreenViewModel.onNavigateToProductListScreen() }
                     )
                     AllViewComponents.NavigationButtons(
-                        buttonLogoId = R.drawable.save_logo,
+                        buttonLogoId = R.drawable.add_list_logo,
                         buttonLogoHeight = 40.dp,
                         buttonLogoWidth = 40.dp,
                         modifier = Modifier
@@ -91,11 +91,24 @@ fun NewItemScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 10.dp),
+                    .padding(
+                        horizontal = 10.dp,
+                        vertical = 20.dp
+                    ),
             ) {
                 NewItemScreenComponents.ModifyTextField(text = "Barcode:", "")
-                NewItemScreenComponents.ModifyTextField(text = "Brand:", "")
-                NewItemScreenComponents.ModifyTextField(text = "Model:", "")
+                NewItemScreenComponents.ModifyDropDownMenu(
+                    text = "Brand:",
+                    optionsList = listOf("Sennheiser HD 560s", "Bill Payment", "Recharges", "Outing", "Other"),
+                    currentSelected = "Bill Payment",
+                    dropDownIsExpand = false
+                )
+                NewItemScreenComponents.ModifyDropDownMenu(
+                    text = "Model:",
+                    optionsList = listOf("Sennheiser HD 560s", "Bill Payment", "Recharges", "Outing", "Other"),
+                    currentSelected = "Bill Payment",
+                    dropDownIsExpand = false
+                )
             }
         }
     }

@@ -30,89 +30,88 @@ object ProducListScreenComponents {
 
 }
 
-//@Preview(showBackground = true, device = Devices.PIXEL_2)
-//@Composable
-//fun previewComponent(){
-//    Scaffold (
-//        topBar = {
-//            AllViewComponents.HeadLineWithText(
-//                headLineText = "New Products List",
-//            )
-//        },
-//        bottomBar = {
-//            BottomAppBar(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .height(60.dp),
-//                contentPadding = PaddingValues(0.dp),
-//                containerColor = Light_Gray
-//            ) {
-//                Row (
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .wrapContentHeight(),
-//                    horizontalArrangement = Arrangement.Absolute.Center
-//                ) {
-//                    AllViewComponents.NavigationButtons(
-//                        buttonLogoId = R.drawable.back_logo,
-//                        buttonLogoHeight = 40.dp,
-//                        buttonLogoWidth = 40.dp,
-//                        modifier = Modifier
-//                            .fillMaxSize()
-//                            .weight(1f),
-//                        backgroundColor = Green,
-//                        onClick = {}
-//                    )
-//                    AllViewComponents.NavigationButtons(
-//                        buttonLogoId = R.drawable.add_list_logo,
-//                        buttonLogoHeight = 40.dp,
-//                        buttonLogoWidth = 40.dp,
-//                        modifier = Modifier
-//                            .fillMaxSize()
-//                            .weight(1f),
-//                        backgroundColor = Blue,
-//                        onClick = {}
-//                    )
-//                    AllViewComponents.NavigationButtons(
-//                        buttonLogoId = R.drawable.delete_list_logo,
-//                        buttonLogoHeight = 40.dp,
-//                        buttonLogoWidth = 40.dp,
-//                        modifier = Modifier
-//                            .fillMaxSize()
-//                            .weight(1f),
-//                        backgroundColor = Error_Red,
-//                        onClick = {}
-//                    )
-//                }
-//            }
-//        }
-//    ) { paddingValues ->
-//        Box(
-//            modifier = Modifier
-//                .fillMaxSize()
-//                .background(Light_Gray)
-//                .padding(paddingValues)
-//        ){
-//            Column(
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .padding(horizontal = 10.dp),
-//            ) {
-//                AllViewComponents.SearchField(
-//                    value = "Search",
-//                    onValueChange = {},
-//                    deleteValueChange = {}
-//                )
-//                AllViewComponents.MatchesText(text = "All Matches: " + "12345")
-//                AllViewComponents.ItemCard(
-//                    cardNumber = 1,
-//                    deleteButtonLogo = R.drawable.card_delete_logo,
-//                    modifyButtonLogo = R.drawable.modify_logo,
-//                    deleteCardFunction = {},
-//                    modifyCardFunction = {},
-//                    expandedCardFunction = {}
-//                )
-//            }
-//        }
-//    }
-//}
+@Preview(showBackground = true, device = Devices.PIXEL_2)
+@Composable
+fun previewComponent(){
+    Scaffold (
+        topBar = {
+            AllViewComponents.HeadLineWithText(
+                headLineText = "New Products List",
+            )
+        },
+        bottomBar = {
+            BottomAppBar(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp),
+                contentPadding = PaddingValues(0.dp),
+                containerColor = Light_Gray
+            ) {
+                Row (
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    horizontalArrangement = Arrangement.Absolute.Center
+                ) {
+                    AllViewComponents.NavigationButtons(
+                        buttonLogoId = R.drawable.back_logo,
+                        buttonLogoHeight = 40.dp,
+                        buttonLogoWidth = 40.dp,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .weight(1f),
+                        backgroundColor = Green,
+                        onClick = {}
+                    )
+                    AllViewComponents.NavigationButtons(
+                        buttonLogoId = R.drawable.add_list_logo,
+                        buttonLogoHeight = 40.dp,
+                        buttonLogoWidth = 40.dp,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .weight(1f),
+                        backgroundColor = Blue,
+                        onClick = {}
+                    )
+                    AllViewComponents.NavigationButtons(
+                        buttonLogoId = R.drawable.delete_list_logo,
+                        buttonLogoHeight = 40.dp,
+                        buttonLogoWidth = 40.dp,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .weight(1f),
+                        backgroundColor = Error_Red,
+                        onClick = {}
+                    )
+                }
+            }
+        }
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Light_Gray)
+                .padding(paddingValues)
+        ){
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 10.dp),
+            ) {
+                AllViewComponents.SearchField(
+                    value = "Search",
+                    textFieldValue = "",
+                    onValueChange = {},
+                    deleteValueChange = {}
+                )
+                AllViewComponents.MatchesText(text = "All Matches: " + "12345")
+                AllViewComponents.ItemCard(
+                    cardNumber = 1,
+                    modifyButtonLogo = R.drawable.modify_logo,
+                    modifyCardFunction = {},
+                    expandedCard = false
+                )
+            }
+        }
+    }
+}

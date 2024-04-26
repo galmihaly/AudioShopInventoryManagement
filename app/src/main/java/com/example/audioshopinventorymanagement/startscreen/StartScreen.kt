@@ -72,7 +72,7 @@ fun StartScreen(
                     buttonLogoId = R.drawable.stocks_logo,
                     buttonLogoHeight = 50.dp,
                     buttonLogoWidth = 50.dp,
-                    onClick = {}
+                    onClick = { startScreenViewModel.onNavigateToWareHousesScreen() }
                 )
             }
         }

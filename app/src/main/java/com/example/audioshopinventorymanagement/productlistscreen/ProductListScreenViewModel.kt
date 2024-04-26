@@ -18,7 +18,7 @@ class ProductListScreenViewModel @Inject constructor(
     }
 
     fun onNavigateToModifyItemScreen() {
-        appNavigator.tryNavigateTo(Destination.NewItemScreen.fullRoute)
+        appNavigator.tryNavigateTo(Destination.ModifyItemScreen.fullRoute)
     }
 
     fun onNavigateToStartScreen() {

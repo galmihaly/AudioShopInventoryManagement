@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.productlistscreen
+package com.example.audioshopinventorymanagement.categoriesscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,23 +15,25 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.ui.theme.Blue
-import com.example.audioshopinventorymanagement.ui.theme.Error_Red
 import com.example.audioshopinventorymanagement.ui.theme.Green
 import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
+import com.example.audioshopinventorymanagement.warehousesscreen.WareHousesScreenComponents
 
+class CategoriesScreenComponents {
+}
+
+@Preview(showBackground = true, device = Devices.PIXEL_2)
 @Composable
-fun ProductListScreen(
-    productListScreenViewModel: ProductListScreenViewModel = hiltViewModel()
-) {
+fun previewComponent(){
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "New Products List",
+                headLineText = "Catgeroies",
             )
         },
         bottomBar = {
@@ -56,27 +58,7 @@ fun ProductListScreen(
                             .fillMaxSize()
                             .weight(1f),
                         backgroundColor = Green,
-                        onClick = { productListScreenViewModel.onNavigateToStartScreen()}
-                    )
-                    AllViewComponents.NavigationButtons(
-                        buttonLogoId = R.drawable.add_list_logo,
-                        buttonLogoHeight = 40.dp,
-                        buttonLogoWidth = 40.dp,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .weight(1f),
-                        backgroundColor = Blue,
-                        onClick = { productListScreenViewModel.onNavigateToNewitemScreen() }
-                    )
-                    AllViewComponents.NavigationButtons(
-                        buttonLogoId = R.drawable.delete_list_logo,
-                        buttonLogoHeight = 40.dp,
-                        buttonLogoWidth = 40.dp,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .weight(1f),
-                        backgroundColor = Error_Red,
-                        onClick = {}
+                        onClick = { }
                     )
                 }
             }
@@ -91,21 +73,13 @@ fun ProductListScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 10.dp),
+                    .padding(horizontal = 10.dp, vertical = 20.dp),
             ) {
-                AllViewComponents.SearchField(
-                    value = "Search",
-                    textFieldValue = "",
-                    onValueChange = {},
-                    deleteValueChange = {}
-                )
-                AllViewComponents.MatchesText(text = "All Matches: " + "12345")
-                AllViewComponents.ItemCard(
-                    cardNumber = 1,
-                    modifyButtonLogo = R.drawable.modify_logo,
-                    modifyCardFunction = { productListScreenViewModel.onNavigateToModifyItemScreen() },
-                    expandedCard = false
-                )
+//                WareHousesScreenComponents.CategoryCard(
+//                    cardNumber = 1,
+//                    textValues = "",
+//                    onClick = {}
+//                )
             }
         }
     }
