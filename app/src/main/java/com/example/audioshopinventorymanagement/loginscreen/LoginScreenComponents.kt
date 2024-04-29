@@ -1,7 +1,5 @@
 package com.example.audioshopinventorymanagement.loginscreen
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,23 +16,17 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.audioshopinventorymanagement.AllViewComponents
-import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
-import com.example.audioshopinventorymanagement.ui.theme.Dark_Gray
 import com.example.audioshopinventorymanagement.ui.theme.Error_Red
 import com.example.audioshopinventorymanagement.ui.theme.Green
-import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
 
 object ViewComponents {
 
@@ -56,7 +48,7 @@ object ViewComponents {
     }
 
     @Composable
-    private fun UsernameInputField(text: String, errorMessage: String){
+    fun UsernameInputField(text: String, errorMessage: String, viewModel: LoginScreenViewModel){
         Column(
             modifier = Modifier.padding(
                 top = 0.dp,
@@ -71,13 +63,13 @@ object ViewComponents {
             )
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = "",
-                onValueChange = { },
+                value = viewModel.viewState.collectAsState().value.email,
+                onValueChange = { viewModel.updateUsername(it) },
                 label = {
                     Text(
                         text = text,
                         color = Green,
-                        fontFamily = CustomFonts.RobotoMono_Bold,
+                        fontFamily = CustomFonts.RobotoMono_Regular,
                     )
                 },
                 colors = OutlinedTextFieldDefaults.colors(
@@ -95,7 +87,7 @@ object ViewComponents {
     }
 
     @Composable
-    private fun PasswordInputField(text: String, errorMessage: String){
+    fun PasswordInputField(text: String, errorMessage: String, viewModel : LoginScreenViewModel){
         Column (
             modifier = Modifier.padding(
                 top = 10.dp,
@@ -110,13 +102,13 @@ object ViewComponents {
             )
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = "",
-                onValueChange = { },
+                value = viewModel.viewState.collectAsState().value.password,
+                onValueChange = { viewModel.updatePassword(it) },
                 label = {
                     Text(
                         text = text,
                         color = Green,
-                        fontFamily = CustomFonts.RobotoMono_Bold,
+                        fontFamily = CustomFonts.RobotoMono_Regular,
                     )
                 },
                 colors = OutlinedTextFieldDefaults.colors(
@@ -137,34 +129,40 @@ object ViewComponents {
         }
     }
 
-    @ExperimentalMaterial3Api
-    @Composable
-    fun LoginInputFields(usernameText: String, passwordText: String, usernameError: String, passwordError: String){
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 30.dp)
-        ){
-            Column(
-                modifier = Modifier.padding(
-                    vertical = 0.dp
-                )
-            ) {
-                UsernameInputField(
-                    text = usernameText,
-                    errorMessage = usernameError
-                )
-                PasswordInputField(
-                    text = passwordText,
-                    errorMessage = passwordError
-                )
-            }
-        }
-    }
+//    @ExperimentalMaterial3Api
+//    @Composable
+//    fun LoginInputFields(usernameText: String, passwordText: String, usernameError: String, passwordError: String){
+//        Box(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(horizontal = 30.dp)
+//        ){
+//            Column(
+//                modifier = Modifier.padding(
+//                    vertical = 0.dp
+//                )
+//            ) {
+//                UsernameInputField(
+//                    text = usernameText,
+//                    errorMessage = usernameError
+//                )
+//                PasswordInputField(
+//                    text = passwordText,
+//                    errorMessage = passwordError
+//                )
+//            }
+//        }
+//    }
 
     @ExperimentalMaterial3Api
     @Composable
-    fun LoginButtonAndLink(buttonText: String, linkText: String, onClick: () -> Unit){
+    fun LoginButtonAndLink(
+        buttonText: String,
+        linkText: String,
+        viewModel: LoginScreenViewModel,
+        currentUsername: String,
+        currentPassword: String
+    ){
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
@@ -174,7 +172,7 @@ object ViewComponents {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Button(
-                    onClick = onClick,
+                    onClick = { viewModel.authenticateLoginUser(currentUsername, currentPassword) },
                     shape = RoundedCornerShape(5.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Green
