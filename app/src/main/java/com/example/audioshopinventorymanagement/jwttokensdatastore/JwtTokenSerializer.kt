@@ -14,7 +14,7 @@ class JwtTokenSerializer @Inject constructor() : Serializer<JwtTokens> {
 
     override val defaultValue: JwtTokens get() = JwtTokens(
         accessToken = "",
-        refreshJwtTokens = ""
+        refreshToken = ""
     )
 
     override suspend fun readFrom(input: InputStream): JwtTokens {

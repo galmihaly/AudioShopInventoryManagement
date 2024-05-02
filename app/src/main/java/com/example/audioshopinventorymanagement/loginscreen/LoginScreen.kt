@@ -66,7 +66,7 @@ fun LoginScreen(
             buttonText = "Login",
             linkText = "Device Registration",
             viewModel = loginScreenViewModel,
-            currentUsername = currentUsername,
+            currentEmail = currentUsername,
             currentPassword = currentPassword
         )
     }

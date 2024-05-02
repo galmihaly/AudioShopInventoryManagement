@@ -29,13 +29,13 @@ class DataStoreProvider {
     ): DataStore<JwtTokens> {
         return DataStoreFactory.create(
             serializer = JwtTokenSerializer(),
-            produceFile = { context.dataStoreFile("app_settings.json") },
+            produceFile = { context.dataStoreFile("auth_tokens.json") },
             scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
             corruptionHandler = ReplaceFileCorruptionHandler(
                 produceNewData = { JwtTokens(
-                    accessToken = "",
-                    refreshJwtTokens = ""
-                )
+                        accessToken = "",
+                        refreshToken = ""
+                    )
                 }
             ),
         )
@@ -43,7 +43,7 @@ class DataStoreProvider {
 
     @Singleton
     @Provides
-    fun providesDataRepository(
+    fun providesJwtTokenRepository(
         dataStore: DataStore<JwtTokens>,
     ) : JwtTokenRepository {
         return JwtTokenRepositoryImpl(dataStore)

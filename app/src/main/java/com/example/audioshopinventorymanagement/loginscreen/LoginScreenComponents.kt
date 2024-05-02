@@ -160,7 +160,7 @@ object ViewComponents {
         buttonText: String,
         linkText: String,
         viewModel: LoginScreenViewModel,
-        currentUsername: String,
+        currentEmail: String,
         currentPassword: String
     ){
         Box(
@@ -172,7 +172,7 @@ object ViewComponents {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Button(
-                    onClick = { viewModel.authenticateLoginUser(currentUsername, currentPassword) },
+                    onClick = { viewModel.authenticateLoginUser(currentEmail, currentPassword) },
                     shape = RoundedCornerShape(5.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Green

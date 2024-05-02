@@ -1,41 +1,44 @@
 package com.example.audioshopinventorymanagement.jwttokensdatastore
 
+import android.util.Log
 import androidx.datastore.core.DataStore
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class JwtTokenRepositoryImpl @Inject constructor(
-    private val appSettingsDataStore: DataStore<JwtTokens>,
+    private val jwtTokenDataStore: DataStore<JwtTokens>,
 ) : JwtTokenRepository {
-    override suspend fun saveAccessJwt(newAccessToken: String) {
-        appSettingsDataStore.updateData {
+    override suspend fun saveAccessJwt(token: String) {
+        Log.e("1", "hello")
+        jwtTokenDataStore.updateData {
             it.copy(
-                accessToken = newAccessToken
+                accessToken = token
+            )
+        }
+    }
+    override suspend fun saveRefreshJwt(token: String) {
+        jwtTokenDataStore.updateData {
+            it.copy(
+                accessToken = token
             )
         }
     }
 
-    override suspend fun saveRefreshJwt(newRefreshToken: String) {
-        appSettingsDataStore.updateData {
-            it.copy(
-                accessToken = newRefreshToken
-            )
-        }
+    override suspend fun getAccessJwt(): String {
+        val token = jwtTokenDataStore.data.first().accessToken
+        Log.e("JWT From DataStore", token)
+        return token
     }
 
-    override suspend fun getAccessJwt(): String? {
-        return appSettingsDataStore.data.first().accessToken
-    }
-
-    override suspend fun getRefreshJwt(): String? {
-        return appSettingsDataStore.data.first().refreshJwtTokens
+    override suspend fun getRefreshJwt(): String {
+        return jwtTokenDataStore.data.first().refreshToken
     }
 
     override suspend fun clearAllTokens() {
-        appSettingsDataStore.updateData {
+        jwtTokenDataStore.updateData {
             it.copy(
                 accessToken = "",
-                refreshJwtTokens = ""
+                refreshToken = ""
             )
         }
     }
