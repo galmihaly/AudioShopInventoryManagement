@@ -97,4 +97,8 @@ dependencies {
     //Serialization And DataStore
     implementation("androidx.datastore:datastore-preferences:1.1.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+
+    //JWT (JSON Web Token)
+    implementation("com.auth0.android:jwtdecode:2.0.2")
+
 }

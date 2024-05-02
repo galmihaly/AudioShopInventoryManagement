@@ -21,17 +21,4 @@ class AuthApiRepositoryImpl @Inject constructor(
             return AuthApiResponse.Exception(e.message!!)
         }
     }
-
-    override suspend fun getSayHello(): UserServiceResponse {
-        val response = authAPI.getSayHelloString()
-        return try {
-            val body = response.body()
-            if (response.isSuccessful && body != null){
-                return UserServiceResponse.Success(body)
-            }
-            return UserServiceResponse.Error(response.code(), response.message())
-        }catch (e: Exception){
-            return UserServiceResponse.Exception(e.message!!)
-        }
-    }
 }

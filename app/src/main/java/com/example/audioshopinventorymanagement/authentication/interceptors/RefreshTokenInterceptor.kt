@@ -16,8 +16,10 @@ class RefreshTokenInterceptor @Inject constructor(
     }
     override fun intercept(chain: Interceptor.Chain): Response {
         val token = runBlocking {
-            jwtTokenRepository.getRefreshJwt()
+            jwtTokenRepository.getRefreshJwt().refreshToken
         }
+
+        Log.e("AccessTokenInterceptor_accessToken", token)
 
         val request = chain.request().newBuilder()
         request.addHeader(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")

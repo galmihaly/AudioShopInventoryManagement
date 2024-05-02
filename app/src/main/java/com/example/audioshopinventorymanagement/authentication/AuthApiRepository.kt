@@ -6,5 +6,4 @@ import com.example.audioshopinventorymanagement.authentication.responses.UserSer
 
 interface AuthApiRepository {
     suspend fun authenticateWorker(loginRequest: LoginRequest) : AuthApiResponse
-    suspend fun getSayHello() : UserServiceResponse
 }

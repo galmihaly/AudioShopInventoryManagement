@@ -9,7 +9,6 @@ class JwtTokenRepositoryImpl @Inject constructor(
     private val jwtTokenDataStore: DataStore<JwtTokens>,
 ) : JwtTokenRepository {
     override suspend fun saveAccessJwt(token: String) {
-        Log.e("1", "hello")
         jwtTokenDataStore.updateData {
             it.copy(
                 accessToken = token
@@ -19,19 +18,17 @@ class JwtTokenRepositoryImpl @Inject constructor(
     override suspend fun saveRefreshJwt(token: String) {
         jwtTokenDataStore.updateData {
             it.copy(
-                accessToken = token
+                refreshToken = token
             )
         }
     }
 
-    override suspend fun getAccessJwt(): String {
-        val token = jwtTokenDataStore.data.first().accessToken
-        Log.e("JWT From DataStore", token)
-        return token
+    override suspend fun getAccessJwt(): JwtTokens {
+        return jwtTokenDataStore.data.first()
     }
 
-    override suspend fun getRefreshJwt(): String {
-        return jwtTokenDataStore.data.first().refreshToken
+    override suspend fun getRefreshJwt(): JwtTokens {
+        return jwtTokenDataStore.data.first()
     }
 
     override suspend fun clearAllTokens() {
