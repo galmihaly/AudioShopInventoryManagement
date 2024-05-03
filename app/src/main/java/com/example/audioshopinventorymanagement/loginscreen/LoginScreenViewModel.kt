@@ -57,12 +57,12 @@ class LoginScreenViewModel @Inject constructor(
     }
 
     private fun isValidEmailInputField(email: String) : Boolean{
-        var isValidEmail = false;
+        val isValidEmail: Boolean
 
         val emailValidationResult = Validator.isValidEmail(email)
 
-        if(emailValidationResult.isValid.equals(false)){
-            isValidEmail = false;
+        if(!emailValidationResult.isValid){
+            isValidEmail = false
 
             viewModelScope.launch {
                 _viewState.update {
@@ -90,12 +90,12 @@ class LoginScreenViewModel @Inject constructor(
     }
 
     private fun isValidPasswordInputField(password: String) : Boolean {
-        var isValidPassord = false;
+        val isValidPassord: Boolean
 
         val passwordValidationResult = Validator.isValidPassword(password)
 
-        if(passwordValidationResult.isValid.equals(false)){
-            isValidPassord = false;
+        if(!passwordValidationResult.isValid){
+            isValidPassord = false
 
             viewModelScope.launch {
                 _viewState.update {
@@ -119,7 +119,7 @@ class LoginScreenViewModel @Inject constructor(
             }
         }
 
-        return isValidPassord;
+        return isValidPassord
     }
 
     private suspend fun authenticateUser(currentEmail : String, currentPassword: String) : String{
@@ -164,9 +164,8 @@ class LoginScreenViewModel @Inject constructor(
     }
 
     private suspend fun getUserDetails(token : String, currentEmail: String) {
-        val responseDetails = userApiRepository.getUserDetails(token)
 
-        when (responseDetails){
+        when (val responseDetails = userApiRepository.getUserDetails(token)){
             is UserServiceResponse.Success -> {
                 if(currentEmail == token){
                     if(responseDetails.data.userActive && responseDetails.data.deviceActive){
@@ -201,7 +200,7 @@ class LoginScreenViewModel @Inject constructor(
 
             if(isValidEmail && isValidPassword){
 
-                val authenticatedToken = authenticateUser(currentEmail, currentPassword);
+                val authenticatedToken = authenticateUser(currentEmail, currentPassword)
                 if (isUsefulTokenPartsCount(authenticatedToken)){
 
 //                    // Ha lejárt a token, akkor annak ellenőrzése után kijelenteztetés az alkalmazásból, ami annyit
@@ -225,7 +224,7 @@ class LoginScreenViewModel @Inject constructor(
         }
     }
 
-    fun onNavigateToStartScreen() {
+    private fun onNavigateToStartScreen() {
         appNavigator.tryNavigateTo(Destination.StartScreen.fullRoute)
     }
 }
