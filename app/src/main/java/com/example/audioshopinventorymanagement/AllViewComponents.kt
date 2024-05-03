@@ -55,8 +55,8 @@ import androidx.compose.ui.unit.sp
 import com.example.audioshopinventorymanagement.ui.theme.Blue
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.Dark_Gray
-import com.example.audioshopinventorymanagement.ui.theme.Error_Red
-import com.example.audioshopinventorymanagement.ui.theme.Green
+import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
+import com.example.audioshopinventorymanagement.ui.theme.GREEN
 
 object AllViewComponents {
     @Composable
@@ -78,6 +78,7 @@ object AllViewComponents {
                 ){
                     Image(
                         painter = painterResource(headLineLogo),
+                        modifier = Modifier.height(80.dp),
                         contentDescription = null
                     )
                 }
@@ -95,7 +96,7 @@ object AllViewComponents {
                     )
                 }
                 HorizontalDivider(
-                    color = Green,
+                    color = GREEN,
                     modifier = Modifier
                         .height(1.dp)
                         .fillMaxHeight()
@@ -130,7 +131,7 @@ object AllViewComponents {
                     )
                 }
                 HorizontalDivider(
-                    color = Green,
+                    color = GREEN,
                     modifier = Modifier
                         .height(1.dp)
                         .fillMaxHeight()
@@ -147,7 +148,7 @@ object AllViewComponents {
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
-            colors = ButtonDefaults.buttonColors(containerColor = Green),
+            colors = ButtonDefaults.buttonColors(containerColor = GREEN),
             shape = RectangleShape
         ) {
             Icon(
@@ -198,7 +199,7 @@ object AllViewComponents {
             label = {
                 Text(
                     text = value,
-                    color = Green,
+                    color = GREEN,
                     fontFamily = CustomFonts.RobotoMono_Regular
                 )
             },
@@ -206,7 +207,7 @@ object AllViewComponents {
                 Icon(
                     imageVector = Icons.Filled.Search,
                     contentDescription = null,
-                    tint = Green
+                    tint = GREEN
                 )
             },
             trailingIcon = {
@@ -214,17 +215,17 @@ object AllViewComponents {
                     Icon(
                         imageVector = Icons.Filled.Close,
                         contentDescription = null,
-                        tint = Error_Red
+                        tint = ERROR_RED
                     )
                 }
             },
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Green,
-                unfocusedBorderColor = Green,
-                focusedLabelColor = Green,
-                cursorColor = Green,
-                focusedTextColor = Green,
-                unfocusedTextColor = Green,
+                focusedBorderColor = GREEN,
+                unfocusedBorderColor = GREEN,
+                focusedLabelColor = GREEN,
+                cursorColor = GREEN,
+                focusedTextColor = GREEN,
+                unfocusedTextColor = GREEN,
                 unfocusedLabelColor = Color.White
             ),
             keyboardOptions = KeyboardOptions(
@@ -295,9 +296,9 @@ object AllViewComponents {
 
         var isExpanded by remember { mutableStateOf(expandedCard) }
         var angle = 0f
-        var cardBorderIndicatorColor = Green
+        var cardBorderIndicatorColor = GREEN
 
-        cardBorderIndicatorColor = if (isExpanded) Blue else Green
+        cardBorderIndicatorColor = if (isExpanded) Blue else GREEN
         angle = if (isExpanded) 180f else 0f
 
         Card(
@@ -364,7 +365,7 @@ object AllViewComponents {
                 TextRowToCard(
                     key = "Barcode:",
                     value = "123456789",
-                    color = Green,
+                    color = GREEN,
                     keyTextWeight = 0.9f,
                     valueStringTextWeight = 1.1f
                 )
@@ -493,10 +494,8 @@ object AllViewComponents {
 @Preview(showBackground = true, device = Devices.PIXEL_2)
 @Composable
 fun previewComponent(){
-    AllViewComponents.ItemCard(
-        cardNumber = 1,
-        modifyButtonLogo = R.drawable.modify_logo,
-        modifyCardFunction = {},
-        expandedCard = false
+    AllViewComponents.HeadLineWithTextAndLogo(
+        headLineText = "Inventory Management",
+        headLineLogo = R.drawable.audioshop_logo
     )
 }

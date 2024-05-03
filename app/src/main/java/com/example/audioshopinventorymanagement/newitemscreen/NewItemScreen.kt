@@ -20,8 +20,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.ui.theme.Blue
-import com.example.audioshopinventorymanagement.ui.theme.Error_Red
-import com.example.audioshopinventorymanagement.ui.theme.Green
+import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
+import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
 
 @Composable
@@ -55,7 +55,7 @@ fun NewItemScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
-                        backgroundColor = Green,
+                        backgroundColor = GREEN,
                         onClick = { newItemScreenViewModel.onNavigateToProductListScreen() }
                     )
                     AllViewComponents.NavigationButtons(
@@ -75,7 +75,7 @@ fun NewItemScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
-                        backgroundColor = Error_Red,
+                        backgroundColor = ERROR_RED,
                         onClick = {}
                     )
                 }

@@ -40,8 +40,8 @@ import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.ui.theme.Blue
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.Dark_Gray
-import com.example.audioshopinventorymanagement.ui.theme.Error_Red
-import com.example.audioshopinventorymanagement.ui.theme.Green
+import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
+import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
 
 object NewItemScreenComponents {
@@ -64,12 +64,12 @@ object NewItemScreenComponents {
                 value = textFieldState,
                 onValueChange = { textFieldState = it },
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Green,
-                    unfocusedBorderColor = Green,
-                    focusedLabelColor = Green,
-                    cursorColor = Green,
-                    focusedTextColor = Green,
-                    unfocusedTextColor = Green,
+                    focusedBorderColor = GREEN,
+                    unfocusedBorderColor = GREEN,
+                    focusedLabelColor = GREEN,
+                    cursorColor = GREEN,
+                    focusedTextColor = GREEN,
+                    unfocusedTextColor = GREEN,
                     unfocusedLabelColor = Color.White
                 ),
                 singleLine = true,
@@ -114,15 +114,15 @@ object NewItemScreenComponents {
                         )
                     },
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Green,
-                        unfocusedBorderColor = Green,
-                        focusedLabelColor = Green,
-                        cursorColor = Green,
-                        focusedTextColor = Green,
-                        unfocusedTextColor = Green,
+                        focusedBorderColor = GREEN,
+                        unfocusedBorderColor = GREEN,
+                        focusedLabelColor = GREEN,
+                        cursorColor = GREEN,
+                        focusedTextColor = GREEN,
+                        unfocusedTextColor = GREEN,
                         unfocusedLabelColor = Color.White,
-                        focusedTrailingIconColor = Green,
-                        unfocusedTrailingIconColor = Green
+                        focusedTrailingIconColor = GREEN,
+                        unfocusedTrailingIconColor = GREEN
                     ),
                     singleLine = true,
                     readOnly = true,
@@ -153,7 +153,7 @@ object NewItemScreenComponents {
                         )
                         HorizontalDivider(
                             thickness = 1.dp,
-                            color = Green
+                            color = GREEN
                         )
                     }
                 }
@@ -192,7 +192,7 @@ fun previewComponent(){
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
-                        backgroundColor = Green,
+                        backgroundColor = GREEN,
                         onClick = {}
                     )
                     AllViewComponents.NavigationButtons(
@@ -212,7 +212,7 @@ fun previewComponent(){
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
-                        backgroundColor = Error_Red,
+                        backgroundColor = ERROR_RED,
                         onClick = {}
                     )
                 }

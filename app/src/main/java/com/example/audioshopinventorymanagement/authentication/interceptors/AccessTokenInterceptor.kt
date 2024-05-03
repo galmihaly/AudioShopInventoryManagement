@@ -15,12 +15,9 @@ class AccessTokenInterceptor @Inject constructor(
         const val TOKEN_TYPE = "Bearer"
     }
     override fun intercept(chain: Interceptor.Chain): Response {
-
         val token = runBlocking {
             jwtTokenRepository.getAccessJwt().accessToken
         }
-
-        Log.e("AccessTokenInterceptor_accessToken", token)
 
         val request = chain.request().newBuilder()
         request.addHeader(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")

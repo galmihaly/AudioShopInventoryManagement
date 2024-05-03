@@ -32,10 +32,7 @@ fun LoginScreen(
             headLineText = "Inventory Management",
             headLineLogo = R.drawable.audioshop_logo
         )
-        ViewComponents.LoginText(
-            text = "Login"
-        )
-
+        ViewComponents.LoginText(text = "Login")
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -46,14 +43,12 @@ fun LoginScreen(
                     vertical = 0.dp
                 )
             ) {
-                ViewComponents.UsernameInputField(
+                ViewComponents.EmailInputField(
                     text = "Email",
-                    errorMessage = "Error Message",
                     viewModel = loginScreenViewModel
                 )
                 ViewComponents.PasswordInputField(
                     text = "Password",
-                    errorMessage = "Error Message",
                     viewModel = loginScreenViewModel
                 )
             }

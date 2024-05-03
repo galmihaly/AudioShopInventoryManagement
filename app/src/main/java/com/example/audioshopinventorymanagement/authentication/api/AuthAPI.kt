@@ -2,10 +2,9 @@ package com.example.audioshopinventorymanagement.authentication.api
 
 import com.example.audioshopinventorymanagement.authentication.requests.LoginRequest
 import com.example.audioshopinventorymanagement.authentication.responses.LoginResponse
-import com.example.audioshopinventorymanagement.authentication.responses.UserResponse
+import com.example.audioshopinventorymanagement.authentication.responses.UserDetailsResponse
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface AuthAPI {

@@ -19,9 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.ui.theme.Blue
-import com.example.audioshopinventorymanagement.ui.theme.Error_Red
-import com.example.audioshopinventorymanagement.ui.theme.Green
+import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
 
 @Composable
@@ -55,7 +53,7 @@ fun WareHousesScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
-                        backgroundColor = Green,
+                        backgroundColor = GREEN,
                         onClick = { wareHousesScreenViewModel.onNavigateToStartScreen() }
                     )
                 }

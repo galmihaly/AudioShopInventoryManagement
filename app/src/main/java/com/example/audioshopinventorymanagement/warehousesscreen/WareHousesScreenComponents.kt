@@ -35,7 +35,7 @@ import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.Dark_Gray
-import com.example.audioshopinventorymanagement.ui.theme.Green
+import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
 
 object WareHousesScreenComponents {
@@ -55,7 +55,7 @@ object WareHousesScreenComponents {
                 ),
             onClick = onClick,
             shape = RectangleShape,
-            border = BorderStroke(2.dp, Green),
+            border = BorderStroke(2.dp, GREEN),
             colors = CardColors(
                 containerColor = Dark_Gray,
                 contentColor = Dark_Gray,
@@ -75,7 +75,7 @@ object WareHousesScreenComponents {
                     Box(
                         modifier = Modifier
                             .size(30.dp)
-                            .background(Green),
+                            .background(GREEN),
                         contentAlignment = Alignment.Center,
                     ){
                         Text(
@@ -90,7 +90,7 @@ object WareHousesScreenComponents {
                 AllViewComponents.TextRowToCard(
                     key = "ID:",
                     value = "DE01",
-                    color = Green,
+                    color = GREEN,
                     keyTextWeight = 1.1f,
                     valueStringTextWeight = 0.9f
                 )
@@ -165,7 +165,7 @@ fun previewComponent(){
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
-                        backgroundColor = Green,
+                        backgroundColor = GREEN,
                         onClick = { }
                     )
                 }

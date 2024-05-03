@@ -18,16 +18,6 @@ class JwtTokenSerializer @Inject constructor() : Serializer<JwtTokens> {
     )
 
     override suspend fun readFrom(input: InputStream): JwtTokens {
-//        val decryptedBytes = aesCryptoManager.decrypt(input)
-//        return try {
-//            Json.decodeFromString(
-//                deserializer = AppSettings.serializer(),
-//                string = decryptedBytes.decodeToString()
-//            )
-//        } catch(e: SerializationException) {
-//            e.printStackTrace()
-//            return defaultValue
-//        }
         return try {
             Json.decodeFromString(
                 deserializer = JwtTokens.serializer(),
@@ -48,13 +38,5 @@ class JwtTokenSerializer @Inject constructor() : Serializer<JwtTokens> {
                 ).encodeToByteArray()
             )
         }
-
-//        aesCryptoManager.encrypt(
-//            bytes = Json.encodeToString(
-//                serializer = AppSettings.serializer(),
-//                value = t
-//            ).encodeToByteArray(),
-//            outputStream = output
-//        )
     }
 }

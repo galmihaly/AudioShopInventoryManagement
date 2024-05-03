@@ -25,8 +25,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
-import com.example.audioshopinventorymanagement.ui.theme.Error_Red
-import com.example.audioshopinventorymanagement.ui.theme.Green
+import com.example.audioshopinventorymanagement.ui.theme.GREEN
 
 object ViewComponents {
 
@@ -48,7 +47,7 @@ object ViewComponents {
     }
 
     @Composable
-    fun UsernameInputField(text: String, errorMessage: String, viewModel: LoginScreenViewModel){
+    fun EmailInputField(text: String, viewModel: LoginScreenViewModel){
         Column(
             modifier = Modifier.padding(
                 top = 0.dp,
@@ -56,10 +55,10 @@ object ViewComponents {
             )
         ){
             Text(
-                text = errorMessage,
-                color = Error_Red,
+                text = viewModel.viewState.collectAsState().value.validationEmailText,
+                color = viewModel.viewState.collectAsState().value.validationEmailColor,
                 fontSize = 12.sp,
-                fontFamily = CustomFonts.RobotoMono_Bold,
+                fontFamily = CustomFonts.RobotoMono_Regular,
             )
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
@@ -68,17 +67,17 @@ object ViewComponents {
                 label = {
                     Text(
                         text = text,
-                        color = Green,
+                        color = GREEN,
                         fontFamily = CustomFonts.RobotoMono_Regular,
                     )
                 },
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Green,
-                    unfocusedBorderColor = Green,
-                    focusedLabelColor = Green,
-                    cursorColor = Green,
-                    focusedTextColor = Green,
-                    unfocusedTextColor = Green,
+                    focusedBorderColor = GREEN,
+                    unfocusedBorderColor = GREEN,
+                    focusedLabelColor = GREEN,
+                    cursorColor = GREEN,
+                    focusedTextColor = GREEN,
+                    unfocusedTextColor = GREEN,
                     unfocusedLabelColor = Color.White
                 ),
                 singleLine = true
@@ -87,7 +86,7 @@ object ViewComponents {
     }
 
     @Composable
-    fun PasswordInputField(text: String, errorMessage: String, viewModel : LoginScreenViewModel){
+    fun PasswordInputField(text: String, viewModel : LoginScreenViewModel){
         Column (
             modifier = Modifier.padding(
                 top = 10.dp,
@@ -95,10 +94,10 @@ object ViewComponents {
             )
         ){
             Text(
-                text = errorMessage,
-                color = Error_Red,
+                text = viewModel.viewState.collectAsState().value.validationPasswordText,
+                color = viewModel.viewState.collectAsState().value.validationPasswordColor,
                 fontSize = 12.sp,
-                fontFamily = CustomFonts.RobotoMono_Bold,
+                fontFamily = CustomFonts.RobotoMono_Regular,
             )
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
@@ -107,17 +106,17 @@ object ViewComponents {
                 label = {
                     Text(
                         text = text,
-                        color = Green,
+                        color = GREEN,
                         fontFamily = CustomFonts.RobotoMono_Regular,
                     )
                 },
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Green,
-                    unfocusedBorderColor = Green,
-                    focusedLabelColor = Green,
-                    cursorColor = Green,
-                    focusedTextColor = Green,
-                    unfocusedTextColor = Green,
+                    focusedBorderColor = GREEN,
+                    unfocusedBorderColor = GREEN,
+                    focusedLabelColor = GREEN,
+                    cursorColor = GREEN,
+                    focusedTextColor = GREEN,
+                    unfocusedTextColor = GREEN,
                     unfocusedLabelColor = Color.White
                 ),
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -175,7 +174,7 @@ object ViewComponents {
                     onClick = { viewModel.authenticateLoginUser(currentEmail, currentPassword) },
                     shape = RoundedCornerShape(5.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Green
+                        containerColor = GREEN
                     )
                 ) {
                     Text(
