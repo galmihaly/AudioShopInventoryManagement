@@ -1,12 +1,12 @@
 package com.example.audioshopinventorymanagement.authentication.responses
 
 import com.google.gson.annotations.SerializedName
+import java.time.LocalDateTime
 
-data class LoginResponse(
-
+data class LoginAuthTokens(
     @SerializedName("access_token")
     val accessToken: String,
 
     @SerializedName("refresh_token")
-    val refreshToken: String
+    val refreshToken: String,
 )

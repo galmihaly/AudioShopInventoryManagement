@@ -9,5 +9,8 @@ data class LoginViewState(
 
     val password: String = "",
     val validationPasswordText : String = "",
-    val validationPasswordColor : Color = Color.Transparent
+    val validationPasswordColor : Color = Color.Transparent,
+
+    val isShowErrorDialog : Boolean = false,
+    val textShowErrorDialog : String = ""
 )

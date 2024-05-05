@@ -1,8 +1,7 @@
 package com.example.audioshopinventorymanagement.authentication
 
 import android.util.Log
-import com.example.audioshopinventorymanagement.authentication.api.AuthAPI
-import com.example.audioshopinventorymanagement.authentication.api.RefreshTokenAPI
+import com.example.audioshopinventorymanagement.authentication.apis.RefreshTokenAPI
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator

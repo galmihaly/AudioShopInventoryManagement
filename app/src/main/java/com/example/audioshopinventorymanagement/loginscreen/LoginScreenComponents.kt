@@ -1,12 +1,18 @@
 package com.example.audioshopinventorymanagement.loginscreen
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -14,6 +20,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -22,10 +29,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
+import com.example.audioshopinventorymanagement.ui.theme.Dark_Gray
+import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
+import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
 
 object ViewComponents {
 
@@ -128,31 +142,6 @@ object ViewComponents {
         }
     }
 
-//    @ExperimentalMaterial3Api
-//    @Composable
-//    fun LoginInputFields(usernameText: String, passwordText: String, usernameError: String, passwordError: String){
-//        Box(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(horizontal = 30.dp)
-//        ){
-//            Column(
-//                modifier = Modifier.padding(
-//                    vertical = 0.dp
-//                )
-//            ) {
-//                UsernameInputField(
-//                    text = usernameText,
-//                    errorMessage = usernameError
-//                )
-//                PasswordInputField(
-//                    text = passwordText,
-//                    errorMessage = passwordError
-//                )
-//            }
-//        }
-//    }
-
     @ExperimentalMaterial3Api
     @Composable
     fun LoginButtonAndLink(
@@ -171,7 +160,7 @@ object ViewComponents {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Button(
-                    onClick = { viewModel.authenticateLoginUser(currentEmail, currentPassword) },
+                    onClick = { viewModel.authLoginUser(currentEmail, currentPassword) },
                     shape = RoundedCornerShape(5.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = GREEN
@@ -191,6 +180,77 @@ object ViewComponents {
                     fontSize = 15.sp,
                     fontFamily = CustomFonts.RobotoMono_Regular,
                 )
+            }
+        }
+    }
+
+    @Composable
+    fun BackSaveDialog(viewModel: LoginScreenViewModel) {
+
+        val isShowErrorDialog = viewModel.viewState.collectAsState().value.isShowErrorDialog
+        if(isShowErrorDialog){
+            Dialog(
+                onDismissRequest = { viewModel.onErrorDialogDismiss() }
+            ) {
+                Surface(
+                    shape = RoundedCornerShape(16.dp),
+                    color = Dark_Gray,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .padding(horizontal = 10.dp)
+                ) {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .border(
+                                width = 0.8.dp,
+                                color = ERROR_RED,
+                                shape= RoundedCornerShape(16.dp)
+                            )
+                    ){
+                        Column {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(20.dp),
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    text = "Biztosan ki akarsz lépni mentés nélkül?",
+                                    fontSize = 18.sp,
+                                    color = ERROR_RED,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 20.dp, horizontal = 30.dp),
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                Button(
+                                    onClick = { viewModel.onErrorDialogDismiss() },
+                                    shape = RoundedCornerShape(10.dp),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = ERROR_RED
+                                    ),
+                                    modifier = Modifier
+                                        .width(100.dp)
+                                        .height(40.dp)
+                                ) {
+                                    Text(
+                                        text = "OK",
+                                        color = Color.White,
+                                        textAlign = TextAlign.Center,
+                                        fontFamily = CustomFonts.RobotoMono_Bold
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.JWT
-import com.example.audioshopinventorymanagement.authentication.AuthApiRepository
-import com.example.audioshopinventorymanagement.authentication.UserApiRepository
-import com.example.audioshopinventorymanagement.authentication.requests.LoginRequest
-import com.example.audioshopinventorymanagement.authentication.responses.AuthApiResponse
-import com.example.audioshopinventorymanagement.authentication.responses.UserServiceResponse
+import com.example.audioshopinventorymanagement.authentication.repositories.AuthApiRepository
+import com.example.audioshopinventorymanagement.authentication.repositories.UserApiRepository
+import com.example.audioshopinventorymanagement.authentication.requests.LoginAuthRequest
+import com.example.audioshopinventorymanagement.authentication.responses.sealed.LoginApiResponse
+import com.example.audioshopinventorymanagement.authentication.responses.sealed.UserApiResponse
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
@@ -56,7 +56,7 @@ class LoginScreenViewModel @Inject constructor(
         }
     }
 
-    private fun isValidEmailInputField(email: String) : Boolean{
+    private fun isValidInputEmail(email: String) : Boolean{
         val isValidEmail: Boolean
 
         val emailValidationResult = Validator.isValidEmail(email)
@@ -89,7 +89,7 @@ class LoginScreenViewModel @Inject constructor(
         return isValidEmail
     }
 
-    private fun isValidPasswordInputField(password: String) : Boolean {
+    private fun isValidInputPassword(password: String) : Boolean {
         val isValidPassord: Boolean
 
         val passwordValidationResult = Validator.isValidPassword(password)
@@ -124,7 +124,7 @@ class LoginScreenViewModel @Inject constructor(
 
     private suspend fun authenticateUser(currentEmail : String, currentPassword: String) : String{
         val response = authApiRepository.authenticateUser(
-            LoginRequest(
+            LoginAuthRequest(
                 email = currentEmail,
                 password = currentPassword
             )
@@ -133,26 +133,109 @@ class LoginScreenViewModel @Inject constructor(
         var token = ""
 
         when (response){
-            is AuthApiResponse.Success -> {
-                Log.e("access_token", response.data.accessToken)
-                Log.e("refresh_token", response.data.refreshToken)
+            is LoginApiResponse.Success -> {
+                if(response.data.statusCode == 200){
+                    Log.e("access_token", response.data.loginAuthTokens.accessToken)
+                    Log.e("refresh_token", response.data.loginAuthTokens.refreshToken)
 
-                // save tokens to DataStore
-                jwtTokenRepository.saveAccessJwt(response.data.accessToken)
-                jwtTokenRepository.saveRefreshJwt(response.data.refreshToken)
+                    // save tokens to DataStore
+                    jwtTokenRepository.saveAccessJwt(response.data.loginAuthTokens.accessToken)
+                    jwtTokenRepository.saveRefreshJwt(response.data.loginAuthTokens.refreshToken)
 
-                token = response.data.accessToken
+                    token = response.data.loginAuthTokens.accessToken
+                }
             }
-            is AuthApiResponse.Error -> {
-                Log.e("response.code", response.code.toString())
-                Log.e("response.message", response.message.toString())
+            is LoginApiResponse.Error -> {
+                if(response.data.statusCode == 401){
+                    viewModelScope.launch {
+                        _viewState.update {
+                            it.copy(
+                                textShowErrorDialog = "Login Error!"
+                            )
+                        }
+                    }
+                    onErrorDialogShow()
+                    token = ""
+                }
+                else if(response.data.statusCode == 403){
+                    viewModelScope.launch {
+                        _viewState.update {
+                            it.copy(
+                                textShowErrorDialog = "Login Error!"
+                            )
+                        }
+                    }
+                    onErrorDialogShow()
+                    token = ""
+                }
             }
-            is AuthApiResponse.Exception -> {
+            is LoginApiResponse.Exception -> {
                 Log.e("ex message", response.e)
             }
         }
 
         return token
+    }
+
+    private suspend fun getUserDetails(token : String, currentEmail: String) {
+        val response = userApiRepository.getUserDetails(token)
+
+        when (response){
+            is UserApiResponse.Success -> {
+                if(response.data.statusCode == 200){
+                    if(response.data.userDetail.userActive && response.data.userDetail.deviceActive){
+                        onNavigateToStartScreen()
+                    }
+                    else if(!response.data.userDetail.userActive){
+
+                        viewModelScope.launch {
+                            _viewState.update {
+                                it.copy(
+                                    textShowErrorDialog = "User is inactive!"
+                                )
+                            }
+                        }
+                        onErrorDialogShow()
+                    }
+                    else if(!response.data.userDetail.deviceActive){
+
+                        viewModelScope.launch {
+                            _viewState.update {
+                                it.copy(
+                                    textShowErrorDialog = "Device is inactive!"
+                                )
+                            }
+                        }
+                        onErrorDialogShow()
+                    }
+                }
+            }
+            is UserApiResponse.Error -> {
+                if(response.data.statusCode == 401){
+                    viewModelScope.launch {
+                        _viewState.update {
+                            it.copy(
+                                textShowErrorDialog = "Login Error!"
+                            )
+                        }
+                    }
+                    onErrorDialogShow()
+                }
+                else if(response.data.statusCode == 403){
+                    viewModelScope.launch {
+                        _viewState.update {
+                            it.copy(
+                                textShowErrorDialog = "Login Error!"
+                            )
+                        }
+                    }
+                    onErrorDialogShow()
+                }
+            }
+            is UserApiResponse.Exception -> {
+                Log.e("ex message", response.e)
+            }
+        }
     }
 
     //Megszámoljuk, hogy tokenünk mennyi részből áll. Egy hivatalos JSON Web Token áll egy fejrészből, egy hasznos adat részből, valamint egy aláíró kulcsból.
@@ -163,45 +246,15 @@ class LoginScreenViewModel @Inject constructor(
         return tokenParts > 2
     }
 
-    private suspend fun getUserDetails(token : String, currentEmail: String) {
-
-        when (val responseDetails = userApiRepository.getUserDetails(token)){
-            is UserServiceResponse.Success -> {
-                if(currentEmail == token){
-                    if(responseDetails.data.userActive && responseDetails.data.deviceActive){
-                        onNavigateToStartScreen()
-                    }
-                    else if(!responseDetails.data.userActive){
-                        Log.e("inactive user", "User is inactive!")
-                        //errorMessage
-                    }
-                    else if(!responseDetails.data.deviceActive){
-                        //errorMessage
-                    }
-                }
-
-            }
-            is UserServiceResponse.Error -> {
-                Log.e("response.code", responseDetails.code.toString())
-                Log.e("response.message", responseDetails.message.toString())
-            }
-            is UserServiceResponse.Exception -> {
-                Log.e("ex message", responseDetails.e)
-            }
-        }
-    }
-
-    fun authenticateLoginUser(currentEmail : String, currentPassword : String){
+    fun authLoginUser(inputEmail : String, inputPassword : String){
         viewModelScope.launch(Dispatchers.IO) {
 
             // + password checking, Network Connection checking
-            val isValidEmail = isValidEmailInputField(currentEmail)
-            val isValidPassword = isValidPasswordInputField(currentPassword)
 
-            if(isValidEmail && isValidPassword){
+            if(isValidInputEmail(inputEmail) && isValidInputPassword(inputPassword)){
 
-                val authenticatedToken = authenticateUser(currentEmail, currentPassword)
-                if (isUsefulTokenPartsCount(authenticatedToken)){
+                val authenticatedToken = authenticateUser(inputEmail, inputPassword)
+                if (isUsefulTokenPartsCount(authenticatedToken) && authenticatedToken != ""){
 
 //                    // Ha lejárt a token, akkor annak ellenőrzése után kijelenteztetés az alkalmazásból, ami annyit
 //                    // jelent, hogy visszairányítjuk a bejelentkezés ablakra
@@ -212,13 +265,7 @@ class LoginScreenViewModel @Inject constructor(
                     val authenticatedEmailFromToken = jwtObject.subject.toString()
                     val authValidator = Validator.isValidEmail(authenticatedEmailFromToken)
 
-                    if(authValidator.isValid){ getUserDetails(authenticatedEmailFromToken, currentEmail) }
-                }
-                else{
-                    //errorMessage inValid Token From Server
-
-                    // nem megfelelő token esetén nem alakítjuk át JWT tokenné, ez azt jelenti, hogy a felhasználó a saját email címét és jelszavát rosszul adta meg
-                    // ezért a szerver nem tudta megfelelően legenerálni a szerveren, vagyis a szerver ezzel az email-el és jelszóval nem találta meg a user-t az adatbázisban
+                    if(authValidator.isValid){ getUserDetails(authenticatedEmailFromToken, inputEmail) }
                 }
             }
         }
@@ -226,5 +273,26 @@ class LoginScreenViewModel @Inject constructor(
 
     private fun onNavigateToStartScreen() {
         appNavigator.tryNavigateTo(Destination.StartScreen.fullRoute)
+    }
+
+    fun onErrorDialogShow(){
+        viewModelScope.launch {
+            _viewState.update {
+                it.copy(
+                    isShowErrorDialog = true
+                )
+            }
+        }
+    }
+
+    fun onErrorDialogDismiss() {
+        viewModelScope.launch {
+            _viewState.update {
+                it.copy(
+                    textShowErrorDialog = "",
+                    isShowErrorDialog = false
+                )
+            }
+        }
     }
 }
