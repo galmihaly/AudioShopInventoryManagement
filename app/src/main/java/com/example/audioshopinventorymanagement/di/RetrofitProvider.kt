@@ -1,5 +1,6 @@
 package com.example.audioshopinventorymanagement.di
 
+import android.content.Context
 import com.example.audioshopinventorymanagement.authentication.AuthAuthenticator
 import com.example.audioshopinventorymanagement.authentication.repositories.AuthApiRepository
 import com.example.audioshopinventorymanagement.authentication.repositories.AuthApiRepositoryImpl
@@ -11,9 +12,11 @@ import com.example.audioshopinventorymanagement.authentication.apis.RefreshToken
 import com.example.audioshopinventorymanagement.authentication.apis.UserAPI
 import com.example.audioshopinventorymanagement.authentication.interceptors.RefreshTokenInterceptor
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
+import com.example.audioshopinventorymanagement.utils.Network
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -30,9 +33,19 @@ class RetrofitProvider {
     @Singleton
     @Provides
     fun provideAccessTokenInterceptor(
-        jwtTokenRepository: JwtTokenRepository
+        jwtTokenRepository: JwtTokenRepository,
+        network: Network
     ): AccessTokenInterceptor {
-        return AccessTokenInterceptor(jwtTokenRepository)
+        return AccessTokenInterceptor(jwtTokenRepository, network)
+    }
+
+    @Singleton
+    @Provides
+    fun provideRefreshTokenInterceptor(
+        jwtTokenRepository: JwtTokenRepository,
+        network: Network
+    ): RefreshTokenInterceptor {
+        return RefreshTokenInterceptor(jwtTokenRepository, network)
     }
 
     /*-------------*/
@@ -87,8 +100,10 @@ class RetrofitProvider {
     fun provideRefreshOkHttpClient(
         refreshTokenInterceptor: RefreshTokenInterceptor
     ): OkHttpClient {
+
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor(refreshTokenInterceptor)
@@ -121,8 +136,10 @@ class RetrofitProvider {
     @Singleton
     @PublicClient
     fun provideUnauthenticatedOkHttpClient(): OkHttpClient {
+
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .connectTimeout(30, TimeUnit.SECONDS)
@@ -160,6 +177,13 @@ class RetrofitProvider {
         userAPI: UserAPI,
     ) : UserApiRepository {
         return UserApiRepositoryImpl(userAPI)
+    }
+
+    @Provides
+    fun provideNetwork(
+        @ApplicationContext context: Context
+    ) : Network {
+        return Network(context)
     }
 }
 

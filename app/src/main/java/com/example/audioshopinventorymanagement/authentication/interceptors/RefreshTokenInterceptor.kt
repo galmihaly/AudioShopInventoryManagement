@@ -2,13 +2,16 @@ package com.example.audioshopinventorymanagement.authentication.interceptors
 
 import android.util.Log
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
+import com.example.audioshopinventorymanagement.utils.Network
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.io.IOException
 import javax.inject.Inject
 
 class RefreshTokenInterceptor @Inject constructor(
     private val jwtTokenRepository: JwtTokenRepository,
+    private val network: Network
 ) : Interceptor {
     companion object {
         const val HEADER_AUTHORIZATION = "Authorization"
@@ -19,10 +22,13 @@ class RefreshTokenInterceptor @Inject constructor(
             jwtTokenRepository.getRefreshJwt().refreshToken
         }
 
-        Log.e("AccessTokenInterceptor_accessToken", token)
-
-        val request = chain.request().newBuilder()
-        request.addHeader(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")
-        return chain.proceed(request.build())
+        if(network.isOnline()){
+            val request = chain.request().newBuilder()
+            request.addHeader(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")
+            return chain.proceed(request.build())
+        }
+        else{
+            throw IOException("No Internet Connection!")
+        }
     }
 }

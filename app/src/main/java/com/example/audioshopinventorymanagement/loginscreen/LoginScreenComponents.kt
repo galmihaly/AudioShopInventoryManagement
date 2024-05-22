@@ -217,7 +217,7 @@ object ViewComponents {
                                 horizontalArrangement = Arrangement.Center
                             ) {
                                 Text(
-                                    text = "Biztosan ki akarsz lépni mentés nélkül?",
+                                    text = viewModel.viewState.collectAsState().value.textShowErrorDialog,
                                     fontSize = 18.sp,
                                     color = ERROR_RED,
                                     textAlign = TextAlign.Center

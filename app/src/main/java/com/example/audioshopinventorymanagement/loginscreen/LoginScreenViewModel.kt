@@ -1,6 +1,5 @@
 package com.example.audioshopinventorymanagement.loginscreen
 
-import android.util.Base64
 import android.util.Log
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
@@ -10,12 +9,12 @@ import com.example.audioshopinventorymanagement.authentication.repositories.Auth
 import com.example.audioshopinventorymanagement.authentication.repositories.UserApiRepository
 import com.example.audioshopinventorymanagement.authentication.requests.LoginAuthRequest
 import com.example.audioshopinventorymanagement.authentication.responses.sealed.LoginApiResponse
-import com.example.audioshopinventorymanagement.authentication.responses.sealed.UserApiResponse
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
+import com.example.audioshopinventorymanagement.utils.Network
 import com.example.audioshopinventorymanagement.utils.Validator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -23,14 +22,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.security.interfaces.RSAKey
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginScreenViewModel @Inject constructor(
     private val appNavigator: AppNavigator,
     private val authApiRepository: AuthApiRepository,
-    private val userApiRepository: UserApiRepository,
+    private val network: Network,
     private val jwtTokenRepository: JwtTokenRepository
 ) : ViewModel() {
 
@@ -107,7 +105,7 @@ class LoginScreenViewModel @Inject constructor(
                 }
             }
             is LoginApiResponse.Exception -> {
-                Log.e("ex message", response.e)
+                onErrorDialogShow(response.exceptionMessage)
             }
         }
         
@@ -126,6 +124,29 @@ class LoginScreenViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
 
             // + Network Connection checking
+
+//            Log.e("isOnline", network.isOnline().toString())
+//            if (network.isOnline()){
+//                if(isValidInputEmail(inputEmail) && isValidInputPassword(inputPassword)){
+//
+//                    val authenticatedToken = authenticateUser(inputEmail, inputPassword)
+//                    if (isUsefulTokenPartsCount(authenticatedToken) && authenticatedToken != ""){
+//
+//                        val jwtObject = JWT(authenticatedToken)
+//                        val isExpiredToken = jwtObject.isExpired(0)
+//
+//                        val authenticatedEmailFromToken = jwtObject.getClaim("email").asString()!!
+//                        val authValidator = Validator.isValidEmail(authenticatedEmailFromToken)
+//
+//                        if(!isExpiredToken && authValidator.isValid){
+//                            onNavigateToStartScreen()
+//                        }
+//                    }
+//                }
+//            }
+//            else{
+//                onErrorDialogShow("No Internet Connection!")
+//            }
 
             if(isValidInputEmail(inputEmail) && isValidInputPassword(inputPassword)){
 
@@ -171,6 +192,8 @@ class LoginScreenViewModel @Inject constructor(
     }
 
     fun onErrorDialogShow(dialogText : String){
+
+        Log.e("dialogText", dialogText)
         viewModelScope.launch {
             _viewState.update {
                 it.copy(

@@ -5,5 +5,5 @@ import com.example.audioshopinventorymanagement.authentication.responses.LoginAu
 sealed class LoginApiResponse() {
     class Success(val data: LoginAuthResponse) : LoginApiResponse()
     class Error(val data: LoginAuthResponse) : LoginApiResponse()
-    class Exception(val e: String) : LoginApiResponse()
+    class Exception(val exceptionMessage: String) : LoginApiResponse()
 }

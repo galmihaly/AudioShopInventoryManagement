@@ -65,4 +65,6 @@ fun LoginScreen(
             currentPassword = currentPassword
         )
     }
+    
+    ViewComponents.BackSaveDialog(viewModel = loginScreenViewModel)
 }
