@@ -1,14 +1,16 @@
 package com.example.audioshopinventorymanagement.authentication.responses
 
 import com.google.gson.annotations.SerializedName
-import java.time.LocalDateTime
 
 data class LoginAuthResponse(
+
+    @SerializedName("id")
+    val id: Int,
 
     @SerializedName("timestamp")
     val timeStamp: String,
 
-    @SerializedName("status")
+    @SerializedName("status_code")
     val statusCode: Int,
 
     @SerializedName("message_type")
@@ -17,6 +19,6 @@ data class LoginAuthResponse(
     @SerializedName("message_body")
     val messageBody: String,
 
-    @SerializedName("tokens")
-    val loginAuthTokens: LoginAuthTokens
+    @SerializedName("login_user_details")
+    val loginUserDetails: LoginUserDetails
 )

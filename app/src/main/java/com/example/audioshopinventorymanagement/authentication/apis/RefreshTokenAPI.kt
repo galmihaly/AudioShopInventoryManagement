@@ -5,6 +5,6 @@ import retrofit2.Response
 import retrofit2.http.POST
 
 interface RefreshTokenAPI {
-    @POST("/api/v1/auth/refresh_token")
+    @POST("/api/user/refreshtoken")
     suspend fun refreshTokenUser() : Response<RefreshTokenResponse>
 }

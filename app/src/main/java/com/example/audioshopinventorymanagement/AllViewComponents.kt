@@ -295,11 +295,9 @@ object AllViewComponents {
     ){
 
         var isExpanded by remember { mutableStateOf(expandedCard) }
-        var angle = 0f
-        var cardBorderIndicatorColor = GREEN
 
-        cardBorderIndicatorColor = if (isExpanded) Blue else GREEN
-        angle = if (isExpanded) 180f else 0f
+        val cardBorderIndicatorColor = if (isExpanded) Blue else GREEN
+        val angle = if (isExpanded) 180f else 0f
 
         Card(
             modifier = Modifier

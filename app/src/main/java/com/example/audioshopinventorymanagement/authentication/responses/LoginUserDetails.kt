@@ -1,9 +1,15 @@
 package com.example.audioshopinventorymanagement.authentication.responses
 
 import com.google.gson.annotations.SerializedName
-import java.time.LocalDateTime
 
-data class LoginAuthTokens(
+data class LoginUserDetails(
+
+    @SerializedName("id")
+    val id: Int,
+
+    @SerializedName("is_login")
+    val isLogin: Boolean,
+
     @SerializedName("access_token")
     val accessToken: String,
 

@@ -33,23 +33,23 @@ class Validator {
                 validationResult.validationMessage = EMPTY_PASSWORD
             }
             else {
-                if(password.isLongerThan8().equals(false)) {
+                if(!password.isLongerThan8()) {
                     validationResult.isValid = false
                     validationResult.validationMessage = ERROR_LENGTH
                 }
-                else if(password.isWithoutWhitespace().equals(false)) {
+                else if(!password.isWithoutWhitespace()) {
                     validationResult.isValid = false
                     validationResult.validationMessage = ERROR_WHITESPACE
                 }
-                else if(password.isHasDigit().equals(false)) {
+                else if(!password.isHasDigit()) {
                     validationResult.isValid = false
                     validationResult.validationMessage = ERROR_DIGIT
                 }
-                else if(password.isHasUppercase().equals(false)) {
+                else if(!password.isHasUppercase()) {
                     validationResult.isValid = false
                     validationResult.validationMessage = ERROR_UPPER
                 }
-                else if(password.isHasSpecialChar().equals(false)) {
+                else if(!password.isHasSpecialChar()) {
                     validationResult.isValid = false
                     validationResult.validationMessage = ERROR_SPECIAL
                 }
@@ -91,10 +91,6 @@ class Validator {
             }
 
             return validationResult;
-        }
-
-        fun isValidJsonWebToken(jsonWebToken : String){
-
         }
     }
 }

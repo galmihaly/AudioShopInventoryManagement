@@ -6,7 +6,7 @@ import com.example.audioshopinventorymanagement.authentication.repositories.Auth
 import com.example.audioshopinventorymanagement.authentication.repositories.UserApiRepository
 import com.example.audioshopinventorymanagement.authentication.repositories.UserApiRepositoryImpl
 import com.example.audioshopinventorymanagement.authentication.interceptors.AccessTokenInterceptor
-import com.example.audioshopinventorymanagement.authentication.apis.AuthAPI
+import com.example.audioshopinventorymanagement.authentication.apis.LoginAuthAPI
 import com.example.audioshopinventorymanagement.authentication.apis.RefreshTokenAPI
 import com.example.audioshopinventorymanagement.authentication.apis.UserAPI
 import com.example.audioshopinventorymanagement.authentication.interceptors.RefreshTokenInterceptor
@@ -68,21 +68,12 @@ class RetrofitProvider {
         @AuthenticatedClient okHttpClient: OkHttpClient
     ): UserAPI {
         return Retrofit.Builder()
-            .baseUrl("http://192.168.1.153:8080")
+            .baseUrl("http://192.168.1.153:5255")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
             .create(UserAPI::class.java)
     }
-
-//    @Singleton
-//    @Provides
-//    fun provideAuthenticateApi(
-//        jwtTokenRepository: JwtTokenRepository,
-//        refreshTokenAPI: RefreshTokenAPI
-//    ): AuthAuthenticator {
-//        return AuthAuthenticator(jwtTokenRepository, refreshTokenAPI)
-//    }
 
     /*-------------*/
 
@@ -113,7 +104,7 @@ class RetrofitProvider {
         @TokenRefreshClient okHttpClient: OkHttpClient
     ): RefreshTokenAPI {
         return Retrofit.Builder()
-            .baseUrl("http://192.168.1.153:8080")
+            .baseUrl("http://192.168.1.153:5255")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
@@ -144,13 +135,13 @@ class RetrofitProvider {
     @Singleton
     fun provideAuthenticationApi(
         @PublicClient okHttpClient: OkHttpClient
-    ): AuthAPI {
+    ): LoginAuthAPI {
         return Retrofit.Builder()
-            .baseUrl("http://192.168.1.153:8080")
+            .baseUrl("http://192.168.1.153:5255")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
-            .create(AuthAPI::class.java)
+            .create(LoginAuthAPI::class.java)
     }
 
     /*-------------*/
@@ -158,9 +149,9 @@ class RetrofitProvider {
     @Singleton
     @Provides
     fun providesWorkerRepository(
-        authAPI: AuthAPI,
+        loginAuthAPI: LoginAuthAPI,
     ) : AuthApiRepository {
-        return AuthApiRepositoryImpl(authAPI)
+        return AuthApiRepositoryImpl(loginAuthAPI)
     }
 
     @Singleton
