@@ -54,15 +54,10 @@ fun LoginScreen(
             }
         }
 
-        val currentUsername = loginScreenViewModel.viewState.collectAsState().value.email
-        val currentPassword = loginScreenViewModel.viewState.collectAsState().value.password
-
         ViewComponents.LoginButtonAndLink(
             buttonText = "Login",
             linkText = "Device Registration",
-            viewModel = loginScreenViewModel,
-            currentEmail = currentUsername,
-            currentPassword = currentPassword
+            viewModel = loginScreenViewModel
         )
     }
     

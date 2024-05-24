@@ -57,7 +57,14 @@ object ViewComponents {
     }
 
     @Composable
-    fun EmailInputField(text: String, viewModel: LoginScreenViewModel){
+    fun EmailInputField(
+        text: String,
+        viewModel: LoginScreenViewModel
+    ){
+        val emailText = viewModel.viewState.collectAsState().value.validationEmailText
+        val emailTextColor = viewModel.viewState.collectAsState().value.validationEmailColor
+        val emailTextValue = viewModel.viewState.collectAsState().value.email
+
         Column(
             modifier = Modifier.padding(
                 top = 0.dp,
@@ -65,14 +72,14 @@ object ViewComponents {
             )
         ){
             Text(
-                text = viewModel.viewState.collectAsState().value.validationEmailText,
-                color = viewModel.viewState.collectAsState().value.validationEmailColor,
+                text = emailText,
+                color = emailTextColor,
                 fontSize = 12.sp,
                 fontFamily = CustomFonts.RobotoMono_Regular,
             )
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = viewModel.viewState.collectAsState().value.email,
+                value = emailTextValue,
                 onValueChange = { viewModel.updateUsername(it) },
                 label = {
                     Text(
@@ -96,7 +103,14 @@ object ViewComponents {
     }
 
     @Composable
-    fun PasswordInputField(text: String, viewModel : LoginScreenViewModel){
+    fun PasswordInputField(
+        text: String,
+        viewModel : LoginScreenViewModel
+    ){
+        val passwordText = viewModel.viewState.collectAsState().value.validationPasswordText
+        val passwordTextColor = viewModel.viewState.collectAsState().value.validationPasswordColor
+        val passwordTextValue = viewModel.viewState.collectAsState().value.password
+
         Column (
             modifier = Modifier.padding(
                 top = 10.dp,
@@ -104,14 +118,14 @@ object ViewComponents {
             )
         ){
             Text(
-                text = viewModel.viewState.collectAsState().value.validationPasswordText,
-                color = viewModel.viewState.collectAsState().value.validationPasswordColor,
+                text = passwordText,
+                color = passwordTextColor,
                 fontSize = 12.sp,
                 fontFamily = CustomFonts.RobotoMono_Regular,
             )
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = viewModel.viewState.collectAsState().value.password,
+                value = passwordTextValue,
                 onValueChange = { viewModel.updatePassword(it) },
                 label = {
                     Text(
@@ -143,10 +157,12 @@ object ViewComponents {
     fun LoginButtonAndLink(
         buttonText: String,
         linkText: String,
-        viewModel: LoginScreenViewModel,
-        currentEmail: String,
-        currentPassword: String
+        viewModel: LoginScreenViewModel
     ){
+
+        val currentEmail = viewModel.viewState.collectAsState().value.email
+        val currentPassword = viewModel.viewState.collectAsState().value.password
+
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
