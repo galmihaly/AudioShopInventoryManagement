@@ -4,12 +4,9 @@ import android.content.Context
 import com.example.audioshopinventorymanagement.authentication.AuthAuthenticator
 import com.example.audioshopinventorymanagement.authentication.repositories.AuthApiRepository
 import com.example.audioshopinventorymanagement.authentication.repositories.AuthApiRepositoryImpl
-import com.example.audioshopinventorymanagement.authentication.repositories.UserApiRepository
-import com.example.audioshopinventorymanagement.authentication.repositories.UserApiRepositoryImpl
 import com.example.audioshopinventorymanagement.authentication.interceptors.AccessTokenInterceptor
 import com.example.audioshopinventorymanagement.authentication.apis.LoginAuthAPI
 import com.example.audioshopinventorymanagement.authentication.apis.RefreshTokenAPI
-import com.example.audioshopinventorymanagement.authentication.apis.UserAPI
 import com.example.audioshopinventorymanagement.authentication.interceptors.RefreshTokenInterceptor
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.utils.Network
@@ -75,7 +72,7 @@ class RetrofitProvider {
             .build()
     }
 
-    @Provides
+    /*@Provides
     @Singleton
     fun provideUserApi(
         @AuthenticatedClient okHttpClient: OkHttpClient
@@ -86,7 +83,7 @@ class RetrofitProvider {
             .client(okHttpClient)
             .build()
             .create(UserAPI::class.java)
-    }
+    }*/
 
     /*-------------*/
 
@@ -169,14 +166,6 @@ class RetrofitProvider {
         loginAuthAPI: LoginAuthAPI,
     ) : AuthApiRepository {
         return AuthApiRepositoryImpl(loginAuthAPI)
-    }
-
-    @Singleton
-    @Provides
-    fun providesUserRepository(
-        userAPI: UserAPI,
-    ) : UserApiRepository {
-        return UserApiRepositoryImpl(userAPI)
     }
 
     @Provides

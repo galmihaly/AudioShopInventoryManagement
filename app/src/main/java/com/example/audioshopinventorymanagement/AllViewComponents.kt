@@ -54,7 +54,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.audioshopinventorymanagement.ui.theme.Blue
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
-import com.example.audioshopinventorymanagement.ui.theme.Dark_Gray
+import com.example.audioshopinventorymanagement.ui.theme.DARK_GRAY
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 
@@ -64,7 +64,7 @@ object AllViewComponents {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Dark_Gray),
+                .background(DARK_GRAY),
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -111,7 +111,7 @@ object AllViewComponents {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Dark_Gray),
+                .background(DARK_GRAY),
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -290,7 +290,9 @@ object AllViewComponents {
     fun ItemCard(
         cardNumber: Int,
         modifyButtonLogo: Int,
+        deleteButtonLogo: Int,
         modifyCardFunction: () -> Unit,
+        deleteCardFunction: () -> Unit,
         expandedCard: Boolean
     ){
 
@@ -316,10 +318,10 @@ object AllViewComponents {
             shape = RectangleShape,
             border = BorderStroke(2.dp, cardBorderIndicatorColor),
             colors = CardColors(
-                containerColor = Dark_Gray,
-                contentColor = Dark_Gray,
-                disabledContainerColor = Dark_Gray,
-                disabledContentColor = Dark_Gray
+                containerColor = DARK_GRAY,
+                contentColor = DARK_GRAY,
+                disabledContainerColor = DARK_GRAY,
+                disabledContentColor = DARK_GRAY
             )
         ) {
             Column(
@@ -408,13 +410,6 @@ object AllViewComponents {
                     Spacer(modifier = Modifier.height(30.dp))
 
                     TextRowToCard(
-                        key = "Device ID:",
-                        value = "ZTC-1",
-                        color = Color.White,
-                        keyTextWeight = 0.9f,
-                        valueStringTextWeight = 1.1f
-                    )
-                    TextRowToCard(
                         key = "WareHouse ID:",
                         value = "DE01",
                         Color.White,
@@ -422,7 +417,7 @@ object AllViewComponents {
                         valueStringTextWeight = 1.1f
                     )
                     TextRowToCard(
-                        key = "Stock ID:",
+                        key = "Storage ID:",
                         value = "DE01-0001",
                         Color.White,
                         keyTextWeight = 0.9f,
@@ -432,6 +427,13 @@ object AllViewComponents {
                         key = "Recorder Name:",
                         value = "Tóth Elek",
                         Color.White,
+                        keyTextWeight = 0.9f,
+                        valueStringTextWeight = 1.1f
+                    )
+                    TextRowToCard(
+                        key = "Device ID:",
+                        value = "ZTC-1",
+                        color = Color.White,
                         keyTextWeight = 0.9f,
                         valueStringTextWeight = 1.1f
                     )
@@ -447,10 +449,12 @@ object AllViewComponents {
                         modifier = Modifier
                             .fillMaxWidth()
                             .wrapContentHeight()
-                            .padding(vertical = 10.dp),
-                        contentAlignment = Alignment.Center,
+                            .padding(vertical = 10.dp, horizontal = 30.dp)
                     ){
-                        Row {
+                        Row (
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
                             Button(
                                 onClick = modifyCardFunction,
                                 modifier = Modifier.wrapContentSize(),
@@ -468,6 +472,28 @@ object AllViewComponents {
                                 Spacer(modifier = Modifier.width(15.dp))
                                 Text(
                                     text = "Modify",
+                                    color = Color.White,
+                                    fontFamily = CustomFonts.RobotoMono_Regular,
+                                    fontSize = 18.sp
+                                )
+                            }
+                            Button(
+                                onClick = deleteCardFunction,
+                                modifier = Modifier.wrapContentSize(),
+                                shape = RectangleShape,
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = ERROR_RED
+                                )
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = deleteButtonLogo),
+                                    contentDescription = "Delete",
+                                    modifier = Modifier.size(18.dp),
+                                    tint = Color.White
+                                )
+                                Spacer(modifier = Modifier.width(15.dp))
+                                Text(
+                                    text = "Delete",
                                     color = Color.White,
                                     fontFamily = CustomFonts.RobotoMono_Regular,
                                     fontSize = 18.sp
@@ -492,8 +518,12 @@ object AllViewComponents {
 @Preview(showBackground = true, device = Devices.PIXEL_2)
 @Composable
 fun previewComponent(){
-    AllViewComponents.HeadLineWithTextAndLogo(
-        headLineText = "Inventory Management",
-        headLineLogo = R.drawable.audioshop_logo
+    AllViewComponents.ItemCard(
+        cardNumber = 1,
+        modifyButtonLogo = R.drawable.modify_logo,
+        deleteButtonLogo = R.drawable.delete_x_logo,
+        modifyCardFunction = {},
+        deleteCardFunction = {},
+        expandedCard = false
     )
 }

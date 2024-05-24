@@ -34,9 +34,9 @@ import androidx.compose.ui.unit.sp
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
-import com.example.audioshopinventorymanagement.ui.theme.Dark_Gray
+import com.example.audioshopinventorymanagement.ui.theme.DARK_GRAY
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
-import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
+import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
 object WareHousesScreenComponents {
 
@@ -57,10 +57,10 @@ object WareHousesScreenComponents {
             shape = RectangleShape,
             border = BorderStroke(2.dp, GREEN),
             colors = CardColors(
-                containerColor = Dark_Gray,
-                contentColor = Dark_Gray,
-                disabledContainerColor = Dark_Gray,
-                disabledContentColor = Dark_Gray
+                containerColor = DARK_GRAY,
+                contentColor = DARK_GRAY,
+                disabledContainerColor = DARK_GRAY,
+                disabledContentColor = DARK_GRAY
             )
         ) {
             Column(
@@ -150,7 +150,7 @@ fun previewComponent(){
                     .fillMaxWidth()
                     .height(60.dp),
                 contentPadding = PaddingValues(0.dp),
-                containerColor = Light_Gray
+                containerColor = LIGHT_GRAY
             ) {
                 Row (
                     modifier = Modifier
@@ -175,7 +175,7 @@ fun previewComponent(){
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Light_Gray)
+                .background(LIGHT_GRAY)
                 .padding(paddingValues)
         ){
             Column(

@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.productlistscreen
+package com.example.audioshopinventorymanagement.porductlist.productlistscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,14 +19,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
+import com.example.audioshopinventorymanagement.porductlist.SharedViewModel
 import com.example.audioshopinventorymanagement.ui.theme.Blue
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
-import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
+import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
 @Composable
 fun ProductListScreen(
-    productListScreenViewModel: ProductListScreenViewModel = hiltViewModel()
+    sharedViewModel: SharedViewModel = hiltViewModel()
 ) {
     Scaffold (
         topBar = {
@@ -40,7 +41,7 @@ fun ProductListScreen(
                     .fillMaxWidth()
                     .height(60.dp),
                 contentPadding = PaddingValues(0.dp),
-                containerColor = Light_Gray
+                containerColor = LIGHT_GRAY
             ) {
                 Row (
                     modifier = Modifier
@@ -56,7 +57,7 @@ fun ProductListScreen(
                             .fillMaxSize()
                             .weight(1f),
                         backgroundColor = GREEN,
-                        onClick = { productListScreenViewModel.onNavigateToStartScreen()}
+                        onClick = { sharedViewModel.onNavigateToStartScreen()}
                     )
                     AllViewComponents.NavigationButtons(
                         buttonLogoId = R.drawable.add_list_logo,
@@ -66,7 +67,7 @@ fun ProductListScreen(
                             .fillMaxSize()
                             .weight(1f),
                         backgroundColor = Blue,
-                        onClick = { productListScreenViewModel.onNavigateToNewitemScreen() }
+                        onClick = { sharedViewModel.onNavigateToNewItemScreen() }
                     )
                     AllViewComponents.NavigationButtons(
                         buttonLogoId = R.drawable.delete_list_logo,
@@ -85,7 +86,7 @@ fun ProductListScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Light_Gray)
+                .background(LIGHT_GRAY)
                 .padding(paddingValues)
         ){
             Column(
@@ -103,7 +104,9 @@ fun ProductListScreen(
                 AllViewComponents.ItemCard(
                     cardNumber = 1,
                     modifyButtonLogo = R.drawable.modify_logo,
-                    modifyCardFunction = { productListScreenViewModel.onNavigateToModifyItemScreen() },
+                    deleteButtonLogo = R.drawable.delete_x_logo,
+                    modifyCardFunction = { sharedViewModel.onNavigateToModifyItemScreen() },
+                    deleteCardFunction = {},
                     expandedCard = false
                 )
             }

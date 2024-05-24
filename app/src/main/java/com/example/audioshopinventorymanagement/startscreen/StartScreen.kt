@@ -19,7 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
-import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
+import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
 @Composable
 fun StartScreen(
@@ -51,7 +51,7 @@ fun StartScreen(
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .fillMaxSize()
-                .background(Light_Gray)
+                .background(LIGHT_GRAY)
                 .padding(paddingValues)
         ){
             Column{

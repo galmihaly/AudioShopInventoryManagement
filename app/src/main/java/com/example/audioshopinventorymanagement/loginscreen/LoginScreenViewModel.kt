@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.JWT
 import com.example.audioshopinventorymanagement.authentication.repositories.AuthApiRepository
-import com.example.audioshopinventorymanagement.authentication.repositories.UserApiRepository
 import com.example.audioshopinventorymanagement.authentication.requests.LoginAuthRequest
 import com.example.audioshopinventorymanagement.authentication.responses.sealed.LoginApiResponse
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository

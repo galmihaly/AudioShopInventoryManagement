@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
+import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -25,7 +25,7 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Light_Gray),
+            .background(LIGHT_GRAY),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AllViewComponents.HeadLineWithTextAndLogo(

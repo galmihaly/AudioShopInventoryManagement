@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
-import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
+import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
 class CategoriesScreenComponents {
 }
@@ -41,7 +41,7 @@ fun previewComponent(){
                     .fillMaxWidth()
                     .height(60.dp),
                 contentPadding = PaddingValues(0.dp),
-                containerColor = Light_Gray
+                containerColor = LIGHT_GRAY
             ) {
                 Row (
                     modifier = Modifier
@@ -66,7 +66,7 @@ fun previewComponent(){
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Light_Gray)
+                .background(LIGHT_GRAY)
                 .padding(paddingValues)
         ){
             Column(

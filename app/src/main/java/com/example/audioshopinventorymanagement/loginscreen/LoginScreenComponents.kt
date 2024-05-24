@@ -1,6 +1,5 @@
 package com.example.audioshopinventorymanagement.loginscreen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,16 +29,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
-import com.example.audioshopinventorymanagement.ui.theme.Dark_Gray
+import com.example.audioshopinventorymanagement.ui.theme.DARK_GRAY
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
-import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
 
 object ViewComponents {
 
@@ -194,7 +190,7 @@ object ViewComponents {
             ) {
                 Surface(
                     shape = RoundedCornerShape(16.dp),
-                    color = Dark_Gray,
+                    color = DARK_GRAY,
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()

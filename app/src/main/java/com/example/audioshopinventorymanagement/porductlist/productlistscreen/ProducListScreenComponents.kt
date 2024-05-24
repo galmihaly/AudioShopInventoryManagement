@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.modifyitemscreen
+package com.example.audioshopinventorymanagement.porductlist.productlistscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,24 +15,28 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.newitemscreen.NewItemScreenComponents
 import com.example.audioshopinventorymanagement.ui.theme.Blue
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
-import com.example.audioshopinventorymanagement.ui.theme.Light_Gray
+import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
+object ProducListScreenComponents {
+
+
+}
+
+@Preview(showBackground = true, device = Devices.PIXEL_2)
 @Composable
-fun ModifyItemScreen(
-    modifyItemScreenViewModel: ModifyItemScreenViewModel = hiltViewModel()
-) {
+fun previewComponent(){
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "Modify Item",
+                headLineText = "New Products List",
             )
         },
         bottomBar = {
@@ -41,7 +45,7 @@ fun ModifyItemScreen(
                     .fillMaxWidth()
                     .height(60.dp),
                 contentPadding = PaddingValues(0.dp),
-                containerColor = Light_Gray
+                containerColor = LIGHT_GRAY
             ) {
                 Row (
                     modifier = Modifier
@@ -57,10 +61,10 @@ fun ModifyItemScreen(
                             .fillMaxSize()
                             .weight(1f),
                         backgroundColor = GREEN,
-                        onClick = { modifyItemScreenViewModel.onNavigateToProductListScreen() }
+                        onClick = {}
                     )
                     AllViewComponents.NavigationButtons(
-                        buttonLogoId = R.drawable.save_logo,
+                        buttonLogoId = R.drawable.add_list_logo,
                         buttonLogoHeight = 40.dp,
                         buttonLogoWidth = 40.dp,
                         modifier = Modifier
@@ -70,7 +74,7 @@ fun ModifyItemScreen(
                         onClick = {}
                     )
                     AllViewComponents.NavigationButtons(
-                        buttonLogoId = R.drawable.delete_x_logo,
+                        buttonLogoId = R.drawable.delete_list_logo,
                         buttonLogoHeight = 40.dp,
                         buttonLogoWidth = 40.dp,
                         modifier = Modifier
@@ -86,32 +90,28 @@ fun ModifyItemScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Light_Gray)
+                .background(LIGHT_GRAY)
                 .padding(paddingValues)
         ){
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(
-                        horizontal = 10.dp,
-                        vertical = 20.dp
-                    ),
+                    .padding(horizontal = 10.dp),
             ) {
-                NewItemScreenComponents.ModifyTextField(
-                    text = "Barcode:",
-                    textFieldValue = ""
+                AllViewComponents.SearchField(
+                    value = "Search",
+                    textFieldValue = "",
+                    onValueChange = {},
+                    deleteValueChange = {}
                 )
-                NewItemScreenComponents.ModifyDropDownMenu(
-                    text = "Brand:",
-                    optionsList = listOf("Sennheiser HD 560s", "Bill Payment", "Recharges", "Outing", "Other"),
-                    currentSelected = "Bill Payment",
-                    dropDownIsExpand = false
-                )
-                NewItemScreenComponents.ModifyDropDownMenu(
-                    text = "Model:",
-                    optionsList = listOf("Sennheiser HD 560s", "Bill Payment", "Recharges", "Outing", "Other"),
-                    currentSelected = "Bill Payment",
-                    dropDownIsExpand = false
+                AllViewComponents.MatchesText(text = "All Matches: " + "12345")
+                AllViewComponents.ItemCard(
+                    cardNumber = 1,
+                    modifyButtonLogo = R.drawable.modify_logo,
+                    deleteButtonLogo = R.drawable.delete_x_logo,
+                    modifyCardFunction = {},
+                    deleteCardFunction = {},
+                    expandedCard = false
                 )
             }
         }
