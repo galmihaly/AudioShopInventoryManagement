@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.porductlist.productlistscreen
+package com.example.audioshopinventorymanagement.productlist.productlistscreen
 
 import androidx.lifecycle.ViewModel
 import com.example.audioshopinventorymanagement.navigation.AppNavigator

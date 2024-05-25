@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.porductlist.newitemscreen
+package com.example.audioshopinventorymanagement.productlist.modifyitemscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,23 +16,43 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.porductlist.SharedViewModel
+import com.example.audioshopinventorymanagement.productlist.SharedViewModel
+import com.example.audioshopinventorymanagement.productlist.newitemscreen.NewItemScreenComponents
 import com.example.audioshopinventorymanagement.ui.theme.Blue
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
 @Composable
-fun NewItemScreen(
+fun ModifyItemScreen(
     sharedViewModel: SharedViewModel = hiltViewModel()
 ) {
+    val warehouseTFValue = sharedViewModel.newItemViewState.collectAsState().value.warehouseTFValue
+    val storageTFValue = sharedViewModel.newItemViewState.collectAsState().value.storageTFValue
+
+    val brandDropDownValue = sharedViewModel.newItemViewState.collectAsState().value.brandDropDownValue
+    val brandDropDownList = sharedViewModel.newItemViewState.collectAsState().value.brandDropDownList
+    val brandExpandedDropDown = sharedViewModel.newItemViewState.collectAsState().value.brandExpandedDropDown
+
+    val categoryDropDownValue = sharedViewModel.newItemViewState.collectAsState().value.categoryDropDownValue
+    val categoryDropDownList = sharedViewModel.newItemViewState.collectAsState().value.categoryDropDownList
+    val categoryExpandedDropDown = sharedViewModel.newItemViewState.collectAsState().value.categoryExpandedDropDown
+
+    val modelDropDownValue = sharedViewModel.newItemViewState.collectAsState().value.modelDropDownValue
+    val modelDropDownList = sharedViewModel.newItemViewState.collectAsState().value.modelDropDownList
+    val modelExpandedDropDown = sharedViewModel.newItemViewState.collectAsState().value.modelExpandedDropDown
+
+    val barcodeTFValue = sharedViewModel.newItemViewState.collectAsState().value.barcodeTFValue
+    val basePriceTFValue = sharedViewModel.newItemViewState.collectAsState().value.basePriceTFValue
+    val wholeSalePriceTFValue = sharedViewModel.newItemViewState.collectAsState().value.wholeSalePriceTFValue
+
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
@@ -101,83 +121,51 @@ fun NewItemScreen(
             ) {
                 NewItemScreenComponents.TwoModifyTextField(
                     textField1 = "Warehouse Identifier:",
-                    textFieldValue1 = "",
+                    textFieldValue1 = warehouseTFValue,
+                    textChangeFunction1 = { sharedViewModel.updateWarehouseTFValue(it) },
                     keyboardType1 = KeyboardType.Text,
-                    /*colorBorder1 = GREEN,
-                    textColor1 = Color.White,
-                    isEnabled1 = true,*/
-                    textField2 = "Stock Identifier:",
-                    textFieldValue2 = "",
+                    textField2 = "Storage Identifier:",
+                    textFieldValue2 = storageTFValue,
+                    textChangeFunction2 = { sharedViewModel.updateStockTFValue(it) },
                     keyboardType2 = KeyboardType.Text,
-                   /* colorBorder2 = GREEN,
-                    textColor2 = Color.White,
-                    isEnabled2 = false*/
                 )
                 NewItemScreenComponents.TwoModifyDropDownMenu(
                     text1 = "Brand:",
-                    optionsList1 = listOf(
-                        "Sennheiser HD 560s",
-                        "Bill Payment",
-                        "Recharges",
-                        "Outing",
-                        "Other"
-                    ),
-                    currentSelected1 = "",
-                    dropDownIsExpand1 = false,
-                    /*colorBorder1 = GREEN,
-                    textColor1 = Color.White,
-                    isEnabled1 = false,*/
-
+                    dropdownList1 = brandDropDownList,
+                    currentText1 = brandDropDownValue,
+                    expandedDropDown1 = brandExpandedDropDown,
+                    expandedFunction1 = { sharedViewModel.updateBrandExpandedDropDown(it) },
+                    currentFunction1 = { sharedViewModel.updateBrandDropDownValue(it) },
                     text2 = "Category:",
-                    optionsList2 = listOf(
-                        "Sennheiser HD 560s",
-                        "Bill Payment",
-                        "Recharges",
-                        "Outing",
-                        "Other"
-                    ),
-                    currentSelected2 = "",
-                    dropDownIsExpand2 = false,
-                    /*colorBorder2 = GREEN,
-                    textColor2 = Color.White,
-                    isEnabled2 = false*/
+                    dropdownList2 = categoryDropDownList,
+                    currentText2 = categoryDropDownValue,
+                    expandedDropDown2 = categoryExpandedDropDown,
+                    expandedFunction2 = { sharedViewModel.updateCategoryExpandedDropDown(it) },
+                    currentFunction2 = { sharedViewModel.updateCategoryDropDownValue(it) },
                 )
                 NewItemScreenComponents.ModifyDropDownMenu(
-                    text1 = "Model:",
-                    optionsList1 = listOf(
-                        "Sennheiser HD 560s",
-                        "Bill Payment",
-                        "Recharges",
-                        "Outing",
-                        "Other"
-                    ),
-                    currentSelected1 = "",
-                    dropDownIsExpand1 = false,
-                    /*colorBorder = GREEN,
-                    textColor = Color.White,
-                    isEnabled = false*/
+                    text = "Model:",
+                    dropdownList = modelDropDownList,
+                    currentText = modelDropDownValue,
+                    expandedDropDown = categoryExpandedDropDown,
+                    expandedFunction = { sharedViewModel.updateModelExpandedDropDown(it) },
+                    currentFunction = { sharedViewModel.updateModelDropDownValue(it) }
                 )
                 NewItemScreenComponents.ModifyTextField(
                     text = "Barcode:",
-                    textFieldValue = "",
+                    textFieldValue = barcodeTFValue,
+                    textChangeFunction = { sharedViewModel.updateBarcodeTFValue(it) },
                     keyboardType = KeyboardType.Number,
-                    /*colorBorder = GREEN,
-                    textColor = Color.White,
-                    isEnabled = false*/
                 )
                 NewItemScreenComponents.TwoModifyTextField(
                     textField1 = "Base Price:",
-                    textFieldValue1 = "",
+                    textFieldValue1 = basePriceTFValue,
+                    textChangeFunction1 = { sharedViewModel.updateBarcodeTFValue(it) },
                     keyboardType1 = KeyboardType.Number,
-                    /*colorBorder1 = GREEN,
-                    textColor1 = Color.White,
-                    isEnabled1 = false,*/
                     textField2 = "WholeSale Price:",
-                    textFieldValue2 = "",
+                    textFieldValue2 = wholeSalePriceTFValue,
+                    textChangeFunction2 = { sharedViewModel.updateWholeSalePriceTFValue(it) },
                     keyboardType2 = KeyboardType.Number,
-                    /*colorBorder2 = GREEN,
-                    textColor2 = Color.White,
-                    isEnabled2 = false*/
                 )
             }
         }

@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.porductlist.productlistscreen
+package com.example.audioshopinventorymanagement.productlist.productlistscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.porductlist.SharedViewModel
+import com.example.audioshopinventorymanagement.productlist.SharedViewModel
 import com.example.audioshopinventorymanagement.ui.theme.Blue
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN

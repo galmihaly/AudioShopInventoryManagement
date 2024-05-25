@@ -121,32 +121,6 @@ class LoginScreenViewModel @Inject constructor(
 
     fun authLoginUser(inputEmail : String, inputPassword : String){
         viewModelScope.launch(Dispatchers.IO) {
-
-            // + Network Connection checking
-
-//            Log.e("isOnline", network.isOnline().toString())
-//            if (network.isOnline()){
-//                if(isValidInputEmail(inputEmail) && isValidInputPassword(inputPassword)){
-//
-//                    val authenticatedToken = authenticateUser(inputEmail, inputPassword)
-//                    if (isUsefulTokenPartsCount(authenticatedToken) && authenticatedToken != ""){
-//
-//                        val jwtObject = JWT(authenticatedToken)
-//                        val isExpiredToken = jwtObject.isExpired(0)
-//
-//                        val authenticatedEmailFromToken = jwtObject.getClaim("email").asString()!!
-//                        val authValidator = Validator.isValidEmail(authenticatedEmailFromToken)
-//
-//                        if(!isExpiredToken && authValidator.isValid){
-//                            onNavigateToStartScreen()
-//                        }
-//                    }
-//                }
-//            }
-//            else{
-//                onErrorDialogShow("No Internet Connection!")
-//            }
-
             if(isValidInputEmail(inputEmail) && isValidInputPassword(inputPassword)){
 
                 val authenticatedToken = authenticateUser(inputEmail, inputPassword)

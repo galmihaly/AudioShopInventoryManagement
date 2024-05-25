@@ -159,7 +159,6 @@ object ViewComponents {
         linkText: String,
         viewModel: LoginScreenViewModel
     ){
-
         val currentEmail = viewModel.viewState.collectAsState().value.email
         val currentPassword = viewModel.viewState.collectAsState().value.password
 
@@ -198,8 +197,9 @@ object ViewComponents {
 
     @Composable
     fun BackSaveDialog(viewModel: LoginScreenViewModel) {
-
         val isShowErrorDialog = viewModel.viewState.collectAsState().value.isShowErrorDialog
+        val dialogText = viewModel.viewState.collectAsState().value.textShowErrorDialog
+
         if(isShowErrorDialog){
             Dialog(
                 onDismissRequest = { viewModel.onErrorDialogDismiss() }
@@ -229,7 +229,7 @@ object ViewComponents {
                                 horizontalArrangement = Arrangement.Center
                             ) {
                                 Text(
-                                    text = viewModel.viewState.collectAsState().value.textShowErrorDialog,
+                                    text = dialogText,
                                     fontSize = 18.sp,
                                     color = ERROR_RED,
                                     textAlign = TextAlign.Center

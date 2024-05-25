@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.porductlist.newitemscreen
+package com.example.audioshopinventorymanagement.productlist.newitemscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -43,7 +43,6 @@ import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.ui.theme.Blue
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.DARK_GRAY
-import com.example.audioshopinventorymanagement.ui.theme.DISABLED_GRAY
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
@@ -54,28 +53,12 @@ object NewItemScreenComponents {
     fun ModifyTextField(
         text: String,
         textFieldValue: String,
+        textChangeFunction : (String) -> Unit,
         keyboardType: KeyboardType,
-        /*colorBorder : Color,
-        textColor : Color,
-        isEnabled : Boolean*/
     ){
 
-        var textFieldState by remember { mutableStateOf(textFieldValue) }
-
-        var colorBorderTextField by remember { mutableStateOf(GREEN) }
-        var textColorState by remember { mutableStateOf(Color.White) }
-        //val isEnabledTextField by remember { mutableStateOf(false) }
-
-        colorBorderTextField = GREEN
-        textColorState = GREEN
-
-        /*if(isEnabledTextField) {
-            colorBorderTextField = GREEN
-            textColorState = GREEN
-        } else {
-            colorBorderTextField = DISABLED_GRAY
-            textColorState = DISABLED_GRAY
-        }*/
+        val colorBorderTextField by remember { mutableStateOf(GREEN) }
+        val textColorState by remember { mutableStateOf(Color.White) }
 
         Column{
             Text(
@@ -87,9 +70,8 @@ object NewItemScreenComponents {
             )
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = textFieldState,
-                /*enabled = isEnabledTextField,*/
-                onValueChange = { textFieldState = it },
+                value = textFieldValue,
+                onValueChange = textChangeFunction ,
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = colorBorderTextField,
                     unfocusedBorderColor = colorBorderTextField,
@@ -117,37 +99,19 @@ object NewItemScreenComponents {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun ModifyDropDownMenu(
-        text1: String,
-        optionsList1: List<String>,
-        currentSelected1: String,
-        dropDownIsExpand1: Boolean,
-        /*colorBorder : Color,
-        textColor : Color,
-        isEnabled : Boolean*/
+        text: String,
+        dropdownList : List<String>,
+        currentText : String,
+        expandedDropDown : Boolean,
+        expandedFunction : (Boolean) -> Unit,
+        currentFunction : (String) -> Unit,
     ){
-
-        var isExpanded by remember { mutableStateOf(dropDownIsExpand1) }
-        var currentSelectedText by remember { mutableStateOf(currentSelected1) }
-
         var colorBorderTextField by remember { mutableStateOf(GREEN) }
         var textColorState by remember { mutableStateOf(Color.White) }
-        /*val isEnabledTextField by remember { mutableStateOf(false) }*/
-
-        colorBorderTextField = GREEN
-        textColorState = GREEN
-
-        /*if(isEnabledTextField) {
-            colorBorderTextField = GREEN
-            textColorState = GREEN
-        } else {
-            colorBorderTextField = DISABLED_GRAY
-            textColorState = DISABLED_GRAY
-            isExpanded = false
-        }*/
 
         Column {
             Text(
-                text = text1,
+                text = text,
                 color = Color.White,
                 fontSize = 12.sp,
                 fontFamily = CustomFonts.RobotoMono_Regular,
@@ -155,21 +119,18 @@ object NewItemScreenComponents {
             )
             ExposedDropdownMenuBox(
                 modifier = Modifier.fillMaxWidth(),
-                expanded = isExpanded,
-                onExpandedChange = {
-                    isExpanded = !isExpanded
-                }
+                expanded = expandedDropDown,
+                onExpandedChange = { expandedFunction(!expandedDropDown) }
             ) {
                 OutlinedTextField(
                     modifier = Modifier
                         .fillMaxWidth()
                         .menuAnchor(),
-                    value = currentSelectedText,
+                    value = currentText,
                     onValueChange = {},
-                    /*enabled = isEnabledTextField,*/
                     trailingIcon = {
                         ExposedDropdownMenuDefaults.TrailingIcon(
-                            expanded = isExpanded
+                            expanded = expandedDropDown
                         )
                     },
                     colors = OutlinedTextFieldDefaults.colors(
@@ -200,22 +161,22 @@ object NewItemScreenComponents {
                     modifier = Modifier
                         .exposedDropdownSize()
                         .background(DARK_GRAY),
-                    expanded = isExpanded,
-                    onDismissRequest = { isExpanded = false }
+                    expanded = expandedDropDown,
+                    onDismissRequest = { expandedFunction(false)}
                 ) {
-                    optionsList1.forEach { selectionOption ->
+                    dropdownList.forEach { selectedText ->
                         DropdownMenuItem(
                             modifier = Modifier.fillMaxWidth(),
                             text = {
                                 Text(
-                                    text = selectionOption,
+                                    text = selectedText,
                                     color = Color.White,
                                     fontFamily = CustomFonts.RobotoMono_Regular
                                 )
                             },
                             onClick = {
-                                currentSelectedText = selectionOption
-                                isExpanded = false
+                                currentFunction(selectedText)
+                                expandedFunction(false)
                             },
                             contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
                         )
@@ -233,23 +194,15 @@ object NewItemScreenComponents {
     fun TwoModifyTextField(
         textField1: String,
         textFieldValue1 : String,
+        textChangeFunction1 : (String) -> Unit,
         keyboardType1: KeyboardType,
-        /*colorBorder1 : Color,
-        textColor1 : Color,
-        isEnabled1 : Boolean,*/
         textField2: String,
         textFieldValue2 : String,
-        keyboardType2: KeyboardType,
-        /*colorBorder2 : Color,
-        textColor2 : Color,
-        isEnabled2 : Boolean*/
+        textChangeFunction2 : (String) -> Unit,
+        keyboardType2: KeyboardType
     ){
-        var textFieldState1 by remember { mutableStateOf(textFieldValue1) }
-        var textFieldState2 by remember { mutableStateOf(textFieldValue2) }
-
         Row (horizontalArrangement = Arrangement.SpaceBetween)
         {
-
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -260,10 +213,8 @@ object NewItemScreenComponents {
                 ModifyTextField(
                     text = textField1,
                     textFieldValue = textFieldValue1,
+                    textChangeFunction = textChangeFunction1,
                     keyboardType = keyboardType1,
-                    /*colorBorder = colorBorder1,
-                    textColor = textColor1,
-                    isEnabled = isEnabled1*/
                 )
             }
             Box(
@@ -276,32 +227,28 @@ object NewItemScreenComponents {
                 ModifyTextField(
                     text = textField2,
                     textFieldValue = textFieldValue2,
+                    textChangeFunction = textChangeFunction2,
                     keyboardType = keyboardType2,
-                    /*colorBorder = colorBorder2,
-                    textColor = textColor2,
-                    isEnabled = isEnabled2*/
                 )
             }
-
         }
     }
 
     @Composable
     fun TwoModifyDropDownMenu(
         text1: String,
-        optionsList1: List<String>,
-        currentSelected1: String,
-        dropDownIsExpand1: Boolean,
-        /*colorBorder1 : Color,
-        textColor1 : Color,
-        isEnabled1 : Boolean,*/
+        dropdownList1 : List<String>,
+        currentText1 : String,
+        expandedDropDown1 : Boolean,
+        expandedFunction1 : (Boolean) -> Unit,
+        currentFunction1 : (String) -> Unit,
+
         text2: String,
-        optionsList2: List<String>,
-        currentSelected2: String,
-        dropDownIsExpand2: Boolean,
-        /*colorBorder2 : Color,
-        textColor2 : Color,
-        isEnabled2 : Boolean*/
+        dropdownList2 : List<String>,
+        currentText2 : String,
+        expandedDropDown2 : Boolean,
+        expandedFunction2 : (Boolean) -> Unit,
+        currentFunction2 : (String) -> Unit,
     ){
         Row (horizontalArrangement = Arrangement.SpaceBetween)
         {
@@ -314,13 +261,12 @@ object NewItemScreenComponents {
             ){
                 Column {
                     ModifyDropDownMenu(
-                        text1 = text1,
-                        optionsList1 = optionsList1,
-                        currentSelected1 = currentSelected1,
-                        dropDownIsExpand1 = dropDownIsExpand1,
-                        /*colorBorder = colorBorder1,
-                        textColor = textColor1,
-                        isEnabled = isEnabled1*/
+                        text = text1,
+                        dropdownList = dropdownList1,
+                        currentText = currentText1,
+                        expandedDropDown = expandedDropDown1,
+                        expandedFunction = expandedFunction1,
+                        currentFunction = currentFunction1,
                     )
                 }
             }
@@ -333,17 +279,15 @@ object NewItemScreenComponents {
             ){
                 Column {
                     ModifyDropDownMenu(
-                        text1 = text2,
-                        optionsList1 = optionsList2,
-                        currentSelected1 = currentSelected2,
-                        dropDownIsExpand1 = dropDownIsExpand2,
-                        /*colorBorder = colorBorder2,
-                        textColor = textColor2,
-                        isEnabled = isEnabled2*/
+                        text = text2,
+                        dropdownList = dropdownList2,
+                        currentText = currentText2,
+                        expandedDropDown = expandedDropDown2,
+                        expandedFunction = expandedFunction2,
+                        currentFunction = currentFunction2,
                     )
                 }
             }
-
         }
     }
 }
@@ -417,86 +361,121 @@ fun previewComponent(){
                     .fillMaxSize()
                     .padding(horizontal = 20.dp),
             ) {
-                NewItemScreenComponents.TwoModifyTextField(
-                    textField1 = "Warehouse Identifier:",
-                    textFieldValue1 = "",
-                    keyboardType1 = KeyboardType.Text,
-                    /*colorBorder1 = GREEN,
-                    textColor1 = Color.White,
-                    isEnabled1 = false,*/
-                    textField2 = "Stock Identifier:",
-                    textFieldValue2 = "",
-                    keyboardType2 = KeyboardType.Text,
-                    /*colorBorder2 = GREEN,
-                    textColor2 = Color.White,
-                    isEnabled2 = false*/
-                )
-                NewItemScreenComponents.TwoModifyDropDownMenu(
-                    text1 = "Brand:",
-                    optionsList1 = listOf(
-                        "Sennheiser HD 560s",
-                        "Bill Payment",
-                        "Recharges",
-                        "Outing",
-                        "Other"
-                    ),
-                    currentSelected1 = "",
-                    dropDownIsExpand1 = false,
-                    /*colorBorder1 = GREEN,
-                    textColor1 = Color.White,
-                    isEnabled1 = false,*/
-
-                    text2 = "Category:",
-                    optionsList2 = listOf(
-                        "Sennheiser HD 560s",
-                        "Bill Payment",
-                        "Recharges",
-                        "Outing",
-                        "Other"
-                    ),
-                    currentSelected2 = "",
-                    dropDownIsExpand2 = false,
-                    /*colorBorder2 = GREEN,
-                    textColor2 = Color.White,
-                    isEnabled2 = false*/
-                )
+                Row (horizontalArrangement = Arrangement.SpaceBetween)
+                {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1.0f)
+                            .padding(end = 5.dp)
+                            .wrapContentHeight()
+                    ){
+                        NewItemScreenComponents.ModifyTextField(
+                            text = "Warehouse Identifier:",
+                            textFieldValue = "",
+                            textChangeFunction = { },
+                            keyboardType = KeyboardType.Text,
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1.0f)
+                            .padding(start = 5.dp)
+                            .wrapContentHeight()
+                    ){
+                        NewItemScreenComponents.ModifyTextField(
+                            text = "Stock Identifier:",
+                            textFieldValue = "",
+                            textChangeFunction = { },
+                            keyboardType = KeyboardType.Text
+                        )
+                    }
+                }
+                Row (horizontalArrangement = Arrangement.SpaceBetween)
+                {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1.0f)
+                            .padding(end = 5.dp)
+                            .wrapContentHeight()
+                    ){
+                        Column {
+                            NewItemScreenComponents.ModifyDropDownMenu(
+                                text = "Brand:",
+                                dropdownList = listOf("Sennheiser HD 560s", "Bill Payment", "Recharges", "Outing", "Other"),
+                                currentText = "",
+                                expandedDropDown = false,
+                                expandedFunction = { },
+                                currentFunction = { }
+                            )
+                        }
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1.0f)
+                            .padding(start = 5.dp)
+                            .wrapContentHeight()
+                    ){
+                        Column {
+                            NewItemScreenComponents.ModifyDropDownMenu(
+                                text = "Category:",
+                                dropdownList = listOf("Sennheiser HD 560s", "Bill Payment", "Recharges", "Outing", "Other"),
+                                currentText = "",
+                                expandedDropDown = false,
+                                expandedFunction = { },
+                                currentFunction = { }
+                            )
+                        }
+                    }
+                }
                 NewItemScreenComponents.ModifyDropDownMenu(
-                    text1 = "Model:",
-                    optionsList1 = listOf(
-                        "Sennheiser HD 560s",
-                        "Bill Payment",
-                        "Recharges",
-                        "Outing",
-                        "Other"
-                    ),
-                    currentSelected1 = "",
-                    dropDownIsExpand1 = false,
-                    /*colorBorder = GREEN,
-                    textColor = Color.White,
-                    isEnabled = false*/
+                    text = "Model:",
+                    dropdownList = listOf("Sennheiser HD 560s", "Bill Payment", "Recharges", "Outing", "Other"),
+                    currentText = "",
+                    expandedDropDown = false,
+                    expandedFunction = { },
+                    currentFunction = { }
                 )
                 NewItemScreenComponents.ModifyTextField(
                     text = "Barcode:",
                     textFieldValue = "",
+                    textChangeFunction = {},
                     keyboardType = KeyboardType.Number,
-                    /*colorBorder = GREEN,
-                    textColor = Color.White,
-                    isEnabled = false*/
                 )
-                NewItemScreenComponents.TwoModifyTextField(
-                    textField1 = "Base Price:",
-                    textFieldValue1 = "",
-                    keyboardType1 = KeyboardType.Number,
-                    /*colorBorder1 = GREEN,
-                    textColor1 = Color.White,
-                    isEnabled1 = false,*/
-                    textField2 = "WholeSale Price:",
-                    textFieldValue2 = "",
-                    keyboardType2 = KeyboardType.Number,
-                    /*colorBorder2 = GREEN,
-                    textColor2 = Color.White,
-                    isEnabled2 = false*/
-                )
+                Row (horizontalArrangement = Arrangement.SpaceBetween)
+                {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1.0f)
+                            .padding(end = 5.dp)
+                            .wrapContentHeight()
+                    ){
+                        NewItemScreenComponents.ModifyTextField(
+                            text = "Base Price:",
+                            textFieldValue = "",
+                            textChangeFunction = { },
+                            keyboardType = KeyboardType.Number,
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1.0f)
+                            .padding(start = 5.dp)
+                            .wrapContentHeight()
+                    ){
+                        NewItemScreenComponents.ModifyTextField(
+                            text = "WholeSale Price:",
+                            textFieldValue = "",
+                            textChangeFunction = { },
+                            keyboardType = KeyboardType.Number,
+                        )
+                    }
+                }
             }
         }
     }

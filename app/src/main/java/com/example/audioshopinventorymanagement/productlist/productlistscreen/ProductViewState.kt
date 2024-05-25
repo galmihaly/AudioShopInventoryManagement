@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.porductlist.productlistscreen
+package com.example.audioshopinventorymanagement.productlist.productlistscreen
 
 data class ProductViewState(
     val s : String = "",
