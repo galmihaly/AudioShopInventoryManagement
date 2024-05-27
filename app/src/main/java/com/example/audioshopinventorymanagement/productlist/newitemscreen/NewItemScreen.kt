@@ -1,5 +1,6 @@
 package com.example.audioshopinventorymanagement.productlist.newitemscreen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,6 +17,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
@@ -23,7 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
+import com.example.audioshopinventorymanagement.loginscreen.LoginScreenComponents
 import com.example.audioshopinventorymanagement.productlist.SharedViewModel
+import com.example.audioshopinventorymanagement.productlist.productlistscreen.ProductListItem
 import com.example.audioshopinventorymanagement.ui.theme.Blue
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
@@ -33,15 +37,6 @@ import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 fun NewItemScreen(
     sharedViewModel: SharedViewModel = hiltViewModel()
 ) {
-    /*
-    * listOf(
-                        "Sennheiser HD 560s",
-                        "Bill Payment",
-                        "Recharges",
-                        "Outing",
-                        "Other"
-                    ),*/
-
     val warehouseTFValue = sharedViewModel.newItemViewState.collectAsState().value.warehouseTFValue
     val storageTFValue = sharedViewModel.newItemViewState.collectAsState().value.storageTFValue
 
@@ -60,6 +55,9 @@ fun NewItemScreen(
     val barcodeTFValue = sharedViewModel.newItemViewState.collectAsState().value.barcodeTFValue
     val basePriceTFValue = sharedViewModel.newItemViewState.collectAsState().value.basePriceTFValue
     val wholeSalePriceTFValue = sharedViewModel.newItemViewState.collectAsState().value.wholeSalePriceTFValue
+
+    val isShowErrorDialog = sharedViewModel.newItemViewState.collectAsState().value.isShowErrorDialog
+    val dialogText = sharedViewModel.newItemViewState.collectAsState().value.textShowErrorDialog
 
     Scaffold (
         topBar = {
@@ -89,7 +87,7 @@ fun NewItemScreen(
                             .fillMaxSize()
                             .weight(1f),
                         backgroundColor = GREEN,
-                        onClick = {}
+                        onClick = { sharedViewModel.onNavigateToProductListScreen() }
                     )
                     AllViewComponents.NavigationButtons(
                         buttonLogoId = R.drawable.add_list_logo,
@@ -99,7 +97,7 @@ fun NewItemScreen(
                             .fillMaxSize()
                             .weight(1f),
                         backgroundColor = Blue,
-                        onClick = {}
+                        onClick = { sharedViewModel.addItemToProductList() }
                     )
                     AllViewComponents.NavigationButtons(
                         buttonLogoId = R.drawable.delete_x_logo,
@@ -244,5 +242,11 @@ fun NewItemScreen(
                 }
             }
         }
+
+        LoginScreenComponents.ErrorDialog(
+            isShowErrorDialog = isShowErrorDialog,
+            dialogText = dialogText,
+            dialogDismissFunction = { sharedViewModel.onNewItemDialogDismiss() }
+        )
     }
 }

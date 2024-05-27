@@ -4,20 +4,25 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
-import com.example.audioshopinventorymanagement.authentication.requests.LoginAuthRequest
 import com.example.audioshopinventorymanagement.authentication.responses.BrandDetails
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryDetails
 import com.example.audioshopinventorymanagement.authentication.responses.ModelDetails
-import com.example.audioshopinventorymanagement.authentication.responses.sealed.LoginApiResponse
 import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
 import com.example.audioshopinventorymanagement.productlist.newitemscreen.NewItemViewState
+import com.example.audioshopinventorymanagement.productlist.productlistscreen.ProductListItem
 import com.example.audioshopinventorymanagement.productlist.productlistscreen.ProductViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,11 +35,18 @@ class SharedViewModel @Inject constructor(
 
     val navigationChannel = appNavigator.navigationChannel
 
+    /*private val _productViewState = MutableStateFlow(ProductViewState())
+    val productViewState = _productViewState.asStateFlow()*/
+
     private val _productViewState = MutableStateFlow(ProductViewState())
     val productViewState = _productViewState.asStateFlow()
 
     private val _newItemViewState = MutableStateFlow(NewItemViewState())
     val newItemViewState = _newItemViewState.asStateFlow()
+
+    private val _productList = ArrayList<ProductListItem>()
+
+    private val productIdSeparator = '-'
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -76,7 +88,6 @@ class SharedViewModel @Inject constructor(
         when (response){
             is ProductApiResponse.BrandSuccess -> {
                 if(response.data.statusCode == 200){
-                    // save tokens to DataStore
                     brandList = response.data.brandDetails!!
                 }
             }
@@ -86,15 +97,22 @@ class SharedViewModel @Inject constructor(
                 }
             }
             is ProductApiResponse.Exception -> {
-                Log.e("exceptionMessage", response.exceptionMessage)
                 onNewItemDialogShow(response.exceptionMessage)
             }
             else -> {}
         }
 
+        viewModelScope.launch {
+            _newItemViewState.update {
+                it.copy(
+                    brandDetailsList= brandList
+                )
+            }
+        }
+
         val asStringList = ArrayList<String>()
         brandList.forEach {
-                b -> asStringList.add(b.brandName!!)
+            b -> asStringList.add(b.brandName!!)
         }
 
         return asStringList
@@ -108,7 +126,6 @@ class SharedViewModel @Inject constructor(
         when (response){
             is ProductApiResponse.CategorySuccess -> {
                 if(response.data.statusCode == 200){
-                    // save tokens to DataStore
                     categoryList = response.data.categoryDetails!!
                 }
             }
@@ -121,6 +138,14 @@ class SharedViewModel @Inject constructor(
                 onNewItemDialogShow(response.exceptionMessage)
             }
             else -> {}
+        }
+
+        viewModelScope.launch {
+            _newItemViewState.update {
+                it.copy(
+                    categoryDetailsList = categoryList
+                )
+            }
         }
 
         val asStringList = ArrayList<String>()
@@ -154,12 +179,184 @@ class SharedViewModel @Inject constructor(
             else -> {}
         }
 
+        viewModelScope.launch {
+            _newItemViewState.update {
+                it.copy(
+                    modelDetailsList = modelList
+                )
+            }
+        }
+
         val asStringList = ArrayList<String>()
         modelList.forEach{
             n -> asStringList.add(n.modelName!!)
         }
 
         return asStringList
+    }
+
+    fun addItemToProductList(){
+        val barcodeTFValue = _newItemViewState.value.barcodeTFValue
+
+        val brandDropDownValue = _newItemViewState.value.brandDropDownValue
+        val modelDropDownValue = _newItemViewState.value.modelDropDownValue
+        val categoryDropDownValue = _newItemViewState.value.categoryDropDownValue
+
+        val brandId = getBrandId(brand = brandDropDownValue)
+        val categoryId = getCategoryId(category = categoryDropDownValue)
+        val modelId = getModelId(model = modelDropDownValue)
+
+        val basePriceTFValue = _newItemViewState.value.basePriceTFValue
+        val wholeSalePriceTFValue = _newItemViewState.value.wholeSalePriceTFValue
+        val warehouseTFValue = _newItemViewState.value.warehouseTFValue
+        val storageTFValue = _newItemViewState.value.storageTFValue
+
+        if (barcodeTFValue == "") {
+            onNewItemDialogShow(dialogText = "The barcode field cannot be empty!")
+            return
+        }
+        else if (brandDropDownValue == "") {
+            onNewItemDialogShow(dialogText = "The Brand field cannot be empty!")
+            return
+        }
+        else if (modelDropDownValue == "") {
+            onNewItemDialogShow(dialogText = "The Model field cannot be empty!")
+            return
+        }
+        else if (categoryDropDownValue == "") {
+            onNewItemDialogShow(dialogText = "The Category field field cannot be empty!")
+            return
+        }
+        else if (basePriceTFValue == "") {
+            onNewItemDialogShow(dialogText = "The BasePrice field cannot be empty!")
+            return
+        }
+        else if (wholeSalePriceTFValue == "") {
+            onNewItemDialogShow(dialogText = "The WholeSalePrice field cannot be empty!")
+            return
+        }
+        else if (warehouseTFValue == "") {
+            onNewItemDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+            return
+        }
+        else if (storageTFValue == "") {
+            onNewItemDialogShow(dialogText = "The Storage Identifier field cannot be empty!")
+            return
+        }
+
+        val productName = createProductName(
+            brand = brandDropDownValue,
+            model = modelDropDownValue
+        )
+
+        val productId = createProductId(
+            brandId = brandId,
+            modelId = modelId,
+            categoryId = categoryId
+        )
+
+        val newProduct = ProductListItem(
+            barcode = barcodeTFValue,
+            productId = productId,
+            productName = productName,
+            productType = categoryDropDownValue,
+            basePrice = basePriceTFValue.toInt(),
+            wholeSalePrice = wholeSalePriceTFValue.toInt(),
+            warehouseId = warehouseTFValue,
+            storageId = storageTFValue
+        )
+
+        _productList.add(newProduct)
+
+        Log.e("barcode1",  _productList.get(0).barcode)
+        Log.e("productType1",  _productList.get(0).productType)
+        Log.e("productName1",  _productList.get(0).productName)
+        Log.e("productId1",  _productList.get(0).productId)
+        Log.e("productName1",  _productList.get(0).productName)
+        Log.e("productType1",  _productList.get(0).productType)
+        Log.e("basePrice1",  _productList.get(0).basePrice.toString())
+        Log.e("wholeSalePrice1",  _productList.get(0).wholeSalePrice.toString())
+        Log.e("warehouseId1",  _productList.get(0).warehouseId)
+        Log.e("storageId1",  _productList.get(0).storageId)
+
+        Log.e("size",  _productList.size.toString())
+
+        viewModelScope.launch {
+            _productViewState.update {
+                it.copy(
+                    productList = _productList
+                )
+            }
+        }
+
+        /*Log.e("barcode2",  _productViewState.get(0).barcode)
+        Log.e("productType2",  _productViewState.value.productList.get(0).productType)
+        Log.e("productName2",  _productViewState.value.productList.get(0).productName)
+        Log.e("productId2",  _productViewState.value.productList.get(0).productId)
+        Log.e("productName2",  _productViewState.value.productList.get(0).productName)
+        Log.e("productType2",  _productViewState.value.productList.get(0).productType)
+        Log.e("basePrice2",  _productViewState.value.productList.get(0).basePrice.toString())
+        Log.e("wholeSalePrice2",  _productViewState.value.productList.get(0).wholeSalePrice.toString())
+        Log.e("warehouseId2",  _productViewState.value.productList.get(0).warehouseId)
+        Log.e("storageId2",  _productViewState.value.productList.get(0).storageId)*/
+    }
+
+    private fun getModelId(model: String): String {
+        var modelId = ""
+        val modelDetailsList = _newItemViewState.value.modelDetailsList
+        modelDetailsList.forEach{
+            m -> if(m.modelName == model) modelId = m.modelId!!
+        }
+
+        return modelId
+    }
+
+    private fun getCategoryId(category: String): String {
+        var categoryId = ""
+        val categoryDetailsList = _newItemViewState.value.categoryDetailsList
+        categoryDetailsList.forEach{
+                c -> if(c.categoryName == category) categoryId = c.categoryId!!
+        }
+
+        return categoryId
+    }
+
+    private fun getBrandId(brand: String): String {
+        var brandId = ""
+        val brandDetailsList = _newItemViewState.value.brandDetailsList
+        brandDetailsList.forEach{
+                b -> if(b.brandName == brand) brandId = b.brandId!!
+        }
+
+        return brandId
+    }
+
+    private fun createProductId(brandId: String, modelId: String, categoryId: String): String {
+        return brandId + productIdSeparator + categoryId + productIdSeparator + modelId
+    }
+
+    private fun createProductName(brand : String, model : String) : String{
+        return "$brand $model";
+    }
+
+    fun updateSearchFieldValue(value : String){
+        /*viewModelScope.launch {
+            _productViewState.update {
+                it.copy(
+                    searchFieldValue = value
+                )
+            }
+        }*/
+    }
+
+    fun updateIsExpandCard(value : Boolean){
+        /*viewModelScope.launch {
+            _productViewState.update {
+                it.copy(
+                    isExpandCard = value
+                )
+            }
+        }*/
     }
 
     fun updateWarehouseTFValue(value : String){
@@ -192,33 +389,11 @@ class SharedViewModel @Inject constructor(
         }
     }
 
-    fun updateBrandDropDownList(value : List<String>, isExpanded : Boolean){
-        viewModelScope.launch {
-            _newItemViewState.update {
-                it.copy(
-                    brandDropDownList = value,
-                    brandExpandedDropDown = isExpanded
-                )
-            }
-        }
-    }
-
     fun updateCategoryDropDownValue(value : String){
         viewModelScope.launch {
             _newItemViewState.update {
                 it.copy(
                     categoryDropDownValue = value
-                )
-            }
-        }
-    }
-
-    fun updateCategoryDropDownList(value : List<String>, isExpanded : Boolean){
-        viewModelScope.launch {
-            _newItemViewState.update {
-                it.copy(
-                    categoryDropDownList = value,
-                    categoryExpandedDropDown = isExpanded
                 )
             }
         }
@@ -234,20 +409,7 @@ class SharedViewModel @Inject constructor(
         }
     }
 
-    fun updateModelDropDownList(value : List<String>, isExpanded : Boolean){
-        viewModelScope.launch {
-            _newItemViewState.update {
-                it.copy(
-                    modelDropDownList = value,
-                    modelExpandedDropDown = isExpanded
-                )
-            }
-        }
-    }
-
     fun updateBarcodeTFValue(value : String){
-        Log.e("updateBarcodeTFValue", value)
-
         viewModelScope.launch {
             _newItemViewState.update {
                 it.copy(

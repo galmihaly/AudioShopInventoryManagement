@@ -1,6 +1,8 @@
 package com.example.audioshopinventorymanagement.productlist.productlistscreen
 
 data class ProductViewState(
-    val s : String = "",
-    val productListState: List<ProductListState> = ArrayList()
+    var productList: List<ProductListItem> = ArrayList(),
+    val searchFieldValue: String = "",
+    val isExpandCard: Boolean = false,
+    val allMatches: Int = 0
 )

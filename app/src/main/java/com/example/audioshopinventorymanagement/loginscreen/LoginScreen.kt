@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -22,7 +23,75 @@ import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 fun LoginScreen(
     loginScreenViewModel: LoginScreenViewModel = hiltViewModel()
 ) {
-    Column(
+    val emailText = loginScreenViewModel.viewState.collectAsState().value.validationEmailText
+    val emailErrorTextColor = loginScreenViewModel.viewState.collectAsState().value.validationEmailColor
+    val emailTextValue = loginScreenViewModel.viewState.collectAsState().value.email
+
+    val passwordText = loginScreenViewModel.viewState.collectAsState().value.validationPasswordText
+    val passwordErrorTextColor = loginScreenViewModel.viewState.collectAsState().value.validationPasswordColor
+    val passwordTextValue = loginScreenViewModel.viewState.collectAsState().value.password
+
+    val isShowErrorDialog = loginScreenViewModel.viewState.collectAsState().value.isShowErrorDialog
+    val dialogText = loginScreenViewModel.viewState.collectAsState().value.textShowErrorDialog
+
+    Scaffold (
+        topBar = {
+            AllViewComponents.HeadLineWithTextAndLogo(
+                headLineText = "Inventory Management",
+                headLineLogo = R.drawable.audioshop_logo
+            )
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(LIGHT_GRAY)
+                .padding(paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            LoginScreenComponents.LoginText(text = "Login")
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 30.dp)
+            ){
+                Column(
+                    modifier = Modifier.padding(
+                        vertical = 0.dp
+                    )
+                ) {
+                    LoginScreenComponents.EmailInputField(
+                        text = "Email",
+                        emailErrorText = emailText,
+                        emailErrorTextColor = emailErrorTextColor,
+                        emailTextValue = emailTextValue,
+                        textChangeFunction = { loginScreenViewModel.updateUsername(it) }
+                    )
+                    LoginScreenComponents.PasswordInputField(
+                        text = "Password",
+                        passwordErrorText = passwordText,
+                        passwordErrorTextColor = passwordErrorTextColor,
+                        passwordTextValue = passwordTextValue,
+                        textChangeFunction = { loginScreenViewModel.updatePassword(it) }
+                    )
+                }
+            }
+
+            LoginScreenComponents.LoginButtonAndLink(
+                buttonText = "Login",
+                linkText = "Device Registration",
+                onClickFunction = { loginScreenViewModel.authLoginUser(emailTextValue, passwordTextValue) }
+            )
+        }
+
+        LoginScreenComponents.ErrorDialog(
+            isShowErrorDialog = isShowErrorDialog,
+            dialogText = dialogText,
+            dialogDismissFunction = { loginScreenViewModel.onErrorDialogDismiss() }
+        )
+    }
+
+    /*Column(
         modifier = Modifier
             .fillMaxSize()
             .background(LIGHT_GRAY),
@@ -61,5 +130,5 @@ fun LoginScreen(
         )
     }
     
-    ViewComponents.BackSaveDialog(viewModel = loginScreenViewModel)
+    ViewComponents.BackSaveDialog(viewModel = loginScreenViewModel)*/
 }

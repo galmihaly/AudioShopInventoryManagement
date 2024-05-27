@@ -1,5 +1,6 @@
 package com.example.audioshopinventorymanagement.loginscreen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,6 +20,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,15 +31,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.example.audioshopinventorymanagement.AllViewComponents
+import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.DARK_GRAY
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
+import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
-object ViewComponents {
+object LoginScreenComponents {
 
     @Composable
     fun LoginText(text: String){
@@ -59,12 +66,11 @@ object ViewComponents {
     @Composable
     fun EmailInputField(
         text: String,
-        viewModel: LoginScreenViewModel
+        emailErrorText: String,
+        emailErrorTextColor: Color,
+        emailTextValue: String,
+        textChangeFunction: (String) -> Unit
     ){
-        val emailText = viewModel.viewState.collectAsState().value.validationEmailText
-        val emailTextColor = viewModel.viewState.collectAsState().value.validationEmailColor
-        val emailTextValue = viewModel.viewState.collectAsState().value.email
-
         Column(
             modifier = Modifier.padding(
                 top = 0.dp,
@@ -72,15 +78,16 @@ object ViewComponents {
             )
         ){
             Text(
-                text = emailText,
-                color = emailTextColor,
+                text = emailErrorText,
+                color = emailErrorTextColor,
                 fontSize = 12.sp,
                 fontFamily = CustomFonts.RobotoMono_Regular,
+                modifier = Modifier.padding(vertical = 10.dp)
             )
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = emailTextValue,
-                onValueChange = { viewModel.updateUsername(it) },
+                onValueChange = textChangeFunction,
                 label = {
                     Text(
                         text = text,
@@ -105,11 +112,12 @@ object ViewComponents {
     @Composable
     fun PasswordInputField(
         text: String,
-        viewModel : LoginScreenViewModel
+        passwordErrorText: String,
+        passwordErrorTextColor: Color,
+        passwordTextValue: String,
+        textChangeFunction: (String) -> Unit
     ){
-        val passwordText = viewModel.viewState.collectAsState().value.validationPasswordText
-        val passwordTextColor = viewModel.viewState.collectAsState().value.validationPasswordColor
-        val passwordTextValue = viewModel.viewState.collectAsState().value.password
+
 
         Column (
             modifier = Modifier.padding(
@@ -118,15 +126,16 @@ object ViewComponents {
             )
         ){
             Text(
-                text = passwordText,
-                color = passwordTextColor,
+                text = passwordErrorText,
+                color = passwordErrorTextColor,
                 fontSize = 12.sp,
                 fontFamily = CustomFonts.RobotoMono_Regular,
+                modifier = Modifier.padding(vertical = 10.dp)
             )
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = passwordTextValue,
-                onValueChange = { viewModel.updatePassword(it) },
+                onValueChange = textChangeFunction,
                 label = {
                     Text(
                         text = text,
@@ -157,11 +166,8 @@ object ViewComponents {
     fun LoginButtonAndLink(
         buttonText: String,
         linkText: String,
-        viewModel: LoginScreenViewModel
+        onClickFunction: () -> Unit
     ){
-        val currentEmail = viewModel.viewState.collectAsState().value.email
-        val currentPassword = viewModel.viewState.collectAsState().value.password
-
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
@@ -171,7 +177,7 @@ object ViewComponents {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Button(
-                    onClick = { viewModel.authLoginUser(currentEmail, currentPassword) },
+                    onClick = onClickFunction ,
                     shape = RoundedCornerShape(5.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = GREEN
@@ -196,13 +202,14 @@ object ViewComponents {
     }
 
     @Composable
-    fun BackSaveDialog(viewModel: LoginScreenViewModel) {
-        val isShowErrorDialog = viewModel.viewState.collectAsState().value.isShowErrorDialog
-        val dialogText = viewModel.viewState.collectAsState().value.textShowErrorDialog
-
+    fun ErrorDialog(
+        isShowErrorDialog: Boolean,
+        dialogText: String,
+        dialogDismissFunction: () -> Unit,
+    ) {
         if(isShowErrorDialog){
             Dialog(
-                onDismissRequest = { viewModel.onErrorDialogDismiss() }
+                onDismissRequest = dialogDismissFunction
             ) {
                 Surface(
                     shape = RoundedCornerShape(16.dp),
@@ -243,7 +250,7 @@ object ViewComponents {
                                 horizontalArrangement = Arrangement.Center
                             ) {
                                 Button(
-                                    onClick = { viewModel.onErrorDialogDismiss() },
+                                    onClick = dialogDismissFunction,
                                     shape = RoundedCornerShape(10.dp),
                                     colors = ButtonDefaults.buttonColors(
                                         containerColor = ERROR_RED
@@ -268,31 +275,60 @@ object ViewComponents {
     }
 }
 
-//@OptIn(ExperimentalMaterial3Api::class)
-//@Preview(showBackground = true, device = Devices.PIXEL_2)
-//@Composable
-//fun previewComponent(){
-//    Column(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .background(Light_Gray),
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//        AllViewComponents.HeadLineWithTextAndLogo(
-//            headLineText = "Inventory Management",
-//            headLineLogo = R.drawable.audioshop_logo
-//        )
-//        ViewComponents.LoginText("Login")
-//        ViewComponents.LoginInputFields(
-//            usernameText = "Username",
-//            usernameError = "Error Message",
-//            passwordText = "Password",
-//            passwordError = "Error Message"
-//        )
-//        ViewComponents.LoginButtonAndLink(
-//            buttonText = "Login",
-//            linkText = "Device Registration",
-//            onClick = {}
-//        )
-//    }
-//}
+/*@OptIn(ExperimentalMaterial3Api::class)
+@Preview(showBackground = true, device = Devices.PIXEL_2)
+@Composable
+fun previewComponent(){
+    Scaffold (
+        topBar = {
+            AllViewComponents.HeadLineWithTextAndLogo(
+                headLineText = "Inventory Management",
+                headLineLogo = R.drawable.audioshop_logo
+            )
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(LIGHT_GRAY)
+                .padding(paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            LoginScreenComponents.LoginText(text = "Login")
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 30.dp)
+            ){
+                Column(
+                    modifier = Modifier.padding(
+                        vertical = 0.dp
+                    )
+                ) {
+                    LoginScreenComponents.EmailInputField(
+                        text = "Email",
+                        emailErrorText = "emailText",
+                        emailErrorTextColor = ERROR_RED,
+                        emailTextValue = "emailTextValue",
+                        textChangeFunction = { }
+                    )
+                    LoginScreenComponents.PasswordInputField(
+                        text = "Password",
+                        passwordErrorText = "passwordText",
+                        passwordErrorTextColor = ERROR_RED,
+                        passwordTextValue = "passwordTextValue",
+                        textChangeFunction = { }
+                    )
+                }
+            }
+
+           /* ViewComponents.LoginButtonAndLink(
+                buttonText = "Login",
+                linkText = "Device Registration",
+                viewModel = loginScreenViewModel
+            )*/
+        }
+
+        /*ViewComponents.BackSaveDialog(viewModel = loginScreenViewModel)*/
+    }
+}*/

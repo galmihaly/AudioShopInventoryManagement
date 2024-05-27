@@ -11,7 +11,7 @@ import com.example.audioshopinventorymanagement.authentication.repositories.Prod
 import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepositoryImpl
 import com.example.audioshopinventorymanagement.authentication.responses.BrandListResponse
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
-import com.example.audioshopinventorymanagement.utils.BrandDeserializer
+import com.example.audioshopinventorymanagement.utils.ApiResponseDeserializer
 import com.example.audioshopinventorymanagement.utils.Network
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -86,7 +86,7 @@ class RetrofitProvider {
         val gson = GsonBuilder()
             .registerTypeAdapter(
                 BrandListResponse::class.java,
-                BrandDeserializer(BrandListResponse::class.java)
+                ApiResponseDeserializer(BrandListResponse::class.java)
             )
             .create()
 

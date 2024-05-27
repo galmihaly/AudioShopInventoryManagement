@@ -107,6 +107,7 @@ fun previewComponent(){
                 AllViewComponents.MatchesText(text = "All Matches: " + "12345")
                 AllViewComponents.ItemCard(
                     cardNumber = 1,
+                    cardProduct = ProductListItem(),
                     modifyButtonLogo = R.drawable.modify_logo,
                     deleteButtonLogo = R.drawable.delete_x_logo,
                     modifyCardFunction = {},

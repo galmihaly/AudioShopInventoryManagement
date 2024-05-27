@@ -1,6 +1,6 @@
 package com.example.audioshopinventorymanagement.productlist.productlistscreen
 
-data class ProductListState(
+data class ProductListItem(
     val barcode : String = "",
     val productId : String = "",
     val productName : String = "",

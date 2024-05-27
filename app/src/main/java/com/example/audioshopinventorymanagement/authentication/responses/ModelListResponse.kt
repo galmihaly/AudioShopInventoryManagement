@@ -7,21 +7,21 @@ data class ModelListResponse(
 
     @Required
     @SerializedName("timestamp")
-    val timeStamp: String?,
+    var timeStamp: String?,
 
     @Required
     @SerializedName("status_code")
-    val statusCode: Int?,
+    var statusCode: Int?,
 
     @Required
     @SerializedName("message_type")
-    val messageType: String?,
+    var messageType: String?,
 
     @Required
     @SerializedName("message_body")
-    val messageBody: String?,
+    var messageBody: String?,
 
     @Required
     @SerializedName("models")
-    val modelDetails: List<ModelDetails>?
+    var modelDetails: List<ModelDetails>?
 )

@@ -6,6 +6,10 @@ import kotlinx.serialization.Required
 data class CategoryDetails(
 
     @Required
+    @SerializedName("category_id")
+    val categoryId: String?,
+
+    @Required
     @SerializedName("name")
     val categoryName: String?,
 )

@@ -22,21 +22,14 @@ import javax.inject.Inject
 class ProductApiRepositoryImpl @Inject constructor(private val productAPI: ProductAPI) : ProductApiRepository {
 
     override suspend fun getAllBrand(): ProductApiResponse {
-        Log.e("c", "c")
-
         return try {
-            Log.e("g", "g")
             val response = productAPI.getAllBrand()
 
-            Log.e("1", "1")
             val body = response.body()
             val errorBody = response.errorBody()
             val responseCode = response.code()
 
-            Log.e("f", "f")
             if (response.isSuccessful && body != null){
-                Log.e("a", "a")
-
                 ProductApiResponse.BrandSuccess(body)
             }
             else if(responseCode == 401 && errorBody != null)
