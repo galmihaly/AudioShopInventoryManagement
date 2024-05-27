@@ -1,7 +1,7 @@
 package com.example.audioshopinventorymanagement.authentication
 
 import android.util.Log
-import com.example.audioshopinventorymanagement.authentication.apis.RefreshTokenAPI
+import com.example.audioshopinventorymanagement.authentication.apis.LoginAuthAPI
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class AuthAuthenticator @Inject constructor(
     private val jwtTokenRepository: JwtTokenRepository,
-    private val refreshTokenAPI: RefreshTokenAPI
+    private val loginAuthAPI: LoginAuthAPI
 ) : Authenticator {
     companion object {
         const val HEADER_AUTHORIZATION = "Authorization"
@@ -31,7 +31,7 @@ class AuthAuthenticator @Inject constructor(
             }
 
             val token = if (currentToken != updatedToken) updatedToken else {
-                val newSessionResponse = runBlocking { refreshTokenAPI.refreshTokenUser() }
+                val newSessionResponse = runBlocking { loginAuthAPI.refreshTokenUser() }
                 val body = newSessionResponse.body()
 
                 if (newSessionResponse.isSuccessful && body != null) {

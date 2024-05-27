@@ -19,4 +19,7 @@ data class NewItemViewState(
     val barcodeTFValue : String = "",
     val basePriceTFValue : String = "",
     val wholeSalePriceTFValue : String = "",
+
+    val isShowErrorDialog : Boolean = false,
+    val textShowErrorDialog : String = ""
 )

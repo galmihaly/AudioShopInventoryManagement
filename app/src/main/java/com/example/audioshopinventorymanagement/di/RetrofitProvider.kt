@@ -2,14 +2,18 @@ package com.example.audioshopinventorymanagement.di
 
 import android.content.Context
 import com.example.audioshopinventorymanagement.authentication.AuthAuthenticator
+import com.example.audioshopinventorymanagement.authentication.apis.LoginAuthAPI
+import com.example.audioshopinventorymanagement.authentication.apis.ProductAPI
+import com.example.audioshopinventorymanagement.authentication.interceptors.AccessTokenInterceptor
 import com.example.audioshopinventorymanagement.authentication.repositories.AuthApiRepository
 import com.example.audioshopinventorymanagement.authentication.repositories.AuthApiRepositoryImpl
-import com.example.audioshopinventorymanagement.authentication.interceptors.AccessTokenInterceptor
-import com.example.audioshopinventorymanagement.authentication.apis.LoginAuthAPI
-import com.example.audioshopinventorymanagement.authentication.apis.RefreshTokenAPI
-import com.example.audioshopinventorymanagement.authentication.interceptors.RefreshTokenInterceptor
+import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
+import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepositoryImpl
+import com.example.audioshopinventorymanagement.authentication.responses.BrandListResponse
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
+import com.example.audioshopinventorymanagement.utils.BrandDeserializer
 import com.example.audioshopinventorymanagement.utils.Network
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,6 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
 import javax.inject.Singleton
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -36,14 +41,14 @@ class RetrofitProvider {
         return AccessTokenInterceptor(jwtTokenRepository, network)
     }
 
-    @Singleton
+    /*@Singleton
     @Provides
     fun provideRefreshTokenInterceptor(
         jwtTokenRepository: JwtTokenRepository,
         network: Network
     ): RefreshTokenInterceptor {
         return RefreshTokenInterceptor(jwtTokenRepository, network)
-    }
+    }*/
 
     /*-------------*/
 
@@ -72,26 +77,35 @@ class RetrofitProvider {
             .build()
     }
 
-    /*@Provides
+    @Provides
     @Singleton
     fun provideUserApi(
         @AuthenticatedClient okHttpClient: OkHttpClient
-    ): UserAPI {
+    ): ProductAPI {
+
+        val gson = GsonBuilder()
+            .registerTypeAdapter(
+                BrandListResponse::class.java,
+                BrandDeserializer(BrandListResponse::class.java)
+            )
+            .create()
+
         return Retrofit.Builder()
             .baseUrl("http://192.168.1.153:5255")
-            .addConverterFactory(GsonConverterFactory.create())
+            /*.addConverterFactory(GsonConverterFactory.create())*/
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
-            .create(UserAPI::class.java)
-    }*/
+            .create(ProductAPI::class.java)
+    }
 
     /*-------------*/
 
-    @Qualifier
+    /*@Qualifier
     @Retention(AnnotationRetention.RUNTIME)
-    annotation class TokenRefreshClient
+    annotation class TokenRefreshClient*/
 
-    @Provides
+    /*@Provides
     @Singleton
     @TokenRefreshClient
     fun provideRefreshOkHttpClient(
@@ -108,9 +122,9 @@ class RetrofitProvider {
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .build()
-    }
+    }*/
 
-    @Provides
+    /*@Provides
     @Singleton
     fun provideRetrofit(
         @TokenRefreshClient okHttpClient: OkHttpClient
@@ -121,7 +135,7 @@ class RetrofitProvider {
             .client(okHttpClient)
             .build()
             .create(RefreshTokenAPI::class.java)
-    }
+    }*/
 
     /*-------------*/
 
@@ -162,10 +176,18 @@ class RetrofitProvider {
 
     @Singleton
     @Provides
-    fun providesWorkerRepository(
+    fun providesAuthApiRepository(
         loginAuthAPI: LoginAuthAPI,
     ) : AuthApiRepository {
         return AuthApiRepositoryImpl(loginAuthAPI)
+    }
+
+    @Singleton
+    @Provides
+    fun providesProductApiRepository(
+        productAPI: ProductAPI,
+    ) : ProductApiRepository {
+        return ProductApiRepositoryImpl(productAPI)
     }
 
     @Provides

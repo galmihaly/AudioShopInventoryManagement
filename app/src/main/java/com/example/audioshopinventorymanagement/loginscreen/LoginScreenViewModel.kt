@@ -27,7 +27,6 @@ import javax.inject.Inject
 class LoginScreenViewModel @Inject constructor(
     private val appNavigator: AppNavigator,
     private val authApiRepository: AuthApiRepository,
-    private val network: Network,
     private val jwtTokenRepository: JwtTokenRepository
 ) : ViewModel() {
 
@@ -165,8 +164,6 @@ class LoginScreenViewModel @Inject constructor(
     }
 
     fun onErrorDialogShow(dialogText : String){
-
-        Log.e("dialogText", dialogText)
         viewModelScope.launch {
             _viewState.update {
                 it.copy(

@@ -18,8 +18,14 @@ class AccessTokenInterceptor @Inject constructor(
         const val TOKEN_TYPE = "Bearer"
     }
     override fun intercept(chain: Interceptor.Chain): Response {
-        val token = runBlocking {
+        var token = runBlocking {
             jwtTokenRepository.getAccessJwt().accessToken
+        }
+
+        if(token == ""){
+            token = runBlocking {
+                jwtTokenRepository.getRefreshJwt().accessToken
+            }
         }
 
         if (network.isOnline()){
