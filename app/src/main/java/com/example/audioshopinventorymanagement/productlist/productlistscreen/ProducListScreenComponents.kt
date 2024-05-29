@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
+import com.example.audioshopinventorymanagement.room.ProductEntity
 import com.example.audioshopinventorymanagement.ui.theme.Blue
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
@@ -107,11 +108,11 @@ fun previewComponent(){
                 AllViewComponents.MatchesText(text = "All Matches: " + "12345")
                 AllViewComponents.ItemCard(
                     cardNumber = 1,
-                    cardProduct = ProductListItem(),
+                    cardProduct = ProductEntity(),
                     modifyButtonLogo = R.drawable.modify_logo,
                     deleteButtonLogo = R.drawable.delete_x_logo,
                     modifyCardFunction = {},
-                    deleteCardFunction = {},
+                    deleteCardFunction = {  },
                     expandedCard = false
                 )
             }

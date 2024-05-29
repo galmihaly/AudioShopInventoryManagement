@@ -1,10 +1,10 @@
-package com.example.audioshopinventorymanagement.productlist.newitemscreen
+package com.example.audioshopinventorymanagement.productlist.modifyitemscreen
 
 import com.example.audioshopinventorymanagement.authentication.responses.BrandDetails
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryDetails
 import com.example.audioshopinventorymanagement.authentication.responses.ModelDetails
 
-data class NewItemViewState(
+data class ModifyItemViewState(
     val warehouseTFValue : String = "",
     val storageTFValue : String = "",
 
@@ -28,5 +28,7 @@ data class NewItemViewState(
     val wholeSalePriceTFValue : String = "",
 
     val isShowErrorDialog : Boolean = false,
-    val textShowErrorDialog : String = ""
+    val textShowErrorDialog : String = "",
+
+    val modifyItemScreenArgument : String = ""
 )

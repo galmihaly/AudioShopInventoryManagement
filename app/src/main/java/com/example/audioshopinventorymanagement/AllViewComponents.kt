@@ -1,6 +1,5 @@
 package com.example.audioshopinventorymanagement
 
-import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -53,7 +52,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.audioshopinventorymanagement.productlist.productlistscreen.ProductListItem
+import com.example.audioshopinventorymanagement.room.ProductEntity
 import com.example.audioshopinventorymanagement.ui.theme.Blue
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.DARK_GRAY
@@ -291,7 +290,7 @@ object AllViewComponents {
     @Composable
     fun ItemCard(
         cardNumber: Int,
-        cardProduct: ProductListItem,
+        cardProduct: ProductEntity,
         modifyButtonLogo: Int,
         deleteButtonLogo: Int,
         modifyCardFunction: () -> Unit,
@@ -303,17 +302,6 @@ object AllViewComponents {
 
         val cardBorderIndicatorColor = if (isExpanded) Blue else GREEN
         val angle = if (isExpanded) 180f else 0f
-
-        Log.e("barcode", cardProduct.barcode)
-        Log.e("productType", cardProduct.productType)
-        Log.e("productName", cardProduct.productName)
-        Log.e("productId", cardProduct.productId)
-        Log.e("productName", cardProduct.productName)
-        Log.e("productType", cardProduct.productType)
-        Log.e("basePrice", cardProduct.basePrice.toString())
-        Log.e("wholeSalePrice", cardProduct.wholeSalePrice.toString())
-        Log.e("warehouseId", cardProduct.warehouseId)
-        Log.e("storageId", cardProduct.storageId)
 
         Card(
             modifier = Modifier
@@ -378,21 +366,21 @@ object AllViewComponents {
 
                 TextRowToCard(
                     key = "Barcode:",
-                    value = cardProduct.barcode,
+                    value = cardProduct.barcode!!,
                     color = GREEN,
                     keyTextWeight = 0.9f,
                     valueStringTextWeight = 1.1f
                 )
                 TextRowToCard(
                     key = "Product ID:",
-                    value = cardProduct.productId,
+                    value = cardProduct.productId!!,
                     color = Color.White,
                     keyTextWeight = 0.9f,
                     valueStringTextWeight = 1.1f
                 )
                 TextRowToCard(
                     key = "Product Name:",
-                    value = cardProduct.productName,
+                    value = cardProduct.productName!!,
                     color = Color.White,
                     keyTextWeight = 0.9f,
                     valueStringTextWeight = 1.1f
@@ -401,7 +389,7 @@ object AllViewComponents {
                 if(isExpanded){
                     TextRowToCard(
                         key = "Product Type:",
-                        value = cardProduct.productType,
+                        value = cardProduct.productType!!,
                         color = Color.White,
                         keyTextWeight = 0.9f,
                         valueStringTextWeight = 1.1f
@@ -425,14 +413,14 @@ object AllViewComponents {
 
                     TextRowToCard(
                         key = "WareHouse ID:",
-                        value = cardProduct.warehouseId,
+                        value = cardProduct.warehouseId!!,
                         Color.White,
                         keyTextWeight = 0.9f,
                         valueStringTextWeight = 1.1f
                     )
                     TextRowToCard(
                         key = "Storage ID:",
-                        value = cardProduct.storageId,
+                        value = cardProduct.storageId!!,
                         Color.White,
                         keyTextWeight = 0.9f,
                         valueStringTextWeight = 1.1f
@@ -534,7 +522,7 @@ object AllViewComponents {
 fun previewComponent(){
     AllViewComponents.ItemCard(
         cardNumber = 1,
-        cardProduct = ProductListItem(),
+        cardProduct = ProductEntity(),
         modifyButtonLogo = R.drawable.modify_logo,
         deleteButtonLogo = R.drawable.delete_x_logo,
         modifyCardFunction = {},

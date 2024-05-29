@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.productlist.SharedViewModel
+import com.example.audioshopinventorymanagement.loginscreen.LoginScreenComponents
 import com.example.audioshopinventorymanagement.productlist.newitemscreen.NewItemScreenComponents
 import com.example.audioshopinventorymanagement.ui.theme.Blue
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
@@ -32,31 +32,34 @@ import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
 @Composable
 fun ModifyItemScreen(
-    sharedViewModel: SharedViewModel = hiltViewModel()
+    viewModel: ModifyItemViewModel = hiltViewModel()
 ) {
-    val warehouseTFValue = sharedViewModel.newItemViewState.collectAsState().value.warehouseTFValue
-    val storageTFValue = sharedViewModel.newItemViewState.collectAsState().value.storageTFValue
+    val warehouseTFValue = viewModel.viewState.collectAsState().value.warehouseTFValue
+    val storageTFValue = viewModel.viewState.collectAsState().value.storageTFValue
 
-    val brandDropDownValue = sharedViewModel.newItemViewState.collectAsState().value.brandDropDownValue
-    val brandDropDownList = sharedViewModel.newItemViewState.collectAsState().value.brandDropDownList
-    val brandExpandedDropDown = sharedViewModel.newItemViewState.collectAsState().value.brandExpandedDropDown
+    val brandDDValue = viewModel.viewState.collectAsState().value.brandDDValue
+    val brandDDList = viewModel.viewState.collectAsState().value.brandDDList
+    val brandExpandedDD = viewModel.viewState.collectAsState().value.brandExpandedDD
 
-    val categoryDropDownValue = sharedViewModel.newItemViewState.collectAsState().value.categoryDropDownValue
-    val categoryDropDownList = sharedViewModel.newItemViewState.collectAsState().value.categoryDropDownList
-    val categoryExpandedDropDown = sharedViewModel.newItemViewState.collectAsState().value.categoryExpandedDropDown
+    val categoryDDValue = viewModel.viewState.collectAsState().value.categoryDDValue
+    val categoryDDList = viewModel.viewState.collectAsState().value.categoryDDList
+    val categoryExpandedDD = viewModel.viewState.collectAsState().value.categoryExpandedDD
 
-    val modelDropDownValue = sharedViewModel.newItemViewState.collectAsState().value.modelDropDownValue
-    val modelDropDownList = sharedViewModel.newItemViewState.collectAsState().value.modelDropDownList
-    val modelExpandedDropDown = sharedViewModel.newItemViewState.collectAsState().value.modelExpandedDropDown
+    val modelDDValue = viewModel.viewState.collectAsState().value.modelDDValue
+    val modelDDList = viewModel.viewState.collectAsState().value.modelDDList
+    val modelExpandedDD = viewModel.viewState.collectAsState().value.modelExpandedDD
 
-    val barcodeTFValue = sharedViewModel.newItemViewState.collectAsState().value.barcodeTFValue
-    val basePriceTFValue = sharedViewModel.newItemViewState.collectAsState().value.basePriceTFValue
-    val wholeSalePriceTFValue = sharedViewModel.newItemViewState.collectAsState().value.wholeSalePriceTFValue
+    val barcodeTFValue = viewModel.viewState.collectAsState().value.barcodeTFValue
+    val basePriceTFValue = viewModel.viewState.collectAsState().value.basePriceTFValue
+    val wholeSalePriceTFValue = viewModel.viewState.collectAsState().value.wholeSalePriceTFValue
+
+    val isShowErrorDialog = viewModel.viewState.collectAsState().value.isShowErrorDialog
+    val dialogText = viewModel.viewState.collectAsState().value.textShowErrorDialog
 
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "New Item",
+                headLineText = "Modify Item",
             )
         },
         bottomBar = {
@@ -81,17 +84,17 @@ fun ModifyItemScreen(
                             .fillMaxSize()
                             .weight(1f),
                         backgroundColor = GREEN,
-                        onClick = {}
+                        onClick = { viewModel.backToProductListScreen() }
                     )
                     AllViewComponents.NavigationButtons(
-                        buttonLogoId = R.drawable.add_list_logo,
+                        buttonLogoId = R.drawable.save_logo,
                         buttonLogoHeight = 40.dp,
                         buttonLogoWidth = 40.dp,
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
                         backgroundColor = Blue,
-                        onClick = {}
+                        onClick = { viewModel.saveChangesOnItem() }
                     )
                     AllViewComponents.NavigationButtons(
                         buttonLogoId = R.drawable.delete_x_logo,
@@ -101,7 +104,7 @@ fun ModifyItemScreen(
                             .fillMaxSize()
                             .weight(1f),
                         backgroundColor = ERROR_RED,
-                        onClick = {}
+                        onClick = { viewModel.deleteAllTextField() }
                     )
                 }
             }
@@ -119,55 +122,128 @@ fun ModifyItemScreen(
                     .fillMaxSize()
                     .padding(horizontal = 20.dp),
             ) {
-                NewItemScreenComponents.TwoModifyTextField(
-                    textField1 = "Warehouse Identifier:",
-                    textFieldValue1 = warehouseTFValue,
-                    textChangeFunction1 = { sharedViewModel.updateWarehouseTFValue(it) },
-                    keyboardType1 = KeyboardType.Text,
-                    textField2 = "Storage Identifier:",
-                    textFieldValue2 = storageTFValue,
-                    textChangeFunction2 = { sharedViewModel.updateStockTFValue(it) },
-                    keyboardType2 = KeyboardType.Text,
-                )
-                NewItemScreenComponents.TwoModifyDropDownMenu(
-                    text1 = "Brand:",
-                    dropdownList1 = brandDropDownList,
-                    currentText1 = brandDropDownValue,
-                    expandedDropDown1 = brandExpandedDropDown,
-                    expandedFunction1 = { sharedViewModel.updateBrandExpandedDropDown(it) },
-                    currentFunction1 = { sharedViewModel.updateBrandDropDownValue(it) },
-                    text2 = "Category:",
-                    dropdownList2 = categoryDropDownList,
-                    currentText2 = categoryDropDownValue,
-                    expandedDropDown2 = categoryExpandedDropDown,
-                    expandedFunction2 = { sharedViewModel.updateCategoryExpandedDropDown(it) },
-                    currentFunction2 = { sharedViewModel.updateCategoryDropDownValue(it) },
-                )
+                Row (horizontalArrangement = Arrangement.SpaceBetween)
+                {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1.0f)
+                            .padding(end = 5.dp)
+                            .wrapContentHeight()
+                    ){
+                        NewItemScreenComponents.ModifyTextField(
+                            text = "Warehouse Identifier:",
+                            textFieldValue = warehouseTFValue,
+                            textChangeFunction = { viewModel.updateWarehouseTFValue(it) },
+                            keyboardType = KeyboardType.Text,
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1.0f)
+                            .padding(start = 5.dp)
+                            .wrapContentHeight()
+                    ){
+                        NewItemScreenComponents.ModifyTextField(
+                            text = "Storage Identifier:",
+                            textFieldValue = storageTFValue,
+                            textChangeFunction = { viewModel.updateStockTFValue(it) },
+                            keyboardType = KeyboardType.Text
+                        )
+                    }
+                }
+                Row (horizontalArrangement = Arrangement.SpaceBetween)
+                {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1.0f)
+                            .padding(end = 5.dp)
+                            .wrapContentHeight()
+                    ){
+                        Column {
+                            NewItemScreenComponents.ModifyDropDownMenu(
+                                text = "Brand:",
+                                dropdownList = brandDDList,
+                                currentText = brandDDValue,
+                                expandedDropDown = brandExpandedDD,
+                                expandedFunction = { viewModel.updateBrandExpandedDropDown(it) },
+                                currentFunction = { viewModel.updateBrandDropDownValue(it) },
+                            )
+                        }
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1.0f)
+                            .padding(start = 5.dp)
+                            .wrapContentHeight()
+                    ){
+                        Column {
+                            NewItemScreenComponents.ModifyDropDownMenu(
+                                text = "Category:",
+                                dropdownList = categoryDDList,
+                                currentText = categoryDDValue,
+                                expandedDropDown = categoryExpandedDD,
+                                expandedFunction = { viewModel.updateCategoryExpandedDropDown(it) },
+                                currentFunction = { viewModel.updateCategoryDropDownValue(it) }
+                            )
+                        }
+                    }
+                }
                 NewItemScreenComponents.ModifyDropDownMenu(
                     text = "Model:",
-                    dropdownList = modelDropDownList,
-                    currentText = modelDropDownValue,
-                    expandedDropDown = categoryExpandedDropDown,
-                    expandedFunction = { sharedViewModel.updateModelExpandedDropDown(it) },
-                    currentFunction = { sharedViewModel.updateModelDropDownValue(it) }
+                    dropdownList = modelDDList,
+                    currentText = modelDDValue,
+                    expandedDropDown = modelExpandedDD,
+                    expandedFunction = { viewModel.updateModelExpandedDropDown(it) },
+                    currentFunction = { viewModel.updateModelDropDownValue(it) }
                 )
                 NewItemScreenComponents.ModifyTextField(
                     text = "Barcode:",
                     textFieldValue = barcodeTFValue,
-                    textChangeFunction = { sharedViewModel.updateBarcodeTFValue(it) },
+                    textChangeFunction = { viewModel.updateBarcodeTFValue(it) },
                     keyboardType = KeyboardType.Number,
                 )
-                NewItemScreenComponents.TwoModifyTextField(
-                    textField1 = "Base Price:",
-                    textFieldValue1 = basePriceTFValue,
-                    textChangeFunction1 = { sharedViewModel.updateBarcodeTFValue(it) },
-                    keyboardType1 = KeyboardType.Number,
-                    textField2 = "WholeSale Price:",
-                    textFieldValue2 = wholeSalePriceTFValue,
-                    textChangeFunction2 = { sharedViewModel.updateWholeSalePriceTFValue(it) },
-                    keyboardType2 = KeyboardType.Number,
-                )
+                Row (horizontalArrangement = Arrangement.SpaceBetween)
+                {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1.0f)
+                            .padding(end = 5.dp)
+                            .wrapContentHeight()
+                    ){
+                        NewItemScreenComponents.ModifyTextField(
+                            text = "Base Price:",
+                            textFieldValue = basePriceTFValue,
+                            textChangeFunction = { viewModel.updateBasePriceTFValue(it) },
+                            keyboardType = KeyboardType.Number
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1.0f)
+                            .padding(start = 5.dp)
+                            .wrapContentHeight()
+                    ){
+                        NewItemScreenComponents.ModifyTextField(
+                            text = "WholeSale Price:",
+                            textFieldValue = wholeSalePriceTFValue,
+                            textChangeFunction = { viewModel.updateWholeSalePriceTFValue(it) },
+                            keyboardType = KeyboardType.Number
+                        )
+                    }
+                }
             }
         }
+
+        LoginScreenComponents.ErrorDialog(
+            isShowErrorDialog = isShowErrorDialog,
+            dialogText = dialogText,
+            dialogDismissFunction = { viewModel.onDialogDismiss() }
+        )
     }
 }
