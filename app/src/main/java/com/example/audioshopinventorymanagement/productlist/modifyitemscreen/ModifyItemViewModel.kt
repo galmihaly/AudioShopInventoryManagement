@@ -198,6 +198,110 @@ class ModifyItemViewModel @Inject constructor(
         }
     }
 
+    fun backToProductListScreen() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val barcodeTFValue = _viewState.value.barcodeTFValue
+            val brandDDValue = _viewState.value.brandDDValue
+            val modelDDValue = _viewState.value.modelDDValue
+            val categoryDDValue = _viewState.value.categoryDDValue
+            val basePriceTFValue = _viewState.value.basePriceTFValue
+            val wholeSalePriceTFValue = _viewState.value.wholeSalePriceTFValue
+            val warehouseTFValue = _viewState.value.warehouseTFValue
+            val storageTFValue = _viewState.value.storageTFValue
+
+            val products = databaseRepo.getProductByBarcode(arg)
+
+            if (warehouseTFValue.isEmpty()) {
+                onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                return@launch
+            }
+            else{
+                if(warehouseTFValue != products.warehouseId){
+                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    return@launch
+                }
+            }
+
+            if (storageTFValue.isEmpty()) {
+                onDialogShow(dialogText = "The Storage Identifier field cannot be empty!")
+                return@launch
+            }
+            else{
+                if(storageTFValue != products.storageId){
+                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    return@launch
+                }
+            }
+
+            if (brandDDValue.isEmpty()) {
+                onDialogShow(dialogText = "The Brand field cannot be empty!")
+                return@launch
+            }
+            else{
+                if(brandDDValue != products.brandName){
+                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    return@launch
+                }
+            }
+
+            if (categoryDDValue.isEmpty()) {
+                onDialogShow(dialogText = "The Category field field cannot be empty!")
+                return@launch
+            }
+            else{
+                if(categoryDDValue != products.categoryName){
+                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    return@launch
+                }
+            }
+
+            if (modelDDValue.isEmpty()) {
+                onDialogShow(dialogText = "The Model field cannot be empty!")
+                return@launch
+            }
+            else{
+                if(modelDDValue != products.modelName){
+                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    return@launch
+                }
+            }
+
+            if (barcodeTFValue.isEmpty()) {
+                onDialogShow(dialogText = "The barcode field cannot be empty!")
+                return@launch
+            }
+            else{
+                if(barcodeTFValue != products.barcode){
+                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    return@launch
+                }
+            }
+
+            if (basePriceTFValue.isEmpty()) {
+                onDialogShow(dialogText = "The Base Price field cannot be empty!")
+                return@launch
+            }
+            else{
+                if(basePriceTFValue != products.basePrice){
+                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    return@launch
+                }
+            }
+
+            if (wholeSalePriceTFValue.isEmpty()) {
+                onDialogShow(dialogText = "The WholeSale Price field cannot be empty!")
+                return@launch
+            }
+            else{
+                if(wholeSalePriceTFValue != products.wholeSalePrice){
+                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    return@launch
+                }
+            }
+            onNavigateToProductListScreen()
+        }
+    }
+
     private fun getAllBrand(){
         viewModelScope.launch(Dispatchers.IO) {
             val brandList = databaseRepo.getAllBrands()

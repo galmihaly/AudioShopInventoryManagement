@@ -84,7 +84,7 @@ fun ModifyItemScreen(
                             .fillMaxSize()
                             .weight(1f),
                         backgroundColor = GREEN,
-                        onClick = { /*viewModel.backToProductListScreen()*/ }
+                        onClick = { viewModel.backToProductListScreen() }
                     )
                     AllViewComponents.NavigationButtons(
                         buttonLogoId = R.drawable.save_logo,
