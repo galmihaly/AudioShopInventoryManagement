@@ -7,9 +7,9 @@ data class CategoryDetails(
 
     @Required
     @SerializedName("category_id")
-    val categoryId: String?,
+    val categoryId: String? = "",
 
     @Required
     @SerializedName("name")
-    val categoryName: String?,
+    val categoryName: String? = "",
 )

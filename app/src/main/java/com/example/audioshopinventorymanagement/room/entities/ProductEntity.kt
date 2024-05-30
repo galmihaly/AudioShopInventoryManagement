@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.room
+package com.example.audioshopinventorymanagement.room.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -17,8 +17,23 @@ data class ProductEntity(
     @ColumnInfo(name = "product_name")
     val productName: String? = "",
 
-    @ColumnInfo(name = "product_type")
-    val productType: String? = "",
+    @ColumnInfo(name = "brand_id")
+    val brandId: String? = "",
+
+    @ColumnInfo(name = "brand_name")
+    val brandName: String? = "",
+
+    @ColumnInfo(name = "category_id")
+    val categoryId: String? = "",
+
+    @ColumnInfo(name = "category_name")
+    val categoryName: String? = "",
+
+    @ColumnInfo(name = "model_id")
+    val modelId: String? = "",
+
+    @ColumnInfo(name = "model_name")
+    val modelName: String? = "",
 
     @ColumnInfo(name = "base_price")
     val basePrice: String? = "",
@@ -31,6 +46,12 @@ data class ProductEntity(
 
     @ColumnInfo(name = "storage_id")
     val storageId: String? = "",
+
+    @ColumnInfo(name = "recorder_name")
+    val recorderName: String? = "",
+
+    @ColumnInfo(name = "device_id")
+    val deviceId: String? = "",
 
     @ColumnInfo(name = "barcode")
     val barcode: String? = "",

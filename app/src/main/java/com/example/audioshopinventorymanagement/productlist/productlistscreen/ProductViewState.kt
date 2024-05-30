@@ -1,6 +1,6 @@
 package com.example.audioshopinventorymanagement.productlist.productlistscreen
 
-import com.example.audioshopinventorymanagement.room.ProductEntity
+import com.example.audioshopinventorymanagement.room.entities.ProductEntity
 
 data class ProductViewState(
     var productList: MutableList<ProductEntity> = ArrayList(),

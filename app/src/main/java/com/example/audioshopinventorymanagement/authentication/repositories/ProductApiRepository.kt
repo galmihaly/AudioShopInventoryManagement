@@ -6,6 +6,7 @@ import com.example.audioshopinventorymanagement.authentication.responses.Categor
 import com.example.audioshopinventorymanagement.authentication.responses.ModelListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.sealed.LoginApiResponse
 import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
+import kotlinx.coroutines.Deferred
 
 interface ProductApiRepository {
     suspend fun getAllBrand() : ProductApiResponse

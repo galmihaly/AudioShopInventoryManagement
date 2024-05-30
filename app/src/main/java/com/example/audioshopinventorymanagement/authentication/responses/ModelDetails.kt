@@ -7,9 +7,9 @@ data class ModelDetails(
 
     @Required
     @SerializedName("model_id")
-    val modelId: String?,
+    val modelId: String? = "",
 
     @Required
     @SerializedName("name")
-    val modelName: String?,
+    val modelName: String? = "",
 )

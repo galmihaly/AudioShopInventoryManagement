@@ -52,7 +52,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.audioshopinventorymanagement.room.ProductEntity
+import com.example.audioshopinventorymanagement.room.entities.ProductEntity
 import com.example.audioshopinventorymanagement.ui.theme.Blue
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.DARK_GRAY
@@ -389,7 +389,7 @@ object AllViewComponents {
                 if(isExpanded){
                     TextRowToCard(
                         key = "Product Type:",
-                        value = cardProduct.productType!!,
+                        value = cardProduct.categoryName!!,
                         color = Color.White,
                         keyTextWeight = 0.9f,
                         valueStringTextWeight = 1.1f
@@ -427,22 +427,15 @@ object AllViewComponents {
                     )
                     TextRowToCard(
                         key = "Recorder Name:",
-                        value = "Tóth Elek",
+                        value = cardProduct.recorderName!!,
                         Color.White,
                         keyTextWeight = 0.9f,
                         valueStringTextWeight = 1.1f
                     )
                     TextRowToCard(
                         key = "Device ID:",
-                        value = "ZTC-1",
+                        value = cardProduct.deviceId!!,
                         color = Color.White,
-                        keyTextWeight = 0.9f,
-                        valueStringTextWeight = 1.1f
-                    )
-                    TextRowToCard(
-                        key = "Recording Date:",
-                        value = "2024-04-17 12:13:58",
-                        Color.White,
                         keyTextWeight = 0.9f,
                         valueStringTextWeight = 1.1f
                     )

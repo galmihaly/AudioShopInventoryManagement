@@ -7,9 +7,9 @@ data class BrandDetails(
 
     @Required
     @SerializedName("brand_id")
-    val brandId: String?,
+    val brandId: String? = "",
 
     @Required
     @SerializedName("name")
-    val brandName: String?,
+    val brandName: String? = "",
 )

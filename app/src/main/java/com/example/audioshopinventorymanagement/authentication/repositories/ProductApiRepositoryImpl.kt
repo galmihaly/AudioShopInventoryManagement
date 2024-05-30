@@ -11,6 +11,7 @@ import com.example.audioshopinventorymanagement.authentication.responses.sealed.
 import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.Deferred
 import okhttp3.internal.http2.ConnectionShutdownException
 import java.io.IOException
 import java.net.ConnectException
@@ -104,7 +105,7 @@ class ProductApiRepositoryImpl @Inject constructor(private val productAPI: Produ
     private fun getExceptionMessage(e : Exception) : ProductApiResponse {
         return when (e) {
             is SocketTimeoutException -> {
-                ProductApiResponse.Exception("Timeout - Please check your internet connection!")
+                ProductApiResponse.Exception("Timeout - Please check your internet connection or the server!")
             }
             is UnknownHostException -> {
                 ProductApiResponse.Exception("Unable to make a connection. Please check your internet!")

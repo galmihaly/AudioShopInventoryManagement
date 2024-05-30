@@ -3,20 +3,22 @@ package com.example.audioshopinventorymanagement.productlist.newitemscreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
-import com.example.audioshopinventorymanagement.authentication.responses.BrandDetails
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryDetails
 import com.example.audioshopinventorymanagement.authentication.responses.ModelDetails
-import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
-import com.example.audioshopinventorymanagement.room.ProductDatabaseRepository
-import com.example.audioshopinventorymanagement.room.ProductEntity
+import com.example.audioshopinventorymanagement.room.entities.BrandEntity
+import com.example.audioshopinventorymanagement.room.entities.CategoryEntity
+import com.example.audioshopinventorymanagement.room.entities.ModelEntity
+import com.example.audioshopinventorymanagement.room.repositories.ProductDatabaseRepository
+import com.example.audioshopinventorymanagement.room.entities.ProductEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.lang.StringBuilder
 import javax.inject.Inject
 
 @HiltViewModel
@@ -47,39 +49,16 @@ class NewItemViewModel @Inject constructor(
             val modelDDValue = _viewState.value.modelDDValue
             val categoryDDValue = _viewState.value.categoryDDValue
 
-            val brandId = getBrandId(brand = brandDDValue)
-            val categoryId = getCategoryId(category = categoryDDValue)
-            val modelId = getModelId(model = modelDDValue)
+            val brandDetails = getBrandId(brand = brandDDValue)
+            val categoryDetails = getCategoryId(category = categoryDDValue)
+            val modelDetails = getModelId(model = modelDDValue)
 
             val basePriceTFValue = _viewState.value.basePriceTFValue
             val wholeSalePriceTFValue = _viewState.value.wholeSalePriceTFValue
             val warehouseTFValue = _viewState.value.warehouseTFValue
             val storageTFValue = _viewState.value.storageTFValue
 
-            if (barcodeTFValue == "") {
-                onDialogShow(dialogText = "The barcode field cannot be empty!")
-            }
-            else if (brandDDValue == "") {
-                onDialogShow(dialogText = "The Brand field cannot be empty!")
-                return@launch
-            }
-            else if (modelDDValue == "") {
-                onDialogShow(dialogText = "The Model field cannot be empty!")
-                return@launch
-            }
-            else if (categoryDDValue == "") {
-                onDialogShow(dialogText = "The Category field field cannot be empty!")
-                return@launch
-            }
-            else if (basePriceTFValue == "") {
-                onDialogShow(dialogText = "The BasePrice field cannot be empty!")
-                return@launch
-            }
-            else if (wholeSalePriceTFValue == "") {
-                onDialogShow(dialogText = "The WholeSalePrice field cannot be empty!")
-                return@launch
-            }
-            else if (warehouseTFValue == "") {
+            if (warehouseTFValue == "") {
                 onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
                 return@launch
             }
@@ -87,32 +66,56 @@ class NewItemViewModel @Inject constructor(
                 onDialogShow(dialogText = "The Storage Identifier field cannot be empty!")
                 return@launch
             }
+            else if (brandDDValue == "") {
+                onDialogShow(dialogText = "The Brand field cannot be empty!")
+                return@launch
+            }
+            else if (categoryDDValue == "") {
+                onDialogShow(dialogText = "The Category field field cannot be empty!")
+                return@launch
+            }
+            else if (modelDDValue == "") {
+                onDialogShow(dialogText = "The Model field cannot be empty!")
+                return@launch
+            }
+            else if (barcodeTFValue == "") {
+                onDialogShow(dialogText = "The barcode field cannot be empty!")
+                return@launch
+            }
+            else if (basePriceTFValue == "") {
+                onDialogShow(dialogText = "The Base Price field cannot be empty!")
+                return@launch
+            }
+            else if (wholeSalePriceTFValue == "") {
+                onDialogShow(dialogText = "The WholeSale Price field cannot be empty!")
+                return@launch
+            }
 
-            val productName = createProductName(
-                brand = brandDDValue,
-                model = modelDDValue
-            )
 
-            val productId = createProductId(
-                brandId = brandId,
-                modelId = modelId,
-                categoryId = categoryId
-            )
+            val productId = createProductId(brandDetails.brandId!!, categoryDetails.categoryId!!, modelDetails.modelId!!)
+            val productName = createProductName(brandDDValue, modelDDValue)
 
             val daoEntity = ProductEntity(
-                barcode = barcodeTFValue,
                 productId = productId,
                 productName = productName,
-                productType = categoryDDValue,
+                brandId = brandDetails.brandId,
+                brandName = brandDetails.brandName,
+                categoryId = categoryDetails.categoryId,
+                categoryName = categoryDetails.categoryName,
+                modelId = modelDetails.modelId,
+                modelName = modelDetails.modelName,
                 basePrice = basePriceTFValue,
                 wholeSalePrice = wholeSalePriceTFValue,
                 warehouseId = warehouseTFValue,
-                storageId = storageTFValue
+                storageId = storageTFValue,
+                recorderName = "Tóth Elek",
+                deviceId = "ZTC-01",
+                barcode = barcodeTFValue
             )
 
             val products = databaseRepo.getProductByBarcode(barcodeTFValue)
             if(products == null){
-                databaseRepo.insert(daoEntity)
+                databaseRepo.insertProduct(daoEntity)
                 onNavigateToProductListScreen()
             }
             else{
@@ -123,30 +126,11 @@ class NewItemViewModel @Inject constructor(
 
     private fun getAllBrand(){
         viewModelScope.launch(Dispatchers.IO) {
-            val response = productApiRepository.getAllBrand()
-
-            var brandList : List<BrandDetails> = ArrayList()
-
-            when (response){
-                is ProductApiResponse.BrandSuccess -> {
-                    if(response.data.statusCode == 200){
-                        brandList = response.data.brandDetails!!
-                    }
-                }
-                is ProductApiResponse.BrandError -> {
-                    if(response.data.statusCode == 401){
-                        onDialogShow("Read of the brands has been failed!")
-                    }
-                }
-                is ProductApiResponse.Exception -> {
-                    onDialogShow(response.exceptionMessage)
-                }
-                else -> {}
-            }
+            val brandList = databaseRepo.getAllBrands()
 
             _viewState.update {
                 it.copy(
-                    brandDetailsList= brandList
+                    brandEntityList= brandList
                 )
             }
 
@@ -165,30 +149,11 @@ class NewItemViewModel @Inject constructor(
 
     private fun getAllCategory(){
         viewModelScope.launch(Dispatchers.IO) {
-            val response = productApiRepository.getAllCategory()
-
-            var categoryList : List<CategoryDetails> = ArrayList()
-
-            when (response){
-                is ProductApiResponse.CategorySuccess -> {
-                    if(response.data.statusCode == 200){
-                        categoryList = response.data.categoryDetails!!
-                    }
-                }
-                is ProductApiResponse.CategoryError -> {
-                    if(response.data.statusCode == 401){
-                        onDialogShow("Read of the categories has been failed!")
-                    }
-                }
-                is ProductApiResponse.Exception -> {
-                    onDialogShow(response.exceptionMessage)
-                }
-                else -> {}
-            }
+            val categoryList = databaseRepo.getAllCategories()
 
             _viewState.update {
                 it.copy(
-                    categoryDetailsList = categoryList
+                    categoryEntityList = categoryList
                 )
             }
 
@@ -207,31 +172,11 @@ class NewItemViewModel @Inject constructor(
 
     private fun getAllModel(){
         viewModelScope.launch(Dispatchers.IO) {
-            val response = productApiRepository.getAllModel()
-
-            var modelList : List<ModelDetails> = ArrayList()
-
-            when (response){
-                is ProductApiResponse.ModelSuccess -> {
-                    if(response.data.statusCode == 200){
-                        // save tokens to DataStore
-                        modelList = response.data.modelDetails!!
-                    }
-                }
-                is ProductApiResponse.ModelError -> {
-                    if(response.data.statusCode == 401){
-                        onDialogShow("Read of the models has been failed!")
-                    }
-                }
-                is ProductApiResponse.Exception -> {
-                    onDialogShow(response.exceptionMessage)
-                }
-                else -> {}
-            }
+            val modelList = databaseRepo.getAllModels()
 
             _viewState.update {
                 it.copy(
-                    modelDetailsList = modelList
+                    modelEntityList = modelList
                 )
             }
 
@@ -248,34 +193,34 @@ class NewItemViewModel @Inject constructor(
         }
     }
 
-    private fun getModelId(model: String): String {
-        var modelId = ""
-        val modelDetailsList = _viewState.value.modelDetailsList
-        modelDetailsList.forEach{
-                m -> if(m.modelName == model) modelId = m.modelId!!
+    private fun getBrandId(brand: String): BrandEntity {
+        var brandEntity = BrandEntity()
+        val brandEntityList = _viewState.value.brandEntityList
+        brandEntityList.forEach{
+                b -> if(b.brandName == brand) brandEntity = b
         }
 
-        return modelId
+        return brandEntity
     }
 
-    private fun getCategoryId(category: String): String {
-        var categoryId = ""
-        val categoryDetailsList = _viewState.value.categoryDetailsList
-        categoryDetailsList.forEach{
-                c -> if(c.categoryName == category) categoryId = c.categoryId!!
+    private fun getCategoryId(category: String): CategoryEntity{
+        var categoryEntity = CategoryEntity()
+        val categoryEntityList = _viewState.value.categoryEntityList
+        categoryEntityList.forEach{
+                c -> if(c.categoryName == category) categoryEntity = c
         }
 
-        return categoryId
+        return categoryEntity
     }
 
-    private fun getBrandId(brand: String): String {
-        var brandId = ""
-        val brandDetailsList = _viewState.value.brandDetailsList
-        brandDetailsList.forEach{
-                b -> if(b.brandName == brand) brandId = b.brandId!!
+    private fun getModelId(model: String): ModelEntity {
+        var modelEntity = ModelEntity()
+        val modelEntityList = _viewState.value.modelEntityList
+        modelEntityList.forEach{
+                m -> if(m.modelName == model) modelEntity = m
         }
 
-        return brandId
+        return modelEntity
     }
 
     fun deleteAllTextField() {
@@ -296,11 +241,21 @@ class NewItemViewModel @Inject constructor(
     }
 
     private fun createProductId(brandId: String, modelId: String, categoryId: String): String {
-        return brandId + productIdSeparator + categoryId + productIdSeparator + modelId
+        return StringBuilder()
+            .append(brandId)
+            .append(productIdSeparator)
+            .append(categoryId)
+            .append(productIdSeparator)
+            .append(modelId)
+            .toString()
     }
 
     private fun createProductName(brand : String, model : String) : String{
-        return "$brand $model";
+        return StringBuilder()
+            .append(brand)
+            .append(" ")
+            .append(model)
+            .toString()
     }
 
     fun updateWarehouseTFValue(value : String){

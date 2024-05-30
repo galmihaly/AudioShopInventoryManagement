@@ -1,16 +1,14 @@
 package com.example.audioshopinventorymanagement.di
 
 import android.content.Context
-import androidx.datastore.core.DataStore
 import androidx.room.Room
-import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
-import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepositoryImpl
-import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokens
-import com.example.audioshopinventorymanagement.room.ProductDAO
+import com.example.audioshopinventorymanagement.room.daos.ProductDAO
 import com.example.audioshopinventorymanagement.room.ProductDatabase
-import com.example.audioshopinventorymanagement.room.ProductDatabaseRepository
-import com.example.audioshopinventorymanagement.room.ProductDatabaseRepositoryImpl
-import com.example.audioshopinventorymanagement.room.ProductEntity
+import com.example.audioshopinventorymanagement.room.daos.BrandDAO
+import com.example.audioshopinventorymanagement.room.daos.CategoryDAO
+import com.example.audioshopinventorymanagement.room.daos.ModelDAO
+import com.example.audioshopinventorymanagement.room.repositories.ProductDatabaseRepository
+import com.example.audioshopinventorymanagement.room.repositories.ProductDatabaseRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,11 +36,26 @@ class RoomProvider {
     @Provides
     fun provideProductDatabaseRepository(
         productDAO: ProductDAO,
+        brandDAO: BrandDAO,
+        categoryDAO: CategoryDAO,
+        modelDAO: ModelDAO,
     ) : ProductDatabaseRepository {
-        return ProductDatabaseRepositoryImpl(productDAO)
+        return ProductDatabaseRepositoryImpl(productDAO, brandDAO, categoryDAO, modelDAO)
     }
 
     @Singleton
     @Provides
     fun provideProductDAO(db : ProductDatabase) = db.getProductDAO()
+
+    @Singleton
+    @Provides
+    fun provideBrandDAO(db : ProductDatabase) = db.getBrandDAO()
+
+    @Singleton
+    @Provides
+    fun provideCategoryDAO(db : ProductDatabase) = db.getCategoryDAO()
+
+    @Singleton
+    @Provides
+    fun provideModelDAO(db : ProductDatabase) = db.getModelDAO()
 }

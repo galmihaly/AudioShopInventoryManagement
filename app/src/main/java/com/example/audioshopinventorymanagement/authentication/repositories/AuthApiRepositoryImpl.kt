@@ -41,7 +41,7 @@ class AuthApiRepositoryImpl @Inject constructor(private val loginAuthAPI: LoginA
         }catch (e: Exception){
             when (e) {
                 is SocketTimeoutException -> {
-                    LoginApiResponse.Exception("Timeout - Please check your internet connection!")
+                    LoginApiResponse.Exception("Timeout - Please check your internet connection or the server!")
                 }
                 is UnknownHostException -> {
                     LoginApiResponse.Exception("Unable to make a connection. Please check your internet!")
