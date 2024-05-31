@@ -6,29 +6,94 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.room.entities.ProductEntity
-import com.example.audioshopinventorymanagement.ui.theme.Blue
+import com.example.audioshopinventorymanagement.ui.theme.BLUE
+import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
 object ProducListScreenComponents {
 
-
+    @Composable
+    fun MatchesTextAndSendButton(
+        text: String,
+        saveButtonFunction: () -> Unit,
+        buttonLogoId: Int,
+        buttonLogoHeight: Dp,
+        buttonLogoWidth: Dp,
+    ){
+        Box(
+            modifier = Modifier
+                .fillMaxWidth().height(80.dp)
+                .padding(vertical = 15.dp)
+        ){
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Absolute.SpaceBetween
+            ) {
+                Box(
+                    modifier = Modifier.wrapContentWidth().fillMaxHeight(),
+                    contentAlignment = Alignment.CenterStart
+                ){
+                    Text(
+                        text = text,
+                        color = Color.White,
+                        fontFamily = CustomFonts.RobotoMono_Regular
+                    )
+                }
+                Box(
+                    modifier = Modifier.wrapContentWidth().fillMaxHeight(),
+                    contentAlignment = Alignment.CenterStart
+                ){
+                    Button(
+                        onClick = saveButtonFunction,
+                        shape = RoundedCornerShape(10.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = BLUE
+                        ),
+                        modifier = Modifier
+                            .width(100.dp)
+                            .height(40.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = buttonLogoId),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .height(buttonLogoHeight)
+                                .width(buttonLogoWidth)
+                        )
+                    }
+                }
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true, device = Devices.PIXEL_2)
@@ -71,7 +136,7 @@ fun previewComponent(){
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
-                        backgroundColor = Blue,
+                        backgroundColor = BLUE,
                         onClick = {}
                     )
                     AllViewComponents.NavigationButtons(
@@ -102,10 +167,16 @@ fun previewComponent(){
                 AllViewComponents.SearchField(
                     value = "Search",
                     textFieldValue = "",
-                    onValueChange = {},
+                    textChangeFunction = {},
                     deleteValueChange = {}
                 )
-                AllViewComponents.MatchesText(text = "All Matches: " + "12345")
+                ProducListScreenComponents.MatchesTextAndSendButton(
+                    text = "All Matches: " + "12345",
+                    saveButtonFunction = {},
+                    buttonLogoId = R.drawable.send_cube,
+                    buttonLogoWidth = 40.dp,
+                    buttonLogoHeight = 40.dp
+                )
                 AllViewComponents.ItemCard(
                     cardNumber = 1,
                     cardProduct = ProductEntity(),

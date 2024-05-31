@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.ui.theme.Blue
+import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
@@ -73,7 +73,7 @@ fun ProductListScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
-                        backgroundColor = Blue,
+                        backgroundColor = BLUE,
                         onClick = { viewModel.onNavigateToNewItemScreen() }
                     )
                     AllViewComponents.NavigationButtons(
@@ -104,10 +104,16 @@ fun ProductListScreen(
                 AllViewComponents.SearchField(
                     value = "Search",
                     textFieldValue = searchFieldValue,
-                    onValueChange = {},
-                    deleteValueChange = {}
+                    textChangeFunction = { viewModel.filterListBySearchValue(it) },
+                    deleteValueChange = { viewModel.filterListBySearchValue("") }
                 )
-                AllViewComponents.MatchesText(text = "All Matches: $allMatches")
+                ProducListScreenComponents.MatchesTextAndSendButton(
+                    text = "All Matches: $allMatches",
+                    saveButtonFunction = { viewModel.sendListToApi() },
+                    buttonLogoId = R.drawable.send_cube,
+                    buttonLogoWidth = 40.dp,
+                    buttonLogoHeight = 40.dp
+                )
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                 ) {

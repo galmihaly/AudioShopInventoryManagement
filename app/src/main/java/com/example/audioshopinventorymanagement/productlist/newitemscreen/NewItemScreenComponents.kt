@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.ui.theme.Blue
+import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.DARK_GRAY
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
@@ -332,7 +332,7 @@ fun previewComponent(){
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
-                        backgroundColor = Blue,
+                        backgroundColor = BLUE,
                         onClick = {}
                     )
                     AllViewComponents.NavigationButtons(

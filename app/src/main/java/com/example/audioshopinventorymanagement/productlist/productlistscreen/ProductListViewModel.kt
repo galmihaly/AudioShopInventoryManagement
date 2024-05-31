@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryDetails
-import com.example.audioshopinventorymanagement.authentication.responses.ModelDetails
 import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
@@ -147,7 +146,8 @@ class ProductListViewModel @Inject constructor(
 
             _viewState.update {
                 it.copy(
-                    productList = productList
+                    productList = productList,
+                    allMatches = productList.size
                 )
             }
         }
@@ -161,7 +161,8 @@ class ProductListViewModel @Inject constructor(
 
             _viewState.update {
                 it.copy(
-                    productList = productList
+                    productList = productList,
+                    allMatches = productList.size
                 )
             }
         }
@@ -173,7 +174,8 @@ class ProductListViewModel @Inject constructor(
 
             _viewState.update {
                 it.copy(
-                    productList = mutableListOf()
+                    productList = mutableListOf(),
+                    allMatches = 0
                 )
             }
         }
@@ -210,6 +212,35 @@ class ProductListViewModel @Inject constructor(
                     isShowErrorDialog = false
                 )
             }
+        }
+    }
+
+    fun filterListBySearchValue(newSearchText: String) {
+        viewModelScope.launch {
+            _viewState.update {
+                it.copy(
+                    searchFieldValue = newSearchText
+                )
+            }
+
+            val productList = productDatabaseRepository.getAllProducts()
+
+            val searchedProductList = productList.filter {
+                it.barcode!!.startsWith(newSearchText)
+            }.toMutableList()
+
+            _viewState.update {
+                it.copy(
+                    productList = searchedProductList,
+                    allMatches = searchedProductList.size
+                )
+            }
+        }
+    }
+
+    fun sendListToApi() {
+        viewModelScope.launch(Dispatchers.IO) {
+
         }
     }
 }

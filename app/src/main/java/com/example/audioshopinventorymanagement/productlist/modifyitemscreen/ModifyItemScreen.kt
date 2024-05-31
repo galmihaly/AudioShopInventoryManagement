@@ -23,9 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.loginscreen.LoginScreenComponents
 import com.example.audioshopinventorymanagement.productlist.newitemscreen.NewItemScreenComponents
-import com.example.audioshopinventorymanagement.ui.theme.Blue
+import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
@@ -93,7 +92,7 @@ fun ModifyItemScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
-                        backgroundColor = Blue,
+                        backgroundColor = BLUE,
                         onClick = { viewModel.saveChangesOnItem() }
                     )
                     AllViewComponents.NavigationButtons(
@@ -240,10 +239,13 @@ fun ModifyItemScreen(
             }
         }
 
-        LoginScreenComponents.ErrorDialog(
+        ModifyItemScreenComponents.ErrorDialog(
             isShowErrorDialog = isShowErrorDialog,
             dialogText = dialogText,
-            dialogDismissFunction = { viewModel.onDialogDismiss() }
+            readyButtonText = "YES",
+            cancelButtonText = "NO",
+            dialogDismissFunction = { viewModel.onDialogDismiss() },
+            navigateFunction = { viewModel.onNavigateBackToProductListScreen() }
         )
     }
 }

@@ -53,7 +53,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.audioshopinventorymanagement.room.entities.ProductEntity
-import com.example.audioshopinventorymanagement.ui.theme.Blue
+import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.DARK_GRAY
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
@@ -187,16 +187,18 @@ object AllViewComponents {
     }
 
     @Composable
-    fun SearchField(value: String, textFieldValue: String, onValueChange: () -> Unit, deleteValueChange: () -> Unit){
-
-        var textFieldState by remember { mutableStateOf(textFieldValue) }
-
+    fun SearchField(
+        value: String,
+        textFieldValue: String,
+        textChangeFunction : (String) -> Unit,
+        deleteValueChange: () -> Unit)
+    {
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 15.dp),
-            value = textFieldState,
-            onValueChange = { textFieldState = it },
+            value = textFieldValue,
+            onValueChange = textChangeFunction,
             label = {
                 Text(
                     text = value,
@@ -300,7 +302,7 @@ object AllViewComponents {
 
         var isExpanded by remember { mutableStateOf(expandedCard) }
 
-        val cardBorderIndicatorColor = if (isExpanded) Blue else GREEN
+        val cardBorderIndicatorColor = if (isExpanded) BLUE else GREEN
         val angle = if (isExpanded) 180f else 0f
 
         Card(
@@ -455,7 +457,7 @@ object AllViewComponents {
                                 modifier = Modifier.wrapContentSize(),
                                 shape = RectangleShape,
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = Blue
+                                    containerColor = BLUE
                                 )
                             ) {
                                 Icon(

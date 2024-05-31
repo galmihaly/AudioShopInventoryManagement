@@ -87,6 +87,7 @@ fun LoginScreen(
         LoginScreenComponents.ErrorDialog(
             isShowErrorDialog = isShowErrorDialog,
             dialogText = dialogText,
+            buttonText = "OK",
             dialogDismissFunction = { loginScreenViewModel.onErrorDialogDismiss() }
         )
     }

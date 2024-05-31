@@ -205,6 +205,7 @@ object LoginScreenComponents {
     fun ErrorDialog(
         isShowErrorDialog: Boolean,
         dialogText: String,
+        buttonText: String,
         dialogDismissFunction: () -> Unit,
     ) {
         if(isShowErrorDialog){
@@ -260,7 +261,7 @@ object LoginScreenComponents {
                                         .height(40.dp)
                                 ) {
                                     Text(
-                                        text = "OK",
+                                        text = buttonText,
                                         color = Color.White,
                                         textAlign = TextAlign.Center,
                                         fontFamily = CustomFonts.RobotoMono_Bold

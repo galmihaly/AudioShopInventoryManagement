@@ -217,7 +217,7 @@ class ModifyItemViewModel @Inject constructor(
             }
             else{
                 if(warehouseTFValue != products.warehouseId){
-                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
                     return@launch
                 }
             }
@@ -228,7 +228,7 @@ class ModifyItemViewModel @Inject constructor(
             }
             else{
                 if(storageTFValue != products.storageId){
-                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
                     return@launch
                 }
             }
@@ -239,7 +239,7 @@ class ModifyItemViewModel @Inject constructor(
             }
             else{
                 if(brandDDValue != products.brandName){
-                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
                     return@launch
                 }
             }
@@ -250,7 +250,7 @@ class ModifyItemViewModel @Inject constructor(
             }
             else{
                 if(categoryDDValue != products.categoryName){
-                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
                     return@launch
                 }
             }
@@ -261,7 +261,7 @@ class ModifyItemViewModel @Inject constructor(
             }
             else{
                 if(modelDDValue != products.modelName){
-                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
                     return@launch
                 }
             }
@@ -272,7 +272,7 @@ class ModifyItemViewModel @Inject constructor(
             }
             else{
                 if(barcodeTFValue != products.barcode){
-                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
                     return@launch
                 }
             }
@@ -283,7 +283,7 @@ class ModifyItemViewModel @Inject constructor(
             }
             else{
                 if(basePriceTFValue != products.basePrice){
-                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
                     return@launch
                 }
             }
@@ -294,7 +294,7 @@ class ModifyItemViewModel @Inject constructor(
             }
             else{
                 if(wholeSalePriceTFValue != products.wholeSalePrice){
-                    onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
                     return@launch
                 }
             }
@@ -548,6 +548,11 @@ class ModifyItemViewModel @Inject constructor(
 
     private fun onNavigateToProductListScreen() {
         appNavigator.tryNavigateTo(Destination.ProductListScreen.fullRoute)
+    }
+
+    fun onNavigateBackToProductListScreen() {
+        onDialogDismiss()
+        onNavigateToProductListScreen()
     }
 
     private fun onDialogShow(dialogText : String){

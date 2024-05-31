@@ -24,7 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.loginscreen.LoginScreenComponents
-import com.example.audioshopinventorymanagement.ui.theme.Blue
+import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
@@ -92,7 +92,7 @@ fun NewItemScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
-                        backgroundColor = Blue,
+                        backgroundColor = BLUE,
                         onClick = { viewModel.addItemToProductList() }
                     )
                     AllViewComponents.NavigationButtons(
@@ -242,6 +242,7 @@ fun NewItemScreen(
         LoginScreenComponents.ErrorDialog(
             isShowErrorDialog = isShowErrorDialog,
             dialogText = dialogText,
+            buttonText = "OK",
             dialogDismissFunction = { viewModel.onDialogDismiss() }
         )
     }
