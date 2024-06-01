@@ -55,11 +55,10 @@ object NewItemScreenComponents {
         textFieldValue: String,
         textChangeFunction : (String) -> Unit,
         keyboardType: KeyboardType,
+        isEnabled: Boolean,
+        colorBorderState: Color,
+        colorTextState: Color
     ){
-
-        val colorBorderTextField by remember { mutableStateOf(GREEN) }
-        val textColorState by remember { mutableStateOf(Color.White) }
-
         Column{
             Text(
                 text = text,
@@ -71,21 +70,22 @@ object NewItemScreenComponents {
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = textFieldValue,
+                enabled = isEnabled,
                 onValueChange = textChangeFunction ,
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = colorBorderTextField,
-                    unfocusedBorderColor = colorBorderTextField,
-                    focusedLabelColor = colorBorderTextField,
-                    cursorColor = colorBorderTextField,
-                    focusedTextColor = colorBorderTextField,
-                    unfocusedTextColor = colorBorderTextField,
-                    disabledBorderColor = colorBorderTextField,
-                    disabledLabelColor = colorBorderTextField,
-                    disabledTextColor = colorBorderTextField,
-                    unfocusedLabelColor = colorBorderTextField
+                    focusedBorderColor = colorBorderState,
+                    unfocusedBorderColor = colorBorderState,
+                    focusedLabelColor = colorBorderState,
+                    cursorColor = colorBorderState,
+                    focusedTextColor = colorBorderState,
+                    unfocusedTextColor = colorBorderState,
+                    disabledBorderColor = colorBorderState,
+                    disabledLabelColor = colorBorderState,
+                    disabledTextColor = colorBorderState,
+                    unfocusedLabelColor = colorBorderState
                 ),
                 textStyle = LocalTextStyle.current.copy(
-                    color = textColorState,
+                    color = colorTextState,
                     fontFamily = CustomFonts.RobotoMono_Regular
                 ),
                 singleLine = true,
@@ -196,10 +196,16 @@ object NewItemScreenComponents {
         textFieldValue1 : String,
         textChangeFunction1 : (String) -> Unit,
         keyboardType1: KeyboardType,
+        isEnabled1: Boolean,
+        colorBorderState1: Color,
+        colorTextState1: Color,
         textField2: String,
         textFieldValue2 : String,
         textChangeFunction2 : (String) -> Unit,
-        keyboardType2: KeyboardType
+        keyboardType2: KeyboardType,
+        isEnabled2: Boolean,
+        colorBorderState2: Color,
+        colorTextState2: Color,
     ){
         Row (horizontalArrangement = Arrangement.SpaceBetween)
         {
@@ -215,6 +221,9 @@ object NewItemScreenComponents {
                     textFieldValue = textFieldValue1,
                     textChangeFunction = textChangeFunction1,
                     keyboardType = keyboardType1,
+                    isEnabled = isEnabled1,
+                    colorBorderState = colorBorderState1,
+                    colorTextState = colorTextState1
                 )
             }
             Box(
@@ -229,6 +238,9 @@ object NewItemScreenComponents {
                     textFieldValue = textFieldValue2,
                     textChangeFunction = textChangeFunction2,
                     keyboardType = keyboardType2,
+                    isEnabled = isEnabled2,
+                    colorBorderState = colorBorderState2,
+                    colorTextState = colorTextState2
                 )
             }
         }
@@ -375,6 +387,9 @@ fun previewComponent(){
                             textFieldValue = "",
                             textChangeFunction = { },
                             keyboardType = KeyboardType.Text,
+                            isEnabled = false,
+                            colorBorderState = Color.Gray,
+                            colorTextState = Color.Gray
                         )
                     }
                     Box(
@@ -388,7 +403,10 @@ fun previewComponent(){
                             text = "Stock Identifier:",
                             textFieldValue = "",
                             textChangeFunction = { },
-                            keyboardType = KeyboardType.Text
+                            keyboardType = KeyboardType.Text,
+                            isEnabled = true,
+                            colorBorderState = GREEN,
+                            colorTextState = Color.White
                         )
                     }
                 }
@@ -444,6 +462,9 @@ fun previewComponent(){
                     textFieldValue = "",
                     textChangeFunction = {},
                     keyboardType = KeyboardType.Number,
+                    isEnabled = true,
+                    colorBorderState = GREEN,
+                    colorTextState = Color.White
                 )
                 Row (horizontalArrangement = Arrangement.SpaceBetween)
                 {
@@ -459,6 +480,9 @@ fun previewComponent(){
                             textFieldValue = "",
                             textChangeFunction = { },
                             keyboardType = KeyboardType.Number,
+                            isEnabled = true,
+                            colorBorderState = GREEN,
+                            colorTextState = Color.White
                         )
                     }
                     Box(
@@ -473,6 +497,9 @@ fun previewComponent(){
                             textFieldValue = "",
                             textChangeFunction = { },
                             keyboardType = KeyboardType.Number,
+                            isEnabled = true,
+                            colorBorderState = GREEN,
+                            colorTextState = Color.White
                         )
                     }
                 }

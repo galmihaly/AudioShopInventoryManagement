@@ -1,10 +1,13 @@
 package com.example.audioshopinventorymanagement.productlist.productlistscreen
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.auth0.android.jwt.JWT
 import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryDetails
 import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
+import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
 import com.example.audioshopinventorymanagement.room.entities.BrandEntity
@@ -24,7 +27,7 @@ import javax.inject.Inject
 class ProductListViewModel @Inject constructor(
     private val appNavigator: AppNavigator,
     private val productDatabaseRepository: ProductDatabaseRepository,
-    private val productApiRepository: ProductApiRepository,
+    private val productApiRepository: ProductApiRepository
 ) : ViewModel() {
 
     val navigationChannel = appNavigator.navigationChannel

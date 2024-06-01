@@ -3,7 +3,6 @@ package com.example.audioshopinventorymanagement.utils
 import java.util.regex.Pattern
 
 class Validator {
-
     companion object{
 
         //Password Validation Messages

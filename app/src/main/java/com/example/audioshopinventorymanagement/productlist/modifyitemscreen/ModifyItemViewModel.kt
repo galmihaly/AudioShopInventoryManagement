@@ -4,13 +4,16 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.auth0.android.jwt.JWT
 import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
 import com.example.audioshopinventorymanagement.authentication.responses.BrandDetails
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryDetails
 import com.example.audioshopinventorymanagement.authentication.responses.ModelDetails
 import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
+import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
+import com.example.audioshopinventorymanagement.productlist.productlistscreen.UserDetailsState
 import com.example.audioshopinventorymanagement.room.entities.BrandEntity
 import com.example.audioshopinventorymanagement.room.entities.CategoryEntity
 import com.example.audioshopinventorymanagement.room.entities.ModelEntity
@@ -28,13 +31,16 @@ import javax.inject.Inject
 class ModifyItemViewModel @Inject constructor(
     private val appNavigator: AppNavigator,
     private val databaseRepo: ProductDatabaseRepository,
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    private val jwtTokenRepository: JwtTokenRepository
 ) : ViewModel() {
 
     val navigationChannel = appNavigator.navigationChannel
 
     private val _viewState = MutableStateFlow(ModifyItemViewState())
     val viewState = _viewState.asStateFlow()
+
+    private val _userDetailsState = MutableStateFlow(UserDetailsState())
 
     private val arg = checkNotNull(savedStateHandle[Destination.ModifyItemSreenArguments.barcode.toString()] ?: "")
 
@@ -46,6 +52,7 @@ class ModifyItemViewModel @Inject constructor(
         getAllModel()
 
         getProductFromRoom()
+        getJwtTokenFromRepository()
     }
 
     private fun getProductFromRoom(){
@@ -75,7 +82,30 @@ class ModifyItemViewModel @Inject constructor(
         }
     }
 
-    //Át kell alakítani az egész adatbázist, minden értéket tárolni kell
+    private fun getJwtTokenFromRepository(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val tokens = jwtTokenRepository.getAccessJwt()
+            val token = JWT(tokens.accessToken)
+
+            val emailClaim = token.getClaim("email").asString()!!
+            val roleClaim = token.getClaim("role").asString()!!
+            val nameClaim = token.getClaim("name").asString()!!
+            val deviceActiveClaim = token.getClaim("device_active").asString()!!
+            val deviceIdClaim = token.getClaim("device_id").asString()!!
+            val warehouseIdClaim = token.getClaim("warehouse_id").asString()!!
+
+            _userDetailsState.update {
+                it.copy(
+                    email = emailClaim,
+                    role = roleClaim,
+                    name = nameClaim,
+                    deviceActive = deviceActiveClaim,
+                    deviceId = deviceIdClaim,
+                    warehouseId = warehouseIdClaim
+                )
+            }
+        }
+    }
 
     fun saveChangesOnItem(){
         viewModelScope.launch(Dispatchers.IO) {

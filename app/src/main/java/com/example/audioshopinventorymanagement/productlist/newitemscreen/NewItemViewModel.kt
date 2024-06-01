@@ -1,17 +1,21 @@
 package com.example.audioshopinventorymanagement.productlist.newitemscreen
 
+import android.util.Log
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
-import com.example.audioshopinventorymanagement.authentication.responses.CategoryDetails
-import com.example.audioshopinventorymanagement.authentication.responses.ModelDetails
+import com.auth0.android.jwt.JWT
+import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
+import com.example.audioshopinventorymanagement.productlist.productlistscreen.UserDetailsState
 import com.example.audioshopinventorymanagement.room.entities.BrandEntity
 import com.example.audioshopinventorymanagement.room.entities.CategoryEntity
 import com.example.audioshopinventorymanagement.room.entities.ModelEntity
 import com.example.audioshopinventorymanagement.room.repositories.ProductDatabaseRepository
 import com.example.audioshopinventorymanagement.room.entities.ProductEntity
+import com.example.audioshopinventorymanagement.ui.theme.GREEN
+import com.example.audioshopinventorymanagement.utils.Formatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,8 +28,9 @@ import javax.inject.Inject
 @HiltViewModel
 class NewItemViewModel @Inject constructor(
     private val appNavigator: AppNavigator,
-    private val productApiRepository: ProductApiRepository,
-    private val databaseRepo: ProductDatabaseRepository
+    private val databaseRepo: ProductDatabaseRepository,
+    private val jwtTokenRepository: JwtTokenRepository,
+    private val formatter: Formatter
 ) : ViewModel() {
 
     val navigationChannel = appNavigator.navigationChannel
@@ -33,9 +38,13 @@ class NewItemViewModel @Inject constructor(
     private val _viewState = MutableStateFlow(NewItemViewState())
     val viewState = _viewState.asStateFlow()
 
+    private val _userDetailsState = MutableStateFlow(UserDetailsState())
+
     private val productIdSeparator = '-'
 
     init {
+        getJwtTokenFromRepository()
+
         getAllBrand()
         getAllCategory()
         getAllModel()
@@ -55,8 +64,12 @@ class NewItemViewModel @Inject constructor(
 
             val basePriceTFValue = _viewState.value.basePriceTFValue
             val wholeSalePriceTFValue = _viewState.value.wholeSalePriceTFValue
-            val warehouseTFValue = _viewState.value.warehouseTFValue
             val storageTFValue = _viewState.value.storageTFValue
+
+            val userName = _userDetailsState.value.name
+            val userDeviceId = _userDetailsState.value.deviceId
+
+            val warehouseTFValue = _viewState.value.warehouseTFValue
 
             if (warehouseTFValue == "") {
                 onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
@@ -104,12 +117,12 @@ class NewItemViewModel @Inject constructor(
                 categoryName = categoryDetails.categoryName,
                 modelId = modelDetails.modelId,
                 modelName = modelDetails.modelName,
-                basePrice = basePriceTFValue,
-                wholeSalePrice = wholeSalePriceTFValue,
+                basePrice = formatter.formatPrice(basePriceTFValue),
+                wholeSalePrice = formatter.formatPrice(wholeSalePriceTFValue),
                 warehouseId = warehouseTFValue,
                 storageId = storageTFValue,
-                recorderName = "Tóth Elek",
-                deviceId = "ZTC-01",
+                recorderName = userName,
+                deviceId = userDeviceId,
                 barcode = barcodeTFValue
             )
 
@@ -120,6 +133,54 @@ class NewItemViewModel @Inject constructor(
             }
             else{
                 onDialogShow("The Product has already been added to list!")
+            }
+        }
+    }
+
+    private fun getJwtTokenFromRepository(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val tokens = jwtTokenRepository.getAccessJwt()
+            val token = JWT(tokens.accessToken)
+
+            val emailClaim = token.getClaim("email").asString()!!
+            val roleClaim = token.getClaim("role").asString()!!
+            val nameClaim = token.getClaim("name").asString()!!
+            val deviceActiveClaim = token.getClaim("device_active").asString()!!
+            val deviceIdClaim = token.getClaim("device_id").asString()!!
+            val warehouseIdClaim = token.getClaim("warehouse_id").asString()!!
+
+            _userDetailsState.update {
+                it.copy(
+                    email = emailClaim,
+                    role = roleClaim,
+                    name = nameClaim,
+                    deviceActive = deviceActiveClaim,
+                    deviceId = deviceIdClaim,
+                    warehouseId = warehouseIdClaim
+                )
+            }
+
+            if(roleClaim != "" && warehouseIdClaim != ""){
+                if(roleClaim == "ADMIN"){
+                    _viewState.update {
+                        it.copy(
+                            warehouseTFValue = warehouseIdClaim,
+                            warehouseTFIsEnabled = true,
+                            warehouseTFIsEnabledBorderColor = GREEN,
+                            warehouseTFIsEnabledTextColor = Color.White,
+                        )
+                    }
+                }
+                else if(roleClaim == "BLIND_INVENTORY"){
+                    _viewState.update {
+                        it.copy(
+                            warehouseTFValue = warehouseIdClaim,
+                            warehouseTFIsEnabled = false,
+                            warehouseTFIsEnabledBorderColor = Color.Gray,
+                            warehouseTFIsEnabledTextColor = Color.Gray,
+                        )
+                    }
+                }
             }
         }
     }

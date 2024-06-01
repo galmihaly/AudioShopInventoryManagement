@@ -11,7 +11,9 @@ import com.example.audioshopinventorymanagement.authentication.repositories.Prod
 import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepositoryImpl
 import com.example.audioshopinventorymanagement.authentication.responses.BrandListResponse
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
+import com.example.audioshopinventorymanagement.room.ProductDatabase
 import com.example.audioshopinventorymanagement.utils.ApiResponseDeserializer
+import com.example.audioshopinventorymanagement.utils.Formatter
 import com.example.audioshopinventorymanagement.utils.Network
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -26,6 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
 import javax.inject.Singleton
+import java.lang.StringBuilder
 
 
 @Module
@@ -196,5 +199,16 @@ class RetrofitProvider {
     ) : Network {
         return Network(context)
     }
+
+    @Provides
+    fun provideFormatter(
+        stringBuilder: StringBuilder
+    ) : Formatter {
+        return Formatter(stringBuilder)
+    }
+
+    @Singleton
+    @Provides
+    fun provideStringBuilder() = StringBuilder()
 }
 

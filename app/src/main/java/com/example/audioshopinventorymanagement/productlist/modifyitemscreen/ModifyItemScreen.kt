@@ -18,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -34,6 +35,10 @@ fun ModifyItemScreen(
     viewModel: ModifyItemViewModel = hiltViewModel()
 ) {
     val warehouseTFValue = viewModel.viewState.collectAsState().value.warehouseTFValue
+    val warehouseTFIsEnabled = viewModel.viewState.collectAsState().value.warehouseTFIsEnabled
+    val warehouseTFIsEnabledBorderColor = viewModel.viewState.collectAsState().value.warehouseTFIsEnabledBorderColor
+    val warehouseTFIsEnabledTextColor = viewModel.viewState.collectAsState().value.warehouseTFIsEnabledTextColor
+
     val storageTFValue = viewModel.viewState.collectAsState().value.storageTFValue
 
     val brandDDValue = viewModel.viewState.collectAsState().value.brandDDValue
@@ -135,6 +140,9 @@ fun ModifyItemScreen(
                             textFieldValue = warehouseTFValue,
                             textChangeFunction = { viewModel.updateWarehouseTFValue(it) },
                             keyboardType = KeyboardType.Text,
+                            isEnabled = warehouseTFIsEnabled,
+                            colorBorderState = warehouseTFIsEnabledBorderColor,
+                            colorTextState = warehouseTFIsEnabledTextColor
                         )
                     }
                     Box(
@@ -148,7 +156,10 @@ fun ModifyItemScreen(
                             text = "Storage Identifier:",
                             textFieldValue = storageTFValue,
                             textChangeFunction = { viewModel.updateStockTFValue(it) },
-                            keyboardType = KeyboardType.Text
+                            keyboardType = KeyboardType.Text,
+                            isEnabled = true,
+                            colorBorderState = GREEN,
+                            colorTextState = Color.White
                         )
                     }
                 }
@@ -204,6 +215,9 @@ fun ModifyItemScreen(
                     textFieldValue = barcodeTFValue,
                     textChangeFunction = { viewModel.updateBarcodeTFValue(it) },
                     keyboardType = KeyboardType.Number,
+                    isEnabled = true,
+                    colorBorderState = GREEN,
+                    colorTextState = Color.White
                 )
                 Row (horizontalArrangement = Arrangement.SpaceBetween)
                 {
@@ -218,7 +232,10 @@ fun ModifyItemScreen(
                             text = "Base Price:",
                             textFieldValue = basePriceTFValue,
                             textChangeFunction = { viewModel.updateBasePriceTFValue(it) },
-                            keyboardType = KeyboardType.Number
+                            keyboardType = KeyboardType.Number,
+                            isEnabled = true,
+                            colorBorderState = GREEN,
+                            colorTextState = Color.White
                         )
                     }
                     Box(
@@ -232,7 +249,10 @@ fun ModifyItemScreen(
                             text = "WholeSale Price:",
                             textFieldValue = wholeSalePriceTFValue,
                             textChangeFunction = { viewModel.updateWholeSalePriceTFValue(it) },
-                            keyboardType = KeyboardType.Number
+                            keyboardType = KeyboardType.Number,
+                            isEnabled = true,
+                            colorBorderState = GREEN,
+                            colorTextState = Color.White
                         )
                     }
                 }

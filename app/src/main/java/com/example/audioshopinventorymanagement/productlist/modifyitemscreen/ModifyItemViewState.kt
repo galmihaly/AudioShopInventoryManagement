@@ -1,14 +1,20 @@
 package com.example.audioshopinventorymanagement.productlist.modifyitemscreen
 
+import androidx.compose.ui.graphics.Color
 import com.example.audioshopinventorymanagement.authentication.responses.BrandDetails
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryDetails
 import com.example.audioshopinventorymanagement.authentication.responses.ModelDetails
 import com.example.audioshopinventorymanagement.room.entities.BrandEntity
 import com.example.audioshopinventorymanagement.room.entities.CategoryEntity
 import com.example.audioshopinventorymanagement.room.entities.ModelEntity
+import com.example.audioshopinventorymanagement.ui.theme.GREEN
 
 data class ModifyItemViewState(
     val warehouseTFValue : String = "",
+    val warehouseTFIsEnabled: Boolean = true,
+    val warehouseTFIsEnabledBorderColor: Color = GREEN,
+    val warehouseTFIsEnabledTextColor: Color = Color.White,
+
     val storageTFValue : String = "",
 
     val brandDDValue : String = "",

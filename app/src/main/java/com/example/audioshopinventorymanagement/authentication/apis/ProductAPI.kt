@@ -23,5 +23,5 @@ interface ProductAPI {
     suspend fun getAllModel(): Response<ModelListResponse>
 
     @POST("/api/product/save")
-    suspend fun sendProductList(@Body body: List<ProductRequest>)
+    suspend fun sendProductList(@Body body: List<ProductRequest>) : Response<String>
 }
