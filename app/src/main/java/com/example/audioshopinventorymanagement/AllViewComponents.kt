@@ -58,6 +58,7 @@ import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.DARK_GRAY
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
+import com.example.audioshopinventorymanagement.utils.Formatter
 
 object AllViewComponents {
     @Composable
@@ -398,14 +399,14 @@ object AllViewComponents {
                     )
                     TextRowToCard(
                         key = "Base Price:",
-                        value = cardProduct.basePrice.toString() + " Ft",
+                        value = Formatter.formatPrice(cardProduct.basePrice.toString())!!,
                         color = Color.White,
                         keyTextWeight = 0.9f,
                         valueStringTextWeight = 1.1f
                     )
                     TextRowToCard(
                         key = "WholeSale Price:",
-                        value = cardProduct.wholeSalePrice.toString() + " Ft",
+                        value = Formatter.formatPrice(cardProduct.wholeSalePrice.toString())!!,
                         color = Color.White,
                         keyTextWeight = 0.9f,
                         valueStringTextWeight = 1.1f

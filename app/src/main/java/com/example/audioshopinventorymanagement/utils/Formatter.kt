@@ -4,62 +4,47 @@ import java.lang.StringBuilder
 import java.util.regex.Pattern
 import javax.inject.Inject
 
-class Formatter @Inject constructor(
-    private val sb: StringBuilder
-) {
+class Formatter {
 
-    // Még ez nincs kész
+    companion object{
+        private val PRODUCTNAME_SEPARATOR = " "
+        private val PRICE_SEPARATOR = '.'
+        private val PRICE_FORINT = "Ft"
 
-    private val PRODUCTID_SEPARATOR = '-'
-    private val PRODUCTNAME_SEPARATOR = " "
-    private val PRICE_SEPARATOR = '.'
-    private val PRICE_FORINT = "Ft"
+        private val  NUMERIC_PATTERN: Pattern = Pattern.compile(
+            "-?[0-9]+(\\.[0-9]+)?"
+        )
 
-    private val  NUMERIC_PATTERN: Pattern = Pattern.compile(
-        "-?[0-9]+(\\.[0-9]+)?"
-    )
+        fun formatPrice(price: String) : String? {
+            if(price == "") return null
 
-    //ez még nem működik jól
-    fun formatPrice(price: String) : String? {
-        if(price == "") return null
+            val sb = StringBuilder(price)
 
-        var result = ""
-        if(NUMERIC_PATTERN.matcher(price).matches()){
-            val s = sb.append(price)
-            if(s.length > 3){
-                result = s
-                    .insert(2, PRICE_SEPARATOR)
-                    .toString()
+            var result = ""
+            if(NUMERIC_PATTERN.matcher(sb.toString()).matches()){
+                if(sb.length in 4..6){
+                    sb
+                        .insert(sb.length - 3, PRICE_SEPARATOR)
+                        .toString();
+                }
+                else if(sb.length in 7..9){
+                    sb
+                        .insert(sb.length - 3, PRICE_SEPARATOR)
+                        .insert(sb.length - 7, PRICE_SEPARATOR)
+                        .toString();
+                }
+                else if(sb.length in 12..14){
+                    sb
+                        .insert(sb.length - 3, PRICE_SEPARATOR)
+                        .insert(sb.length - 7, PRICE_SEPARATOR)
+                        .insert(sb.length - 11, PRICE_SEPARATOR)
+                        .toString();
+                }
             }
-            else if(s.length > 6){
-                result = s
-                    .insert(2, PRICE_SEPARATOR)
-                    .insert(4, PRICE_SEPARATOR)
-                    .toString()
-            }
+            return sb
+                .append(PRODUCTNAME_SEPARATOR)
+                .append(PRICE_FORINT)
+                .toString()
         }
-        return sb
-            .append(result)
-            .append(PRODUCTNAME_SEPARATOR)
-            .append(PRICE_FORINT)
-            .toString()
-    }
-
-    fun createProductId(brandId: String, modelId: String, categoryId: String): String {
-        return sb
-            .append(brandId)
-            .append(PRODUCTID_SEPARATOR)
-            .append(categoryId)
-            .append(PRODUCTID_SEPARATOR)
-            .append(modelId)
-            .toString()
-    }
-
-    fun createProductName(brand : String, model : String) : String{
-        return sb
-            .append(brand)
-            .append(PRODUCTNAME_SEPARATOR)
-            .append(model)
-            .toString()
     }
 }

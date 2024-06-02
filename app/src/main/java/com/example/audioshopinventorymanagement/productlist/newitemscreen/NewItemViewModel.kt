@@ -1,6 +1,5 @@
 package com.example.audioshopinventorymanagement.productlist.newitemscreen
 
-import android.util.Log
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,17 +11,15 @@ import com.example.audioshopinventorymanagement.productlist.productlistscreen.Us
 import com.example.audioshopinventorymanagement.room.entities.BrandEntity
 import com.example.audioshopinventorymanagement.room.entities.CategoryEntity
 import com.example.audioshopinventorymanagement.room.entities.ModelEntity
-import com.example.audioshopinventorymanagement.room.repositories.ProductDatabaseRepository
 import com.example.audioshopinventorymanagement.room.entities.ProductEntity
+import com.example.audioshopinventorymanagement.room.repositories.ProductDatabaseRepository
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
-import com.example.audioshopinventorymanagement.utils.Formatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.lang.StringBuilder
 import javax.inject.Inject
 
 @HiltViewModel

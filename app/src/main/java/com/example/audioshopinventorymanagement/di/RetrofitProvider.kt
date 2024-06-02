@@ -199,16 +199,5 @@ class RetrofitProvider {
     ) : Network {
         return Network(context)
     }
-
-    @Provides
-    fun provideFormatter(
-        stringBuilder: StringBuilder
-    ) : Formatter {
-        return Formatter(stringBuilder)
-    }
-
-    @Singleton
-    @Provides
-    fun provideStringBuilder() = StringBuilder()
 }
 
