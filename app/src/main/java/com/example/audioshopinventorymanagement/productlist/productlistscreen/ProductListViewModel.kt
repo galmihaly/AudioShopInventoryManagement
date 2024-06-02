@@ -80,12 +80,10 @@ class ProductListViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val response = productApiRepository.getAllCategory()
 
-            var categoryList : List<CategoryDetails> = ArrayList()
-
             when (response){
                 is ProductApiResponse.CategorySuccess -> {
                     if(response.data.statusCode == 200){
-                        categoryList = response.data.categoryDetails!!
+                        val categoryList = response.data.categoryDetails!!
 
                         for (c in categoryList){
                             val existedCategoryEntity = productDatabaseRepository.getCategoryById(c.categoryId!!)

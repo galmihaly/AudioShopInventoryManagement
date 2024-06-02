@@ -74,8 +74,8 @@ class ModifyItemViewModel @Inject constructor(
                         categoryDDValue = product.categoryName!!,
                         modelDDValue = product.modelName!!,
                         barcodeTFValue = product.barcode!!,
-                        basePriceTFValue = product.basePrice!!,
-                        wholeSalePriceTFValue = product.wholeSalePrice!!
+                        basePriceTFValue = product.basePrice.toString(),
+                        wholeSalePriceTFValue = product.wholeSalePrice.toString()
                     )
                 }
             }
@@ -196,7 +196,7 @@ class ModifyItemViewModel @Inject constructor(
                 return@launch
             }
             else{
-                if(basePriceTFValue != products.basePrice){
+                if(basePriceTFValue != products.basePrice.toString()){
                     databaseRepo.updateBasePrice(products.barcode, basePriceTFValue)
                 }
             }
@@ -206,7 +206,7 @@ class ModifyItemViewModel @Inject constructor(
                 return@launch
             }
             else{
-                if(wholeSalePriceTFValue != products.wholeSalePrice){
+                if(wholeSalePriceTFValue != products.wholeSalePrice.toString()){
                     databaseRepo.updateWholeSalePrice(products.barcode, wholeSalePriceTFValue)
                 }
             }
@@ -312,7 +312,7 @@ class ModifyItemViewModel @Inject constructor(
                 return@launch
             }
             else{
-                if(basePriceTFValue != products.basePrice){
+                if(basePriceTFValue != products.basePrice.toString()){
                     onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
                     return@launch
                 }
@@ -323,7 +323,7 @@ class ModifyItemViewModel @Inject constructor(
                 return@launch
             }
             else{
-                if(wholeSalePriceTFValue != products.wholeSalePrice){
+                if(wholeSalePriceTFValue != products.wholeSalePrice.toString()){
                     onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
                     return@launch
                 }

@@ -36,10 +36,10 @@ data class ProductEntity(
     val modelName: String? = "",
 
     @ColumnInfo(name = "base_price")
-    val basePrice: String? = "",
+    val basePrice: Int = 0,
 
     @ColumnInfo(name = "wholesale_price")
-    val wholeSalePrice: String? = "",
+    val wholeSalePrice: Int = 0,
 
     @ColumnInfo(name = "warehouse_id")
     val warehouseId: String? = "",

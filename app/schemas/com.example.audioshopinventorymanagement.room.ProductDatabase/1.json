@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "50cb93f9450e596511e04cfc9545a52d",
+    "identityHash": "f1846bb1fb0057dca276ef43cd57a13f",
     "entities": [
       {
         "tableName": "Products",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `product_id` TEXT, `product_name` TEXT, `brand_id` TEXT, `brand_name` TEXT, `category_id` TEXT, `category_name` TEXT, `model_id` TEXT, `model_name` TEXT, `base_price` TEXT, `wholesale_price` TEXT, `warehouse_id` TEXT, `storage_id` TEXT, `recorder_name` TEXT, `device_id` TEXT, `barcode` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `product_id` TEXT, `product_name` TEXT, `brand_id` TEXT, `brand_name` TEXT, `category_id` TEXT, `category_name` TEXT, `model_id` TEXT, `model_name` TEXT, `base_price` INTEGER NOT NULL, `wholesale_price` INTEGER NOT NULL, `warehouse_id` TEXT, `storage_id` TEXT, `recorder_name` TEXT, `device_id` TEXT, `barcode` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -65,14 +65,14 @@
           {
             "fieldPath": "basePrice",
             "columnName": "base_price",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "wholeSalePrice",
             "columnName": "wholesale_price",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "warehouseId",
@@ -214,7 +214,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '50cb93f9450e596511e04cfc9545a52d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f1846bb1fb0057dca276ef43cd57a13f')"
     ]
   }
 }

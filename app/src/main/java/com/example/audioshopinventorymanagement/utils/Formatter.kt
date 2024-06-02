@@ -8,6 +8,8 @@ class Formatter @Inject constructor(
     private val sb: StringBuilder
 ) {
 
+    // Még ez nincs kész
+
     private val PRODUCTID_SEPARATOR = '-'
     private val PRODUCTNAME_SEPARATOR = " "
     private val PRICE_SEPARATOR = '.'
@@ -54,7 +56,7 @@ class Formatter @Inject constructor(
     }
 
     fun createProductName(brand : String, model : String) : String{
-        return StringBuilder()
+        return sb
             .append(brand)
             .append(PRODUCTNAME_SEPARATOR)
             .append(model)

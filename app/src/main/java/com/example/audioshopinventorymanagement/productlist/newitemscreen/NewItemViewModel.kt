@@ -29,8 +29,7 @@ import javax.inject.Inject
 class NewItemViewModel @Inject constructor(
     private val appNavigator: AppNavigator,
     private val databaseRepo: ProductDatabaseRepository,
-    private val jwtTokenRepository: JwtTokenRepository,
-    private val formatter: Formatter
+    private val jwtTokenRepository: JwtTokenRepository
 ) : ViewModel() {
 
     val navigationChannel = appNavigator.navigationChannel
@@ -117,8 +116,8 @@ class NewItemViewModel @Inject constructor(
                 categoryName = categoryDetails.categoryName,
                 modelId = modelDetails.modelId,
                 modelName = modelDetails.modelName,
-                basePrice = formatter.formatPrice(basePriceTFValue),
-                wholeSalePrice = formatter.formatPrice(wholeSalePriceTFValue),
+                basePrice = basePriceTFValue.toInt(),
+                wholeSalePrice = wholeSalePriceTFValue.toInt(),
                 warehouseId = warehouseTFValue,
                 storageId = storageTFValue,
                 recorderName = userName,
