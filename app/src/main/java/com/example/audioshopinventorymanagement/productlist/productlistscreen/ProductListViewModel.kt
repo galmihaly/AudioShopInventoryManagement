@@ -1,10 +1,14 @@
 package com.example.audioshopinventorymanagement.productlist.productlistscreen
 
 import android.util.Log
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.JWT
 import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
+import com.example.audioshopinventorymanagement.authentication.requests.ProductRequest
+import com.example.audioshopinventorymanagement.authentication.requests.SaveProductListRequest
+import com.example.audioshopinventorymanagement.authentication.requests.SaveProductRequest
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryDetails
 import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
@@ -15,6 +19,7 @@ import com.example.audioshopinventorymanagement.room.entities.CategoryEntity
 import com.example.audioshopinventorymanagement.room.entities.ModelEntity
 import com.example.audioshopinventorymanagement.room.repositories.ProductDatabaseRepository
 import com.example.audioshopinventorymanagement.room.entities.ProductEntity
+import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,7 +32,8 @@ import javax.inject.Inject
 class ProductListViewModel @Inject constructor(
     private val appNavigator: AppNavigator,
     private val productDatabaseRepository: ProductDatabaseRepository,
-    private val productApiRepository: ProductApiRepository
+    private val productApiRepository: ProductApiRepository,
+    private val jwtTokenRepository: JwtTokenRepository
 ) : ViewModel() {
 
     val navigationChannel = appNavigator.navigationChannel
@@ -35,12 +41,40 @@ class ProductListViewModel @Inject constructor(
     private val _viewState = MutableStateFlow(ProductViewState())
     val viewState = _viewState.asStateFlow()
 
+    private val _userDetailsState = MutableStateFlow(UserDetailsState())
+
     init {
         getProductListFromRoom()
+        getJwtTokenFromRepository()
 
         getAllBrandFromApi()
         getAllCategoryFromApi()
         getAllModelFromApi()
+    }
+
+    private fun getJwtTokenFromRepository(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val tokens = jwtTokenRepository.getAccessJwt()
+            val token = JWT(tokens.accessToken)
+
+            val emailClaim = token.getClaim("email").asString()!!
+            val roleClaim = token.getClaim("role").asString()!!
+            val nameClaim = token.getClaim("username").asString()!!
+            val deviceActiveClaim = token.getClaim("device_active").asString()!!
+            val deviceIdClaim = token.getClaim("device_id").asString()!!
+            val warehouseIdClaim = token.getClaim("warehouse_id").asString()!!
+
+            _userDetailsState.update {
+                it.copy(
+                    email = emailClaim,
+                    role = roleClaim,
+                    name = nameClaim,
+                    deviceActive = deviceActiveClaim,
+                    deviceId = deviceIdClaim,
+                    warehouseId = warehouseIdClaim
+                )
+            }
+        }
     }
 
     private fun getAllBrandFromApi(){
@@ -141,6 +175,83 @@ class ProductListViewModel @Inject constructor(
         }
     }
 
+    fun filterListBySearchValue(newSearchText: String) {
+        viewModelScope.launch {
+            _viewState.update {
+                it.copy(
+                    searchFieldValue = newSearchText
+                )
+            }
+
+            val productList = productDatabaseRepository.getAllProducts()
+
+            val searchedProductList = productList.filter {
+                it.barcode!!.startsWith(newSearchText)
+            }.toMutableList()
+
+            _viewState.update {
+                it.copy(
+                    productList = searchedProductList,
+                    allMatches = searchedProductList.size
+                )
+            }
+        }
+    }
+
+    fun sendListToApi() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val currentProductList = _viewState.value.productList
+            val requestProductList : MutableList<SaveProductRequest> = mutableListOf()
+
+            for (p in currentProductList){
+                requestProductList.add(SaveProductRequest(
+                    brandId = p.brandId,
+                    categoryId = p.categoryId,
+                    modelId = p.modelId,
+                    warehouseId = p.warehouseId,
+                    storageId = p.storageId,
+                    basePrice = p.basePrice,
+                    wholeSalePrice = p.wholeSalePrice,
+                    barcode = p.barcode
+                ))
+            }
+
+            val request = SaveProductListRequest(
+                userName = _userDetailsState.value.name,
+                deviceId = _userDetailsState.value.deviceId,
+                productList = requestProductList
+            )
+
+            val response = productApiRepository.sendProductList(request)
+
+            when (response){
+                is ProductApiResponse.ProductSuccess -> {
+                    if(response.data.statusCode == 200){
+                        onDialogShow("Save Products is success!")
+                        productDatabaseRepository.deleteAllProduct()
+                        _viewState.update {
+                            it.copy(
+                                productList = mutableListOf()
+                            )
+                        }
+                    }
+                }
+                is ProductApiResponse.ProductError -> {
+                    if(response.data.statusCode == 400){
+                        onDialogShow("Saving of the products is unsuccessful!")
+                    }
+                    else if(response.data.statusCode == 409){
+                        onDialogShow("Saving of the products is unsuccessful!")
+                    }
+                }
+                is ProductApiResponse.Exception -> {
+                    onDialogShow(response.exceptionMessage)
+                }
+                else -> {}
+            }
+        }
+    }
+
     private fun getProductListFromRoom(){
         viewModelScope.launch(Dispatchers.IO) {
             val productList = productDatabaseRepository.getAllProducts()
@@ -213,35 +324,6 @@ class ProductListViewModel @Inject constructor(
                     isShowErrorDialog = false
                 )
             }
-        }
-    }
-
-    fun filterListBySearchValue(newSearchText: String) {
-        viewModelScope.launch {
-            _viewState.update {
-                it.copy(
-                    searchFieldValue = newSearchText
-                )
-            }
-
-            val productList = productDatabaseRepository.getAllProducts()
-
-            val searchedProductList = productList.filter {
-                it.barcode!!.startsWith(newSearchText)
-            }.toMutableList()
-
-            _viewState.update {
-                it.copy(
-                    productList = searchedProductList,
-                    allMatches = searchedProductList.size
-                )
-            }
-        }
-    }
-
-    fun sendListToApi() {
-        viewModelScope.launch(Dispatchers.IO) {
-
         }
     }
 }

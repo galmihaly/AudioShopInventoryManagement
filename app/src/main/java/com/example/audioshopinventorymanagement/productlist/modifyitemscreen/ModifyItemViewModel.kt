@@ -89,7 +89,7 @@ class ModifyItemViewModel @Inject constructor(
 
             val emailClaim = token.getClaim("email").asString()!!
             val roleClaim = token.getClaim("role").asString()!!
-            val nameClaim = token.getClaim("name").asString()!!
+            val nameClaim = token.getClaim("username").asString()!!
             val deviceActiveClaim = token.getClaim("device_active").asString()!!
             val deviceIdClaim = token.getClaim("device_id").asString()!!
             val warehouseIdClaim = token.getClaim("warehouse_id").asString()!!

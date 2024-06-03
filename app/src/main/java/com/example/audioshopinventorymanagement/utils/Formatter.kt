@@ -5,7 +5,6 @@ import java.util.regex.Pattern
 import javax.inject.Inject
 
 class Formatter {
-
     companion object{
         private val PRODUCTNAME_SEPARATOR = " "
         private val PRICE_SEPARATOR = '.'
@@ -20,7 +19,6 @@ class Formatter {
 
             val sb = StringBuilder(price)
 
-            var result = ""
             if(NUMERIC_PATTERN.matcher(sb.toString()).matches()){
                 if(sb.length in 4..6){
                     sb

@@ -3,6 +3,8 @@ package com.example.audioshopinventorymanagement.authentication.repositories
 import android.util.Log
 import com.example.audioshopinventorymanagement.authentication.apis.ProductAPI
 import com.example.audioshopinventorymanagement.authentication.requests.ProductRequest
+import com.example.audioshopinventorymanagement.authentication.requests.SaveProductListRequest
+import com.example.audioshopinventorymanagement.authentication.responses.BaseResponse
 import com.example.audioshopinventorymanagement.authentication.responses.BrandDetails
 import com.example.audioshopinventorymanagement.authentication.responses.BrandListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryListResponse
@@ -103,31 +105,31 @@ class ProductApiRepositoryImpl @Inject constructor(private val productAPI: Produ
         }
     }
 
-    /*override suspend fun sendProductList(productList : List<ProductRequest>): ProductApiResponse {
+    override suspend fun sendProductList(request: SaveProductListRequest): ProductApiResponse {
         return try {
-            val response = productAPI.sendProductList(productList)
+            val response = productAPI.sendProductList(request)
+
             val body = response.body()
             val errorBody = response.errorBody()
             val responseCode = response.code()
 
             if (response.isSuccessful && body != null){
-                ProductApiResponse.ModelSuccess(body)
+                ProductApiResponse.ProductSuccess(body)
             }
-            else if(responseCode == 401 && errorBody != null)
+            else if(errorBody != null)
             {
-                //Deserialize the ErrorResponse Body
                 val gson = Gson()
-                val type = object : TypeToken<ModelListResponse>() {}.type
-                val errorResponse: ModelListResponse = gson.fromJson(errorBody.charStream(), type)
-                ProductApiResponse.ModelError(errorResponse)
+                val type = object : TypeToken<BaseResponse>() {}.type
+                val errorResponse: BaseResponse = gson.fromJson(errorBody.charStream(), type)
+                ProductApiResponse.ProductError(errorResponse)
             }
             else{
-                ProductApiResponse.ModelError(body!!)
+                ProductApiResponse.ProductError(body!!)
             }
         }catch (e: Exception){
             getExceptionMessage(e)
         }
-    }*/
+    }
 
     private fun getExceptionMessage(e : Exception) : ProductApiResponse {
         return when (e) {

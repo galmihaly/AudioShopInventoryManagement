@@ -2,6 +2,8 @@ package com.example.audioshopinventorymanagement.authentication.apis
 
 import com.example.audioshopinventorymanagement.authentication.requests.LoginAuthRequest
 import com.example.audioshopinventorymanagement.authentication.requests.ProductRequest
+import com.example.audioshopinventorymanagement.authentication.requests.SaveProductListRequest
+import com.example.audioshopinventorymanagement.authentication.responses.BaseResponse
 import com.example.audioshopinventorymanagement.authentication.responses.BrandListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.LoginAuthResponse
@@ -23,5 +25,5 @@ interface ProductAPI {
     suspend fun getAllModel(): Response<ModelListResponse>
 
     @POST("/api/product/save")
-    suspend fun sendProductList(@Body body: List<ProductRequest>) : Response<String>
+    suspend fun sendProductList(@Body request: SaveProductListRequest) : Response<BaseResponse>
 }

@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
+import com.example.audioshopinventorymanagement.loginscreen.LoginScreenComponents
+import com.example.audioshopinventorymanagement.productlist.modifyitemscreen.ModifyItemScreenComponents
 import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
@@ -35,6 +37,9 @@ fun ProductListScreen(
     val searchFieldValue = viewModel.viewState.collectAsState().value.searchFieldValue
     val isExpandCard = viewModel.viewState.collectAsState().value.isExpandCard
     val allMatches = viewModel.viewState.collectAsState().value.allMatches
+
+    val isShowErrorDialog = viewModel.viewState.collectAsState().value.isShowErrorDialog
+    val dialogText = viewModel.viewState.collectAsState().value.textShowErrorDialog
 
     Scaffold (
         topBar = {
@@ -109,7 +114,7 @@ fun ProductListScreen(
                 )
                 ProducListScreenComponents.MatchesTextAndSendButton(
                     text = "All Matches: $allMatches",
-                    saveButtonFunction = { viewModel.sendListToApi() },
+                    sendButtonFunction = { viewModel.sendListToApi() },
                     buttonLogoId = R.drawable.send_cube,
                     buttonLogoWidth = 40.dp,
                     buttonLogoHeight = 40.dp
@@ -132,6 +137,13 @@ fun ProductListScreen(
                     }
                 }
             }
+
+            LoginScreenComponents.ErrorDialog(
+                isShowErrorDialog = isShowErrorDialog,
+                dialogText = dialogText,
+                buttonText = "OK",
+                dialogDismissFunction = { viewModel.onDialogDismiss() }
+            )
         }
     }
 }

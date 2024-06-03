@@ -44,7 +44,7 @@ object ProducListScreenComponents {
     @Composable
     fun MatchesTextAndSendButton(
         text: String,
-        saveButtonFunction: () -> Unit,
+        sendButtonFunction: () -> Unit,
         buttonLogoId: Int,
         buttonLogoHeight: Dp,
         buttonLogoWidth: Dp,
@@ -73,7 +73,7 @@ object ProducListScreenComponents {
                     contentAlignment = Alignment.CenterStart
                 ){
                     Button(
-                        onClick = saveButtonFunction,
+                        onClick = sendButtonFunction,
                         shape = RoundedCornerShape(10.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = BLUE
@@ -172,7 +172,7 @@ fun previewComponent(){
                 )
                 ProducListScreenComponents.MatchesTextAndSendButton(
                     text = "All Matches: " + "12345",
-                    saveButtonFunction = {},
+                    sendButtonFunction = {},
                     buttonLogoId = R.drawable.send_cube,
                     buttonLogoWidth = 40.dp,
                     buttonLogoHeight = 40.dp
