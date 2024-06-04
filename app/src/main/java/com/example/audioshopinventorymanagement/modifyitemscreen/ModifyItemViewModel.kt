@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.productlist.modifyitemscreen
+package com.example.audioshopinventorymanagement.modifyitemscreen
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
@@ -13,7 +13,7 @@ import com.example.audioshopinventorymanagement.authentication.responses.sealed.
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
-import com.example.audioshopinventorymanagement.productlist.productlistscreen.UserDetailsState
+import com.example.audioshopinventorymanagement.productlistscreen.UserDetailsState
 import com.example.audioshopinventorymanagement.room.entities.BrandEntity
 import com.example.audioshopinventorymanagement.room.entities.CategoryEntity
 import com.example.audioshopinventorymanagement.room.entities.ModelEntity

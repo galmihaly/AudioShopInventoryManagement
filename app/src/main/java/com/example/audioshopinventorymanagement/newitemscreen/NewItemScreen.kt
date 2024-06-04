@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.productlist.newitemscreen
+package com.example.audioshopinventorymanagement.newitemscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.productlist.newitemscreen
+package com.example.audioshopinventorymanagement.newitemscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -422,7 +422,13 @@ fun previewComponent(){
                         Column {
                             NewItemScreenComponents.ModifyDropDownMenu(
                                 text = "Brand:",
-                                dropdownList = listOf("Sennheiser HD 560s", "Bill Payment", "Recharges", "Outing", "Other"),
+                                dropdownList = listOf(
+                                    "Sennheiser HD 560s",
+                                    "Bill Payment",
+                                    "Recharges",
+                                    "Outing",
+                                    "Other"
+                                ),
                                 currentText = "",
                                 expandedDropDown = false,
                                 expandedFunction = { },
@@ -440,7 +446,13 @@ fun previewComponent(){
                         Column {
                             NewItemScreenComponents.ModifyDropDownMenu(
                                 text = "Category:",
-                                dropdownList = listOf("Sennheiser HD 560s", "Bill Payment", "Recharges", "Outing", "Other"),
+                                dropdownList = listOf(
+                                    "Sennheiser HD 560s",
+                                    "Bill Payment",
+                                    "Recharges",
+                                    "Outing",
+                                    "Other"
+                                ),
                                 currentText = "",
                                 expandedDropDown = false,
                                 expandedFunction = { },
@@ -451,7 +463,13 @@ fun previewComponent(){
                 }
                 NewItemScreenComponents.ModifyDropDownMenu(
                     text = "Model:",
-                    dropdownList = listOf("Sennheiser HD 560s", "Bill Payment", "Recharges", "Outing", "Other"),
+                    dropdownList = listOf(
+                        "Sennheiser HD 560s",
+                        "Bill Payment",
+                        "Recharges",
+                        "Outing",
+                        "Other"
+                    ),
                     currentText = "",
                     expandedDropDown = false,
                     expandedFunction = { },

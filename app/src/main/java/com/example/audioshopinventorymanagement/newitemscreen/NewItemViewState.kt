@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.productlist.newitemscreen
+package com.example.audioshopinventorymanagement.newitemscreen
 
 import androidx.compose.ui.graphics.Color
 import com.example.audioshopinventorymanagement.room.entities.BrandEntity

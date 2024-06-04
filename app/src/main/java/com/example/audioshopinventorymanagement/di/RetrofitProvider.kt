@@ -9,12 +9,16 @@ import com.example.audioshopinventorymanagement.authentication.repositories.Auth
 import com.example.audioshopinventorymanagement.authentication.repositories.AuthApiRepositoryImpl
 import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
 import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepositoryImpl
+import com.example.audioshopinventorymanagement.authentication.responses.BaseResponse
 import com.example.audioshopinventorymanagement.authentication.responses.BrandListResponse
+import com.example.audioshopinventorymanagement.authentication.responses.CategoryListResponse
+import com.example.audioshopinventorymanagement.authentication.responses.ModelListResponse
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.room.ProductDatabase
 import com.example.audioshopinventorymanagement.utils.ApiResponseDeserializer
 import com.example.audioshopinventorymanagement.utils.Formatter
 import com.example.audioshopinventorymanagement.utils.Network
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -42,6 +46,29 @@ class RetrofitProvider {
         network: Network
     ): AccessTokenInterceptor {
         return AccessTokenInterceptor(jwtTokenRepository, network)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGson() : Gson {
+        return GsonBuilder()
+            .registerTypeAdapter(
+                BrandListResponse::class.java,
+                ApiResponseDeserializer(BrandListResponse::class.java)
+            )
+            .registerTypeAdapter(
+                CategoryListResponse::class.java,
+                ApiResponseDeserializer(CategoryListResponse::class.java)
+            )
+            .registerTypeAdapter(
+                ModelListResponse::class.java,
+                ApiResponseDeserializer(ModelListResponse::class.java)
+            )
+            .registerTypeAdapter(
+                BaseResponse::class.java,
+                ApiResponseDeserializer(BaseResponse::class.java)
+            )
+            .create()
     }
 
     /*@Singleton
@@ -74,28 +101,21 @@ class RetrofitProvider {
             .authenticator(authAuthenticator)
             .addInterceptor(loggingInterceptor)
             .addInterceptor(accessTokenInterceptor)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
             .build()
     }
+
 
     @Provides
     @Singleton
     fun provideUserApi(
-        @AuthenticatedClient okHttpClient: OkHttpClient
+        @AuthenticatedClient okHttpClient: OkHttpClient,
+        gson: Gson
     ): ProductAPI {
-
-        val gson = GsonBuilder()
-            .registerTypeAdapter(
-                BrandListResponse::class.java,
-                ApiResponseDeserializer(BrandListResponse::class.java)
-            )
-            .create()
-
         return Retrofit.Builder()
             .baseUrl("http://192.168.1.153:5255")
-            /*.addConverterFactory(GsonConverterFactory.create())*/
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
@@ -156,9 +176,9 @@ class RetrofitProvider {
 
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
             .build()
     }
 
@@ -194,6 +214,7 @@ class RetrofitProvider {
     }
 
     @Provides
+    @Singleton
     fun provideNetwork(
         @ApplicationContext context: Context
     ) : Network {

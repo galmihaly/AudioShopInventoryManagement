@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.productlist.modifyitemscreen
+package com.example.audioshopinventorymanagement.modifyitemscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.productlist.newitemscreen.NewItemScreenComponents
+import com.example.audioshopinventorymanagement.newitemscreen.NewItemScreenComponents
 import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN

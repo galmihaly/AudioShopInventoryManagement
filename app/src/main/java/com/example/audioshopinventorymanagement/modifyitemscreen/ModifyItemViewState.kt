@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.productlist.modifyitemscreen
+package com.example.audioshopinventorymanagement.modifyitemscreen
 
 import androidx.compose.ui.graphics.Color
 import com.example.audioshopinventorymanagement.authentication.responses.BrandDetails

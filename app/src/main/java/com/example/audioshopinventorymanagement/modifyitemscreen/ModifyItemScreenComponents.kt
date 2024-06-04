@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.productlist.modifyitemscreen
+package com.example.audioshopinventorymanagement.modifyitemscreen
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement

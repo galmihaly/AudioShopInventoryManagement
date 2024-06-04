@@ -43,10 +43,13 @@ class ApiResponseDeserializer<T>(private val responseType : Class<T>) : JsonDese
 
             response
         } catch (e: InstantiationException) {
+            Log.e("InstantiationException", e.message.toString())
             throw RuntimeException("Unable to create response object.", e)
         } catch (e: IllegalAccessException) {
+            Log.e("IllegalAccessException", e.message.toString())
             throw RuntimeException("Unable to create response object.", e)
         } catch (e: NoSuchMethodException) {
+            Log.e("NoSuchMethodException", e.message.toString())
             throw RuntimeException("Unable to create response object.", e)
         }
     }
@@ -109,7 +112,7 @@ class ApiResponseDeserializer<T>(private val responseType : Class<T>) : JsonDese
 
             categoryDetails.isJsonArray -> response.categoryDetails = context?.deserialize(
                 categoryDetails,
-                object : TypeToken<List<BrandDetails>>() {}.type
+                object : TypeToken<List<CategoryDetails>>() {}.type
             ) ?: emptyList()
 
             categoryDetails.isJsonObject -> {

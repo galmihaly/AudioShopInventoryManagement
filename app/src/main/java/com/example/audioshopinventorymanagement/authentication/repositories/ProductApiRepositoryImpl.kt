@@ -31,12 +31,11 @@ class ProductApiRepositoryImpl @Inject constructor(private val productAPI: Produ
 
             val body = response.body()
             val errorBody = response.errorBody()
-            val responseCode = response.code()
 
             if (response.isSuccessful && body != null){
                 ProductApiResponse.BrandSuccess(body)
             }
-            else if(responseCode == 401 && errorBody != null)
+            else if(errorBody != null)
             {
                 //Deserialize the ErrorResponse Body
                 val gson = Gson()
@@ -48,7 +47,6 @@ class ProductApiRepositoryImpl @Inject constructor(private val productAPI: Produ
                 ProductApiResponse.BrandError(body!!)
             }
         }catch (e: Exception){
-            Log.e("2", "2")
             getExceptionMessage(e)
         }
     }
@@ -58,12 +56,11 @@ class ProductApiRepositoryImpl @Inject constructor(private val productAPI: Produ
             val response = productAPI.getAllCategory()
             val body = response.body()
             val errorBody = response.errorBody()
-            val responseCode = response.code()
 
             if (response.isSuccessful && body != null){
                 ProductApiResponse.CategorySuccess(body)
             }
-            else if(responseCode == 401 && errorBody != null)
+            else if(errorBody != null)
             {
                 //Deserialize the ErrorResponse Body
                 val gson = Gson()
@@ -84,12 +81,11 @@ class ProductApiRepositoryImpl @Inject constructor(private val productAPI: Produ
             val response = productAPI.getAllModel()
             val body = response.body()
             val errorBody = response.errorBody()
-            val responseCode = response.code()
 
             if (response.isSuccessful && body != null){
                 ProductApiResponse.ModelSuccess(body)
             }
-            else if(responseCode == 401 && errorBody != null)
+            else if(errorBody != null)
             {
                 //Deserialize the ErrorResponse Body
                 val gson = Gson()
@@ -111,7 +107,6 @@ class ProductApiRepositoryImpl @Inject constructor(private val productAPI: Produ
 
             val body = response.body()
             val errorBody = response.errorBody()
-            val responseCode = response.code()
 
             if (response.isSuccessful && body != null){
                 ProductApiResponse.ProductSuccess(body)

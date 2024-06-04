@@ -7,21 +7,21 @@ data class ModelListResponse(
 
     @Required
     @SerializedName("timestamp")
-    var timeStamp: String?,
+    var timeStamp: String? = "",
 
     @Required
     @SerializedName("status_code")
-    var statusCode: Int?,
+    var statusCode: Int? = 0,
 
     @Required
     @SerializedName("message_type")
-    var messageType: String?,
+    var messageType: String? = "",
 
     @Required
     @SerializedName("message_body")
-    var messageBody: String?,
+    var messageBody: String? = "",
 
     @Required
     @SerializedName("models")
-    var modelDetails: List<ModelDetails>?
+    var modelDetails: List<ModelDetails>? = ArrayList()
 )

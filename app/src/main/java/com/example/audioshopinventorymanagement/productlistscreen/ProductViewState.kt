@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.productlist.productlistscreen
+package com.example.audioshopinventorymanagement.productlistscreen
 
 import com.example.audioshopinventorymanagement.room.entities.ProductEntity
 

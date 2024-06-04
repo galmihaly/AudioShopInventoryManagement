@@ -7,21 +7,21 @@ data class CategoryListResponse(
 
     @Required
     @SerializedName("timestamp")
-    var timeStamp: String?,
+    var timeStamp: String? = "",
 
     @Required
     @SerializedName("status_code")
-    var statusCode: Int?,
+    var statusCode: Int? = 0,
 
     @Required
     @SerializedName("message_type")
-    var messageType: String?,
+    var messageType: String? = "",
 
     @Required
     @SerializedName("message_body")
-    var messageBody: String?,
+    var messageBody: String? = "",
 
     @Required
     @SerializedName("categories")
-    var categoryDetails: List<CategoryDetails>?
+    var categoryDetails: List<CategoryDetails>? = ArrayList()
 )

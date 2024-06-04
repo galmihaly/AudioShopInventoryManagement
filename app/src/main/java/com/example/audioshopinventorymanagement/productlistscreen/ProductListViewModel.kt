@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.productlist.productlistscreen
+package com.example.audioshopinventorymanagement.productlistscreen
 
 import android.util.Log
 import androidx.compose.ui.graphics.Color
@@ -85,7 +85,6 @@ class ProductListViewModel @Inject constructor(
                 is ProductApiResponse.BrandSuccess -> {
                     if(response.data.statusCode == 200){
                         val brandList = response.data.brandDetails!!
-
                         for (b in brandList){
                             val existedBrandEntity = productDatabaseRepository.getBrandById(b.brandId!!)
                             if(existedBrandEntity == null){
@@ -118,7 +117,6 @@ class ProductListViewModel @Inject constructor(
                 is ProductApiResponse.CategorySuccess -> {
                     if(response.data.statusCode == 200){
                         val categoryList = response.data.categoryDetails!!
-
                         for (c in categoryList){
                             val existedCategoryEntity = productDatabaseRepository.getCategoryById(c.categoryId!!)
                             if(existedCategoryEntity == null){
@@ -201,53 +199,56 @@ class ProductListViewModel @Inject constructor(
     fun sendListToApi() {
         viewModelScope.launch(Dispatchers.IO) {
             val currentProductList = _viewState.value.productList
-            val requestProductList : MutableList<SaveProductRequest> = mutableListOf()
 
-            for (p in currentProductList){
-                requestProductList.add(SaveProductRequest(
-                    brandId = p.brandId,
-                    categoryId = p.categoryId,
-                    modelId = p.modelId,
-                    warehouseId = p.warehouseId,
-                    storageId = p.storageId,
-                    basePrice = p.basePrice,
-                    wholeSalePrice = p.wholeSalePrice,
-                    barcode = p.barcode
-                ))
-            }
+            if(currentProductList.size != 0){
+                val requestProductList : MutableList<SaveProductRequest> = mutableListOf()
 
-            val request = SaveProductListRequest(
-                userName = _userDetailsState.value.name,
-                deviceId = _userDetailsState.value.deviceId,
-                productList = requestProductList
-            )
+                for (p in currentProductList){
+                    requestProductList.add(SaveProductRequest(
+                        brandId = p.brandId,
+                        categoryId = p.categoryId,
+                        modelId = p.modelId,
+                        warehouseId = p.warehouseId,
+                        storageId = p.storageId,
+                        basePrice = p.basePrice,
+                        wholeSalePrice = p.wholeSalePrice,
+                        barcode = p.barcode
+                    ))
+                }
 
-            val response = productApiRepository.sendProductList(request)
+                val request = SaveProductListRequest(
+                    userName = _userDetailsState.value.name,
+                    deviceId = _userDetailsState.value.deviceId,
+                    productList = requestProductList
+                )
 
-            when (response){
-                is ProductApiResponse.ProductSuccess -> {
-                    if(response.data.statusCode == 200){
-                        onDialogShow("Save Products is success!")
-                        productDatabaseRepository.deleteAllProduct()
-                        _viewState.update {
-                            it.copy(
-                                productList = mutableListOf()
-                            )
+                val response = productApiRepository.sendProductList(request)
+
+                when (response){
+                    is ProductApiResponse.ProductSuccess -> {
+                        if(response.data.statusCode == 200){
+                            onDialogShow("Save Products is success!")
+                            productDatabaseRepository.deleteAllProduct()
+                            _viewState.update {
+                                it.copy(
+                                    productList = mutableListOf()
+                                )
+                            }
                         }
                     }
-                }
-                is ProductApiResponse.ProductError -> {
-                    if(response.data.statusCode == 400){
-                        onDialogShow("Saving of the products is unsuccessful!")
+                    is ProductApiResponse.ProductError -> {
+                        if(response.data.statusCode == 400){
+                            onDialogShow("Saving of the products is unsuccessful!")
+                        }
+                        else if(response.data.statusCode == 409){
+                            onDialogShow("Saving of the products is unsuccessful!")
+                        }
                     }
-                    else if(response.data.statusCode == 409){
-                        onDialogShow("Saving of the products is unsuccessful!")
+                    is ProductApiResponse.Exception -> {
+                        onDialogShow(response.exceptionMessage)
                     }
+                    else -> {}
                 }
-                is ProductApiResponse.Exception -> {
-                    onDialogShow(response.exceptionMessage)
-                }
-                else -> {}
             }
         }
     }
