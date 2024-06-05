@@ -4,6 +4,8 @@ import com.example.audioshopinventorymanagement.authentication.responses.BaseRes
 import com.example.audioshopinventorymanagement.authentication.responses.BrandListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.ModelListResponse
+import com.example.audioshopinventorymanagement.authentication.responses.StoragesListResponse
+import com.example.audioshopinventorymanagement.authentication.responses.WarehouseListResponse
 import kotlinx.coroutines.Deferred
 
 sealed class ProductApiResponse(){
@@ -15,5 +17,9 @@ sealed class ProductApiResponse(){
     class ModelError(val data: ModelListResponse) : ProductApiResponse()
     class ProductSuccess(val data: BaseResponse) : ProductApiResponse()
     class ProductError(val data: BaseResponse) : ProductApiResponse()
+    class WarehouseSuccess(val data: WarehouseListResponse) : ProductApiResponse()
+    class WarehouseError(val data: WarehouseListResponse) : ProductApiResponse()
+    class StoragesSuccess(val data: StoragesListResponse) : ProductApiResponse()
+    class StoragesError(val data: StoragesListResponse) : ProductApiResponse()
     class Exception(val exceptionMessage: String) : ProductApiResponse()
 }

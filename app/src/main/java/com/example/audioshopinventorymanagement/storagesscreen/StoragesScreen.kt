@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.categoriesscreen
+package com.example.audioshopinventorymanagement.storagesscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,25 +11,40 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
+import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
+import com.example.audioshopinventorymanagement.warehousesscreen.WareHousesScreenComponents
 
 @Composable
-fun CategoriesScreen(
-    categoriesScreenViewModel: CategoriesScreenViewModel = hiltViewModel()
+fun StoragesScreen(
+    viewModel: StoragesScreenViewModel = hiltViewModel()
 ) {
+    val storageListState = viewModel.viewState.collectAsState().value.storagesList
+    val currentCapacityColor = viewModel.viewState.collectAsState().value.currentCapacityColor
+    val maxCapacityColor = viewModel.viewState.collectAsState().value.maxCapacityColor
+
+    val isShowErrorDialog = viewModel.viewState.collectAsState().value.isShowErrorDialog
+    val dialogText = viewModel.viewState.collectAsState().value.textShowErrorDialog
+
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "Catgeroies",
+                headLineText = "Storages",
             )
         },
         bottomBar = {
@@ -54,7 +69,7 @@ fun CategoriesScreen(
                             .fillMaxSize()
                             .weight(1f),
                         backgroundColor = GREEN,
-                        onClick = { categoriesScreenViewModel.onNavigateToWareHousesScreen() }
+                        onClick = { viewModel.onNavigateToWareHousesScreen() }
                     )
                 }
             }
@@ -66,16 +81,25 @@ fun CategoriesScreen(
                 .background(LIGHT_GRAY)
                 .padding(paddingValues)
         ){
-            Column(
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 10.dp, vertical = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(15.dp),
+                horizontalArrangement = Arrangement.spacedBy(15.dp)
             ) {
-//                WareHousesScreenComponents.CategoryCard(
-//                    cardNumber = 1,
-//                    textValues = "",
-//                    onClick = {}
-//                )
+                itemsIndexed(storageListState) { index, storage ->
+                    val pIndex = index + 1
+
+                    StoragesScreenComponents.StorageCard(
+                        cardNumber = pIndex,
+                        cardStorage = storage,
+                        currentQuantityColor = currentCapacityColor,
+                        maxQuantityColor = maxCapacityColor,
+                        onClick = { /*viewModel.onNavigateToCategoriesScreen(warehouse.id!!) */},
+                    )
+                }
             }
         }
     }

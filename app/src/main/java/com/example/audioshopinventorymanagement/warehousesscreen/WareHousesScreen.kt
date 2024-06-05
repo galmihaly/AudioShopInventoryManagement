@@ -11,21 +11,31 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
+import com.example.audioshopinventorymanagement.loginscreen.LoginScreenComponents
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
 @Composable
 fun WareHousesScreen(
-    wareHousesScreenViewModel: WareHousesScreenViewModel = hiltViewModel()
+    viewModel: WareHousesScreenViewModel = hiltViewModel()
 ) {
+    val warehouseListState = viewModel.viewState.collectAsState().value.warehouseList
+
+    val isShowErrorDialog = viewModel.viewState.collectAsState().value.isShowErrorDialog
+    val dialogText = viewModel.viewState.collectAsState().value.textShowErrorDialog
+
+
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
@@ -54,7 +64,7 @@ fun WareHousesScreen(
                             .fillMaxSize()
                             .weight(1f),
                         backgroundColor = GREEN,
-                        onClick = { wareHousesScreenViewModel.onNavigateToStartScreen() }
+                        onClick = { viewModel.onNavigateToStartScreen() }
                     )
                 }
             }
@@ -66,17 +76,29 @@ fun WareHousesScreen(
                 .background(LIGHT_GRAY)
                 .padding(paddingValues)
         ){
-            Column(
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(10.dp),
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 10.dp, vertical = 20.dp),
+                    .padding(horizontal = 10.dp, vertical = 20.dp)
             ) {
-                WareHousesScreenComponents.WareHouseCard(
-                    cardNumber = 1,
-                    textValues = "",
-                    onClick = { wareHousesScreenViewModel.onNavigateToCategoriesScreen() },
-                )
+                itemsIndexed(warehouseListState) { index, warehouse ->
+                    val pIndex = index + 1
+
+                    WareHousesScreenComponents.WareHouseCard(
+                        cardNumber = pIndex,
+                        cardWarehouse = warehouse,
+                        onClick = { viewModel.onNavigateToCategoriesScreen(warehouse.id.toString()) },
+                    )
+                }
             }
         }
+
+        LoginScreenComponents.ErrorDialog(
+            isShowErrorDialog = isShowErrorDialog,
+            dialogText = dialogText,
+            buttonText = "OK",
+            dialogDismissFunction = { viewModel.onDialogDismiss() }
+        )
     }
 }

@@ -11,7 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.audioshopinventorymanagement.categoriesscreen.CategoriesScreen
+import com.example.audioshopinventorymanagement.storagesscreen.StoragesScreen
 import com.example.audioshopinventorymanagement.loginscreen.LoginScreen
 import com.example.audioshopinventorymanagement.modifyitemscreen.ModifyItemScreen
 import com.example.audioshopinventorymanagement.newitemscreen.NewItemScreen
@@ -58,8 +58,8 @@ fun Navigation (
                 composable(destination = Destination.NewItemScreen) {
                     NewItemScreen()
                 }
-                composable(destination = Destination.CategoriesScreen) {
-                    CategoriesScreen()
+                composable(destination = Destination.StoragesScreen) {
+                    StoragesScreen()
                 }
                 composable(destination = Destination.OneCategoryScreen) {
                     OneCategoryScreen()

@@ -10,27 +10,37 @@ sealed class Destination(protected val route: String, vararg params: String) {
         private const val PRODUCTSLISTSCREEN_ROUTE = "productlistscreen"
         private const val MODIFYITEMSCREEN_ROUTE = "modifyitemscreen"
         private const val NEWITEMSCREEN_ROUTE = "newitemscreen"
-        private const val CATEGORIESSCREEN_ROUTE = "categoriesscreen"
+        private const val STORAGESSCREEN_ROUTE = "storagesscreen"
         private const val ONECATEGORYSCREEN_ROUTE = "onecategoryscreen"
         private const val WAREHOUSESSCREEN_ROUTE = "warehousesscreen"
     }
 
-    object ModifyItemSreenArguments {
+    object ModifyItemScreenArguments {
         const val barcode = -1
+    }
+
+    object StocksScreenArguments {
+        const val warehouseId = -1
     }
 
     object LoginScreen : Destination(LOGINSCREEN_ROUTE)
     object StartScreen : Destination(STARTSCREEN_ROUTE)
     object ProductListScreen : Destination(PRODUCTSLISTSCREEN_ROUTE)
     object NewItemScreen : Destination(NEWITEMSCREEN_ROUTE)
-    object CategoriesScreen : Destination(CATEGORIESSCREEN_ROUTE)
     object OneCategoryScreen : Destination(ONECATEGORYSCREEN_ROUTE)
     object WareHousesScreen : Destination(WAREHOUSESSCREEN_ROUTE)
 
-    object ModifyItemScreen : Destination("$MODIFYITEMSCREEN_ROUTE/{${ModifyItemSreenArguments.barcode}}") {
+    object ModifyItemScreen : Destination("$MODIFYITEMSCREEN_ROUTE/{${ModifyItemScreenArguments.barcode}}") {
         fun passParameters(barcode: String): String {
             return this.route
-                .replace(oldValue = "{${ModifyItemSreenArguments.barcode}}", newValue = barcode)
+                .replace(oldValue = "{${ModifyItemScreenArguments.barcode}}", newValue = barcode)
+        }
+    }
+
+    object StoragesScreen : Destination("$STORAGESSCREEN_ROUTE/{${StocksScreenArguments.warehouseId}}") {
+        fun passParameters(warehouseId: String): String {
+            return this.route
+                .replace(oldValue = "{${StocksScreenArguments.warehouseId}}", newValue = warehouseId)
         }
     }
 }

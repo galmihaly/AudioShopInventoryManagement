@@ -1,29 +1,26 @@
 package com.example.audioshopinventorymanagement.authentication.repositories
 
-import android.util.Log
 import com.example.audioshopinventorymanagement.authentication.apis.ProductAPI
-import com.example.audioshopinventorymanagement.authentication.requests.ProductRequest
 import com.example.audioshopinventorymanagement.authentication.requests.SaveProductListRequest
 import com.example.audioshopinventorymanagement.authentication.responses.BaseResponse
-import com.example.audioshopinventorymanagement.authentication.responses.BrandDetails
 import com.example.audioshopinventorymanagement.authentication.responses.BrandListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryListResponse
-import com.example.audioshopinventorymanagement.authentication.responses.LoginAuthResponse
 import com.example.audioshopinventorymanagement.authentication.responses.ModelListResponse
-import com.example.audioshopinventorymanagement.authentication.responses.sealed.LoginApiResponse
+import com.example.audioshopinventorymanagement.authentication.responses.StoragesListResponse
+import com.example.audioshopinventorymanagement.authentication.responses.WarehouseListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.Deferred
 import okhttp3.internal.http2.ConnectionShutdownException
 import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import java.util.Arrays
 import javax.inject.Inject
 
-class ProductApiRepositoryImpl @Inject constructor(private val productAPI: ProductAPI) : ProductApiRepository {
+class ProductApiRepositoryImpl @Inject constructor(
+    private val productAPI: ProductAPI
+) : ProductApiRepository {
 
     override suspend fun getAllBrand(): ProductApiResponse {
         return try {
@@ -120,6 +117,56 @@ class ProductApiRepositoryImpl @Inject constructor(private val productAPI: Produ
             }
             else{
                 ProductApiResponse.ProductError(body!!)
+            }
+        }catch (e: Exception){
+            getExceptionMessage(e)
+        }
+    }
+
+    override suspend fun getAllWarehouse(): ProductApiResponse {
+        return try {
+            val response = productAPI.getAllWarehouse()
+
+            val body = response.body()
+            val errorBody = response.errorBody()
+
+            if (response.isSuccessful && body != null){
+                ProductApiResponse.WarehouseSuccess(body)
+            }
+            else if(errorBody != null)
+            {
+                val gson = Gson()
+                val type = object : TypeToken<WarehouseListResponse>() {}.type
+                val errorResponse: WarehouseListResponse = gson.fromJson(errorBody.charStream(), type)
+                ProductApiResponse.WarehouseError(errorResponse)
+            }
+            else{
+                ProductApiResponse.WarehouseError(body!!)
+            }
+        }catch (e: Exception){
+            getExceptionMessage(e)
+        }
+    }
+
+    override suspend fun getStoragesByWarehouseId(warehouseId: Int): ProductApiResponse {
+        return try {
+            val response = productAPI.getAllStoragesByWarehouseId(warehouseId)
+
+            val body = response.body()
+            val errorBody = response.errorBody()
+
+            if (response.isSuccessful && body != null){
+                ProductApiResponse.StoragesSuccess(body)
+            }
+            else if(errorBody != null)
+            {
+                val gson = Gson()
+                val type = object : TypeToken<StoragesListResponse>() {}.type
+                val errorResponse: StoragesListResponse = gson.fromJson(errorBody.charStream(), type)
+                ProductApiResponse.StoragesError(errorResponse)
+            }
+            else{
+                ProductApiResponse.StoragesError(body!!)
             }
         }catch (e: Exception){
             getExceptionMessage(e)

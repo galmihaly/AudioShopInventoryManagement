@@ -8,6 +8,10 @@ import com.example.audioshopinventorymanagement.authentication.responses.Categor
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.ModelDetails
 import com.example.audioshopinventorymanagement.authentication.responses.ModelListResponse
+import com.example.audioshopinventorymanagement.authentication.responses.StoragesDetails
+import com.example.audioshopinventorymanagement.authentication.responses.StoragesListResponse
+import com.example.audioshopinventorymanagement.authentication.responses.WarehouseDetails
+import com.example.audioshopinventorymanagement.authentication.responses.WarehouseListResponse
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
@@ -35,21 +39,23 @@ class ApiResponseDeserializer<T>(private val responseType : Class<T>) : JsonDese
                 is ModelListResponse -> {
                     setModelFields(response, jsonObject, context)
                 }
+                is WarehouseListResponse -> {
+                    setWarehouseFields(response, jsonObject, context)
+                }
+                is StoragesListResponse -> {
+                    setStoragesFields(response, jsonObject, context)
+                }
                 is BaseResponse -> {
-                    Log.e("a", jsonObject.toString())
                     setBaseResponseFields(response, jsonObject)
                 }
             }
 
             response
         } catch (e: InstantiationException) {
-            Log.e("InstantiationException", e.message.toString())
             throw RuntimeException("Unable to create response object.", e)
         } catch (e: IllegalAccessException) {
-            Log.e("IllegalAccessException", e.message.toString())
             throw RuntimeException("Unable to create response object.", e)
         } catch (e: NoSuchMethodException) {
-            Log.e("NoSuchMethodException", e.message.toString())
             throw RuntimeException("Unable to create response object.", e)
         }
     }
@@ -156,6 +162,68 @@ class ApiResponseDeserializer<T>(private val responseType : Class<T>) : JsonDese
                 }
             }
             else -> response.modelDetails = null
+        }
+    }
+
+    private fun setWarehouseFields(
+        response: WarehouseListResponse,
+        jsonObject: JsonObject,
+        context: JsonDeserializationContext?
+    ) {
+        response.timeStamp = jsonObject.get("timestamp").toString()
+        response.statusCode = jsonObject.get("status_code").toString().toInt()
+        response.messageType = jsonObject.get("message_type").toString()
+        response.messageBody = jsonObject.get("message_body").toString()
+
+        val warehouseDetails = jsonObject.get("warehouses")
+        when {
+
+            warehouseDetails.isJsonArray -> response.warehouseDetails = context?.deserialize(
+                warehouseDetails,
+                object : TypeToken<List<WarehouseDetails>>() {}.type
+            ) ?: emptyList()
+
+            warehouseDetails.isJsonObject -> {
+                val singleWarehouseDetails = context?.deserialize<WarehouseDetails>(warehouseDetails, WarehouseDetails::class.java)
+                response.warehouseDetails = if (singleWarehouseDetails != null) {
+                    listOf(singleWarehouseDetails)
+                }
+                else {
+                    emptyList()
+                }
+            }
+            else -> response.warehouseDetails = null
+        }
+    }
+
+    private fun setStoragesFields(
+        response: StoragesListResponse,
+        jsonObject: JsonObject,
+        context: JsonDeserializationContext?
+    ) {
+        response.timeStamp = jsonObject.get("timestamp").toString()
+        response.statusCode = jsonObject.get("status_code").toString().toInt()
+        response.messageType = jsonObject.get("message_type").toString()
+        response.messageBody = jsonObject.get("message_body").toString()
+
+        val storagesDetails = jsonObject.get("storages")
+        when {
+
+            storagesDetails.isJsonArray -> response.storagesDetails = context?.deserialize(
+                storagesDetails,
+                object : TypeToken<List<StoragesDetails>>() {}.type
+            ) ?: emptyList()
+
+            storagesDetails.isJsonObject -> {
+                val singleStoragesDetails = context?.deserialize<StoragesDetails>(storagesDetails, StoragesDetails::class.java)
+                response.storagesDetails = if (singleStoragesDetails != null) {
+                    listOf(singleStoragesDetails)
+                }
+                else {
+                    emptyList()
+                }
+            }
+            else -> response.storagesDetails = null
         }
     }
 }

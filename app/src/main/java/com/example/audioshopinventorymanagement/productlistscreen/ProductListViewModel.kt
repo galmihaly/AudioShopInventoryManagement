@@ -1,15 +1,11 @@
 package com.example.audioshopinventorymanagement.productlistscreen
 
-import android.util.Log
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.JWT
 import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
-import com.example.audioshopinventorymanagement.authentication.requests.ProductRequest
 import com.example.audioshopinventorymanagement.authentication.requests.SaveProductListRequest
 import com.example.audioshopinventorymanagement.authentication.requests.SaveProductRequest
-import com.example.audioshopinventorymanagement.authentication.responses.CategoryDetails
 import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
@@ -19,7 +15,6 @@ import com.example.audioshopinventorymanagement.room.entities.CategoryEntity
 import com.example.audioshopinventorymanagement.room.entities.ModelEntity
 import com.example.audioshopinventorymanagement.room.repositories.ProductDatabaseRepository
 import com.example.audioshopinventorymanagement.room.entities.ProductEntity
-import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

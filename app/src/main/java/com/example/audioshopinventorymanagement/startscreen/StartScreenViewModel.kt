@@ -18,7 +18,7 @@ class StartScreenViewModel @Inject constructor(
     }
 
     fun onNavigateToCategoriesScreen() {
-        appNavigator.tryNavigateTo(Destination.CategoriesScreen.fullRoute)
+        appNavigator.tryNavigateTo(Destination.StoragesScreen.fullRoute)
     }
 
     fun onNavigateToProductListScreen() {

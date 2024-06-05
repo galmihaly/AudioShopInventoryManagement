@@ -1,15 +1,9 @@
 package com.example.audioshopinventorymanagement.modifyitemscreen
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.JWT
-import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
-import com.example.audioshopinventorymanagement.authentication.responses.BrandDetails
-import com.example.audioshopinventorymanagement.authentication.responses.CategoryDetails
-import com.example.audioshopinventorymanagement.authentication.responses.ModelDetails
-import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
@@ -42,7 +36,7 @@ class ModifyItemViewModel @Inject constructor(
 
     private val _userDetailsState = MutableStateFlow(UserDetailsState())
 
-    private val arg = checkNotNull(savedStateHandle[Destination.ModifyItemSreenArguments.barcode.toString()] ?: "")
+    private val arg = checkNotNull(savedStateHandle[Destination.ModifyItemScreenArguments.barcode.toString()] ?: "")
 
     private val productIdSeparator = '-'
 

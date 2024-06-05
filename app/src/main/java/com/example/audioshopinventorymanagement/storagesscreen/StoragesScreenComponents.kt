@@ -1,4 +1,4 @@
-package com.example.audioshopinventorymanagement.warehousesscreen
+package com.example.audioshopinventorymanagement.storagesscreen
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -10,13 +10,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -33,19 +35,77 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.authentication.responses.WarehouseDetails
-import com.example.audioshopinventorymanagement.room.entities.ProductEntity
+import com.example.audioshopinventorymanagement.authentication.responses.StoragesDetails
+import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.DARK_GRAY
+import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
-object WareHousesScreenComponents {
+object StoragesScreenComponents {
 
     @Composable
-    fun WareHouseCard(
+    fun CounterRowToCard(
+        currentQuantity: String,
+        currentQuantityColor : Color,
+        maxQuantity: String,
+        maxQuantityColor : Color
+    ){
+        Row (
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            horizontalArrangement = Arrangement.Center
+        ){
+            Text(
+                text = currentQuantity,
+                color = currentQuantityColor,
+                fontFamily = CustomFonts.RobotoMono_Regular,
+                fontSize = 25.sp
+            )
+            Text(
+                text = "/",
+                color = Color.White,
+                fontFamily = CustomFonts.RobotoMono_Regular,
+                fontSize = 25.sp
+            )
+            Text(
+                text = maxQuantity,
+                color = maxQuantityColor,
+                fontFamily = CustomFonts.RobotoMono_Regular,
+                fontSize = 25.sp
+            )
+        }
+    }
+
+    @Composable
+    fun TextRowToCard(
+        text: String,
+        color: Color
+    ){
+        Row (
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(start = 20.dp, top = 10.dp, end = 20.dp),
+            horizontalArrangement = Arrangement.Center
+        ){
+            Text(
+                text = text,
+                color = color,
+                fontFamily = CustomFonts.RobotoMono_Regular,
+                fontSize = 15.sp
+            )
+        }
+    }
+
+    @Composable
+    fun StorageCard(
         cardNumber: Int,
-        cardWarehouse: WarehouseDetails,
+        cardStorage: StoragesDetails,
+        currentQuantityColor: Color,
+        maxQuantityColor: Color,
         onClick: () -> Unit
     ){
         Card(
@@ -93,43 +153,19 @@ object WareHousesScreenComponents {
                     }
                 }
 
-                AllViewComponents.TextRowToCard(
-                    key = "ID:",
-                    value = cardWarehouse.warehouseId!!,
-                    color = GREEN,
-                    keyTextWeight = 0.9f,
-                    valueStringTextWeight = 1.1f
+                CounterRowToCard(
+                    currentQuantity = cardStorage.quantity.toString(),
+                    currentQuantityColor = currentQuantityColor,
+                    maxQuantity = cardStorage.maxQuantity.toString(),
+                    maxQuantityColor = maxQuantityColor
                 )
-                AllViewComponents.TextRowToCard(
-                    key = "Name:",
-                    value = cardWarehouse.name!!,
-                    color = Color.White,
-                    keyTextWeight = 0.9f,
-                    valueStringTextWeight = 1.1f
+                TextRowToCard(
+                    text = "Storage ID:",
+                    color = Color.White
                 )
-
-                Spacer(modifier = Modifier.height(20.dp))
-
-                AllViewComponents.TextRowToCard(
-                    key = "Current Capacity:",
-                    value = cardWarehouse.currentStockCapacity.toString() + " Piece",
-                    color = Color.White,
-                    keyTextWeight = 0.9f,
-                    valueStringTextWeight = 1.1f
-                )
-                AllViewComponents.TextRowToCard(
-                    key = "Max Capacity:",
-                    value = cardWarehouse.stockMaxCapacity.toString() + " Piece",
-                    color = Color.White,
-                    keyTextWeight = 0.9f,
-                    valueStringTextWeight = 1.1f
-                )
-                AllViewComponents.TextRowToCard(
-                    key = "Stocks Value:",
-                    value = "58.260" + " Ft",
-                    color = Color.White,
-                    keyTextWeight = 0.9f,
-                    valueStringTextWeight = 1.1f
+                TextRowToCard(
+                    text = cardStorage.storageId!!,
+                    color = Color.White
                 )
                 Box(
                     modifier = Modifier
@@ -144,10 +180,33 @@ object WareHousesScreenComponents {
 @Preview(showBackground = true, device = Devices.PIXEL_2)
 @Composable
 fun previewComponent(){
+
+    val data : MutableList<StoragesDetails> = ArrayList()
+    data.add(StoragesDetails(
+        storageId = "0100000000000000",
+        quantity = 50,
+        maxQuantity = 100
+    ))
+    data.add(StoragesDetails(
+        storageId = "01",
+        quantity = 20,
+        maxQuantity = 100
+    ))
+    data.add(StoragesDetails(
+        storageId = "01",
+        quantity = 50,
+        maxQuantity = 100
+    ))
+    data.add(StoragesDetails(
+        storageId = "01",
+        quantity = 50,
+        maxQuantity = 100
+    ))
+
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "WareHouse List",
+                headLineText = "Storages",
             )
         },
         bottomBar = {
@@ -184,16 +243,25 @@ fun previewComponent(){
                 .background(LIGHT_GRAY)
                 .padding(paddingValues)
         ){
-            Column(
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 10.dp, vertical = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(15.dp),
+                horizontalArrangement = Arrangement.spacedBy(15.dp)
             ) {
-                WareHousesScreenComponents.WareHouseCard(
-                    cardNumber = 1,
-                    cardWarehouse = WarehouseDetails(),
-                    onClick = {}
-                )
+                itemsIndexed(data) { index, storage ->
+                    val pIndex = index + 1
+
+                    StoragesScreenComponents.StorageCard(
+                        cardNumber = pIndex,
+                        cardStorage = storage,
+                        currentQuantityColor = BLUE,
+                        maxQuantityColor = GREEN,
+                        onClick = { /*viewModel.onNavigateToCategoriesScreen(warehouse.id!!) */},
+                    )
+                }
             }
         }
     }

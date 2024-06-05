@@ -1,5 +1,6 @@
-package com.example.audioshopinventorymanagement.warehousesscreen
+package com.example.audioshopinventorymanagement.storagesscreen
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
@@ -15,43 +16,49 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WareHousesScreenViewModel @Inject constructor(
+class StoragesScreenViewModel @Inject constructor(
     private val appNavigator: AppNavigator,
-    private val productApiRepository: ProductApiRepository
+    private val productApiRepository: ProductApiRepository,
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     val navigationChannel = appNavigator.navigationChannel
 
-    private val _viewState = MutableStateFlow(WarehouseViewState())
+    private val _viewState = MutableStateFlow(StoragesViewState())
     val viewState = _viewState.asStateFlow()
 
+    private val arg = checkNotNull(savedStateHandle[Destination.StocksScreenArguments.warehouseId.toString()] ?: "")
+
     init {
-        getAllWarehouseFromApi()
+        getAllStorageFromApi()
     }
 
-    private fun getAllWarehouseFromApi(){
+    private fun getAllStorageFromApi(){
         viewModelScope.launch(Dispatchers.IO) {
-            val response = productApiRepository.getAllWarehouse()
 
-            when (response){
-                is ProductApiResponse.WarehouseSuccess -> {
-                    if(response.data.statusCode == 200){
-                        _viewState.update {
-                            it.copy(
-                                warehouseList = response.data.warehouseDetails!!.toMutableList()
-                            )
+            if(arg != null){
+                val response = productApiRepository.getStoragesByWarehouseId(arg.toInt())
+
+                when (response){
+                    is ProductApiResponse.StoragesSuccess -> {
+                        if(response.data.statusCode == 200){
+                            _viewState.update {
+                                it.copy(
+                                    storagesList = response.data.storagesDetails!!.toMutableList()
+                                )
+                            }
                         }
                     }
-                }
-                is ProductApiResponse.WarehouseError -> {
-                    if(response.data.statusCode == 401){
-                        onDialogShow("Read of the warehouses has been failed!")
+                    is ProductApiResponse.StoragesError -> {
+                        if(response.data.statusCode == 401){
+                            onDialogShow("Read of the storages has been failed!")
+                        }
                     }
+                    is ProductApiResponse.Exception -> {
+                        onDialogShow(response.exceptionMessage)
+                    }
+                    else -> {}
                 }
-                is ProductApiResponse.Exception -> {
-                    onDialogShow(response.exceptionMessage)
-                }
-                else -> {}
             }
         }
     }
@@ -60,8 +67,8 @@ class WareHousesScreenViewModel @Inject constructor(
         appNavigator.tryNavigateTo(Destination.StartScreen.fullRoute)
     }
 
-    fun onNavigateToCategoriesScreen(warehouseId : String) {
-        appNavigator.tryNavigateTo(Destination.StoragesScreen.passParameters(warehouseId))
+    fun onNavigateToWareHousesScreen() {
+        appNavigator.tryNavigateTo(Destination.WareHousesScreen.fullRoute)
     }
 
     fun onDialogShow(dialogText : String){
