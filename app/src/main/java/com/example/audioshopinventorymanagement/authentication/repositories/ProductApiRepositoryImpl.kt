@@ -148,7 +148,7 @@ class ProductApiRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getStoragesByWarehouseId(warehouseId: Int): ProductApiResponse {
+    override suspend fun getStoragesByWarehouseId(warehouseId: String): ProductApiResponse {
         return try {
             val response = productAPI.getAllStoragesByWarehouseId(warehouseId)
 

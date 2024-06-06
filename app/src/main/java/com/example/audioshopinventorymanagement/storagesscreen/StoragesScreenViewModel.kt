@@ -37,7 +37,7 @@ class StoragesScreenViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
 
             if(arg != null){
-                val response = productApiRepository.getStoragesByWarehouseId(arg.toInt())
+                val response = productApiRepository.getStoragesByWarehouseId(arg)
 
                 when (response){
                     is ProductApiResponse.StoragesSuccess -> {

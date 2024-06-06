@@ -88,7 +88,7 @@ fun WareHousesScreen(
                     WareHousesScreenComponents.WareHouseCard(
                         cardNumber = pIndex,
                         cardWarehouse = warehouse,
-                        onClick = { viewModel.onNavigateToCategoriesScreen(warehouse.id.toString()) },
+                        onClick = { viewModel.onNavigateToCategoriesScreen(warehouse.warehouseId!!) },
                     )
                 }
             }

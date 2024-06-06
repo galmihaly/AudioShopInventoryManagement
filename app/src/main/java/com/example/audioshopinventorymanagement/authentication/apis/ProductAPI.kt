@@ -30,6 +30,6 @@ interface ProductAPI {
     @GET("/api/warehouse/all")
     suspend fun getAllWarehouse(): Response<WarehouseListResponse>
 
-    @GET("/api/storages/{warehouseId}")
-    suspend fun getAllStoragesByWarehouseId(@Path("warehouseId") warehouseId : Int): Response<StoragesListResponse>
+    @GET("/api/storage/get/{warehouseId}")
+    suspend fun getAllStoragesByWarehouseId(@Path("warehouseId") warehouseId : String): Response<StoragesListResponse>
 }

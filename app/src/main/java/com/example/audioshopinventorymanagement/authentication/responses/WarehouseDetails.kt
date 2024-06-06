@@ -6,10 +6,6 @@ import kotlinx.serialization.Required
 data class WarehouseDetails(
 
     @Required
-    @SerializedName("id")
-    val id: Int? = null,
-
-    @Required
     @SerializedName("warehouse_id")
     val warehouseId: String? = "",
 

@@ -9,5 +9,5 @@ interface ProductApiRepository {
     suspend fun getAllModel() : ProductApiResponse
     suspend fun sendProductList(request: SaveProductListRequest) : ProductApiResponse
     suspend fun getAllWarehouse() : ProductApiResponse
-    suspend fun getStoragesByWarehouseId(warehouseId : Int) : ProductApiResponse
+    suspend fun getStoragesByWarehouseId(warehouseId : String) : ProductApiResponse
 }

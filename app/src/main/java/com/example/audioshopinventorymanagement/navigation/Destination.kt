@@ -1,6 +1,6 @@
 package com.example.audioshopinventorymanagement.navigation
 
-sealed class Destination(protected val route: String, vararg params: String) {
+sealed class Destination(protected val route: String) {
 
     val fullRoute: String = route
 
