@@ -107,7 +107,7 @@ fun ProductListScreen(
                     .padding(horizontal = 10.dp),
             ) {
                 AllViewComponents.SearchField(
-                    value = "Search",
+                    value = "Barcode",
                     textFieldValue = searchFieldValue,
                     textChangeFunction = { viewModel.filterListBySearchValue(it) },
                     deleteValueChange = { viewModel.filterListBySearchValue("") }

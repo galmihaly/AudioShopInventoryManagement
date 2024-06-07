@@ -15,7 +15,7 @@ import com.example.audioshopinventorymanagement.storagesscreen.StoragesScreen
 import com.example.audioshopinventorymanagement.loginscreen.LoginScreen
 import com.example.audioshopinventorymanagement.modifyitemscreen.ModifyItemScreen
 import com.example.audioshopinventorymanagement.newitemscreen.NewItemScreen
-import com.example.audioshopinventorymanagement.onecategoryscreen.OneCategoryScreen
+import com.example.audioshopinventorymanagement.productsoverviewscreen.ProductsOverviewScreen
 import com.example.audioshopinventorymanagement.productlistscreen.ProductListScreen
 import com.example.audioshopinventorymanagement.startscreen.StartScreen
 import com.example.audioshopinventorymanagement.ui.theme.AudioShopInventoryManagementTheme
@@ -61,8 +61,8 @@ fun Navigation (
                 composable(destination = Destination.StoragesScreen) {
                     StoragesScreen()
                 }
-                composable(destination = Destination.OneCategoryScreen) {
-                    OneCategoryScreen()
+                composable(destination = Destination.ProductsOverviewScreen) {
+                    ProductsOverviewScreen()
                 }
                 composable(destination = Destination.WareHousesScreen) {
                     WareHousesScreen()

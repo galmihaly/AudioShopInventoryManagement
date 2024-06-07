@@ -60,7 +60,7 @@ class WareHousesScreenViewModel @Inject constructor(
         appNavigator.tryNavigateTo(Destination.StartScreen.fullRoute)
     }
 
-    fun onNavigateToCategoriesScreen(warehouseId : String) {
+    fun onNavigateToStocksScreen(warehouseId : String) {
         appNavigator.tryNavigateTo(Destination.StoragesScreen.passParameters(warehouseId))
     }
 

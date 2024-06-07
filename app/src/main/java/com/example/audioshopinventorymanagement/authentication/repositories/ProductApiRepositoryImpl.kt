@@ -6,6 +6,7 @@ import com.example.audioshopinventorymanagement.authentication.responses.BaseRes
 import com.example.audioshopinventorymanagement.authentication.responses.BrandListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.ModelListResponse
+import com.example.audioshopinventorymanagement.authentication.responses.ProductListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.StoragesListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.WarehouseListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
@@ -106,17 +107,17 @@ class ProductApiRepositoryImpl @Inject constructor(
             val errorBody = response.errorBody()
 
             if (response.isSuccessful && body != null){
-                ProductApiResponse.ProductSuccess(body)
+                ProductApiResponse.ProductSaveSuccess(body)
             }
             else if(errorBody != null)
             {
                 val gson = Gson()
                 val type = object : TypeToken<BaseResponse>() {}.type
                 val errorResponse: BaseResponse = gson.fromJson(errorBody.charStream(), type)
-                ProductApiResponse.ProductError(errorResponse)
+                ProductApiResponse.ProductSaveError(errorResponse)
             }
             else{
-                ProductApiResponse.ProductError(body!!)
+                ProductApiResponse.ProductSaveError(body!!)
             }
         }catch (e: Exception){
             getExceptionMessage(e)
@@ -167,6 +168,31 @@ class ProductApiRepositoryImpl @Inject constructor(
             }
             else{
                 ProductApiResponse.StoragesError(body!!)
+            }
+        }catch (e: Exception){
+            getExceptionMessage(e)
+        }
+    }
+
+    override suspend fun getProductsByStorageId(storageId: String): ProductApiResponse {
+        return try {
+            val response = productAPI.getAllProductsByStorageId(storageId)
+
+            val body = response.body()
+            val errorBody = response.errorBody()
+
+            if (response.isSuccessful && body != null){
+                ProductApiResponse.ProductListSuccess(body)
+            }
+            else if(errorBody != null)
+            {
+                val gson = Gson()
+                val type = object : TypeToken<ProductListResponse>() {}.type
+                val errorResponse: ProductListResponse = gson.fromJson(errorBody.charStream(), type)
+                ProductApiResponse.ProductListError(errorResponse)
+            }
+            else{
+                ProductApiResponse.ProductListError(body!!)
             }
         }catch (e: Exception){
             getExceptionMessage(e)

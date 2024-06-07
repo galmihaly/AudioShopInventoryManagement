@@ -25,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
+import com.example.audioshopinventorymanagement.loginscreen.LoginScreenComponents
+import com.example.audioshopinventorymanagement.productlistscreen.ProducListScreenComponents
 import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
@@ -34,9 +36,12 @@ import com.example.audioshopinventorymanagement.warehousesscreen.WareHousesScree
 fun StoragesScreen(
     viewModel: StoragesScreenViewModel = hiltViewModel()
 ) {
-    val storageListState = viewModel.viewState.collectAsState().value.storagesList
+    val searchedStorageListState = viewModel.viewState.collectAsState().value.searchedStoragesList
     val currentCapacityColor = viewModel.viewState.collectAsState().value.currentCapacityColor
     val maxCapacityColor = viewModel.viewState.collectAsState().value.maxCapacityColor
+
+    val searchFieldValue = viewModel.viewState.collectAsState().value.searchFieldValue
+    val allMatches = viewModel.viewState.collectAsState().value.allMatches
 
     val isShowErrorDialog = viewModel.viewState.collectAsState().value.isShowErrorDialog
     val dialogText = viewModel.viewState.collectAsState().value.textShowErrorDialog
@@ -81,26 +86,47 @@ fun StoragesScreen(
                 .background(LIGHT_GRAY)
                 .padding(paddingValues)
         ){
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 10.dp, vertical = 20.dp),
-                verticalArrangement = Arrangement.spacedBy(15.dp),
-                horizontalArrangement = Arrangement.spacedBy(15.dp)
-            ) {
-                itemsIndexed(storageListState) { index, storage ->
-                    val pIndex = index + 1
+                    .padding(horizontal = 10.dp),
+            ){
+                AllViewComponents.SearchField(
+                    value = "Barcode",
+                    textFieldValue = searchFieldValue,
+                    textChangeFunction = { viewModel.filterListBySearchValue(it) },
+                    deleteValueChange = { viewModel.filterListBySearchValue("") }
+                )
+                StoragesScreenComponents.MatchesText(
+                    text = "All Matches: $allMatches"
+                )
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    itemsIndexed(searchedStorageListState) { index, storage ->
+                        val pIndex = index + 1
 
-                    StoragesScreenComponents.StorageCard(
-                        cardNumber = pIndex,
-                        cardStorage = storage,
-                        currentQuantityColor = currentCapacityColor,
-                        maxQuantityColor = maxCapacityColor,
-                        onClick = { /*viewModel.onNavigateToCategoriesScreen(warehouse.id!!) */},
-                    )
+                        StoragesScreenComponents.StorageCard(
+                            cardNumber = pIndex,
+                            cardStorage = storage,
+                            currentQuantityColor = currentCapacityColor,
+                            maxQuantityColor = maxCapacityColor,
+                            onClick = { viewModel.onNavigateProductsOverviewScreen(storage.storageId) },
+                        )
+                    }
                 }
             }
         }
+
+        LoginScreenComponents.ErrorDialog(
+            isShowErrorDialog = isShowErrorDialog,
+            dialogText = dialogText,
+            buttonText = "OK",
+            dialogDismissFunction = { viewModel.onDialogDismiss() }
+        )
     }
 }

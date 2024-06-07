@@ -10,4 +10,5 @@ interface ProductApiRepository {
     suspend fun sendProductList(request: SaveProductListRequest) : ProductApiResponse
     suspend fun getAllWarehouse() : ProductApiResponse
     suspend fun getStoragesByWarehouseId(warehouseId : String) : ProductApiResponse
+    suspend fun getProductsByStorageId(storageId : String) : ProductApiResponse
 }

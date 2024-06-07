@@ -1,5 +1,6 @@
-package com.example.audioshopinventorymanagement.storagesscreen
+package com.example.audioshopinventorymanagement.productsoverviewscreen
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,43 +17,47 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class StoragesScreenViewModel @Inject constructor(
+class ProductsOverviewScreenViewModel @Inject constructor(
     private val appNavigator: AppNavigator,
     private val productApiRepository: ProductApiRepository,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    val navigationChannel = appNavigator.navigationChannel
+    private val navigationChannel = appNavigator.navigationChannel
 
-    private val _viewState = MutableStateFlow(StoragesViewState())
+    private val _viewState = MutableStateFlow(ProductsOverViewState())
     val viewState = _viewState.asStateFlow()
 
     private val arg = checkNotNull(savedStateHandle[Destination.StoragesScreenArguments.warehouseId.toString()] ?: "")
 
     init {
-        getAllStorageFromApi()
+        getAllProductsFromApi()
     }
 
-    private fun getAllStorageFromApi(){
+    private fun getAllProductsFromApi(){
         viewModelScope.launch(Dispatchers.IO) {
 
             if(arg != null){
-                val response = productApiRepository.getStoragesByWarehouseId(arg)
+                Log.e("arg_stor", arg)
+                val response = productApiRepository.getProductsByStorageId(arg)
 
                 when (response){
-                    is ProductApiResponse.StoragesSuccess -> {
+                    is ProductApiResponse.ProductListSuccess -> {
                         if(response.data.statusCode == 200){
                             _viewState.update {
                                 it.copy(
-                                    storagesList = response.data.storagesDetails!!.toMutableList(),
-                                    searchedStoragesList = response.data.storagesDetails!!.toMutableList()
+                                    productList = response.data.productDetails!!.toMutableList(),
+                                    searchedProductList = response.data.productDetails!!.toMutableList()
                                 )
                             }
                         }
                     }
-                    is ProductApiResponse.StoragesError -> {
-                        if(response.data.statusCode == 401){
-                            onDialogShow("Read of the storages has been failed!")
+                    is ProductApiResponse.ProductListError -> {
+                        if(response.data.statusCode == 400){
+                            onDialogShow("Read of the products has been failed!")
+                        }
+                        else if(response.data.statusCode == 401){
+                            onDialogShow("Read of the products has been failed!")
                         }
                     }
                     is ProductApiResponse.Exception -> {
@@ -72,25 +77,21 @@ class StoragesScreenViewModel @Inject constructor(
                 )
             }
 
-            val searchedStoragesList = _viewState.value.storagesList.filter {
-                it.storageId!!.startsWith(newSearchText)
+            val searchedProductList = _viewState.value.productList.filter {
+                it.barcode!!.startsWith(newSearchText)
             }.toMutableList()
 
             _viewState.update {
                 it.copy(
-                    searchedStoragesList = searchedStoragesList,
-                    allMatches = searchedStoragesList.size
+                    searchedProductList = searchedProductList,
+                    allMatches = searchedProductList.size
                 )
             }
         }
     }
 
-    fun onNavigateProductsOverviewScreen(storageId: String?) {
-        appNavigator.tryNavigateTo(Destination.ProductsOverviewScreen.passParameters(storageId!!))
-    }
-
-    fun onNavigateToWareHousesScreen() {
-        appNavigator.tryNavigateTo(Destination.WareHousesScreen.fullRoute)
+    fun onNavigateToStoragesScreen() {
+        appNavigator.tryNavigateBack(Destination.StoragesScreen.fullRoute)
     }
 
     fun onDialogShow(dialogText : String){

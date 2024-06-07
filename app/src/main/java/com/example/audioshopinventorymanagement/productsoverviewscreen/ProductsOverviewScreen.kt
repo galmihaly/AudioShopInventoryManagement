@@ -1,8 +1,9 @@
-package com.example.audioshopinventorymanagement.warehousesscreen
+package com.example.audioshopinventorymanagement.productsoverviewscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,19 +27,21 @@ import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
 @Composable
-fun WareHousesScreen(
-    viewModel: WareHousesScreenViewModel = hiltViewModel()
+fun ProductsOverviewScreen(
+    viewModel: ProductsOverviewScreenViewModel = hiltViewModel()
 ) {
-    val warehouseListState = viewModel.viewState.collectAsState().value.warehouseList
+    val productListState = viewModel.viewState.collectAsState().value.searchedProductList
+    val searchFieldValue = viewModel.viewState.collectAsState().value.searchFieldValue
+    val isExpandCard = viewModel.viewState.collectAsState().value.isExpandCard
+    val allMatches = viewModel.viewState.collectAsState().value.allMatches
 
     val isShowErrorDialog = viewModel.viewState.collectAsState().value.isShowErrorDialog
     val dialogText = viewModel.viewState.collectAsState().value.textShowErrorDialog
 
-
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "WareHouses",
+                headLineText = "New Products List",
             )
         },
         bottomBar = {
@@ -63,7 +66,7 @@ fun WareHousesScreen(
                             .fillMaxSize()
                             .weight(1f),
                         backgroundColor = GREEN,
-                        onClick = { viewModel.onNavigateToStartScreen() }
+                        onClick = { viewModel.onNavigateToStoragesScreen() }
                     )
                 }
             }
@@ -75,29 +78,41 @@ fun WareHousesScreen(
                 .background(LIGHT_GRAY)
                 .padding(paddingValues)
         ){
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(10.dp),
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 10.dp, vertical = 20.dp)
+                    .padding(horizontal = 10.dp),
             ) {
-                itemsIndexed(warehouseListState) { index, warehouse ->
-                    val pIndex = index + 1
+                AllViewComponents.SearchField(
+                    value = "Barcode",
+                    textFieldValue = searchFieldValue,
+                    textChangeFunction = { viewModel.filterListBySearchValue(it) },
+                    deleteValueChange = { viewModel.filterListBySearchValue("") }
+                )
+                AllViewComponents.MatchesText(
+                    text = "All Matches: $allMatches"
+                )
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                ) {
+                    itemsIndexed(productListState) { index, product ->
+                        val pIndex = index + 1
 
-                    WareHousesScreenComponents.WareHouseCard(
-                        cardNumber = pIndex,
-                        cardWarehouse = warehouse,
-                        onClick = { viewModel.onNavigateToStocksScreen(warehouse.warehouseId!!) },
-                    )
+                        ProductsOverviewScreenComponents.ExtendedItemCard(
+                            cardNumber = pIndex,
+                            cardProduct = product,
+                            expandedCard = isExpandCard
+                        )
+                    }
                 }
             }
-        }
 
-        LoginScreenComponents.ErrorDialog(
-            isShowErrorDialog = isShowErrorDialog,
-            dialogText = dialogText,
-            buttonText = "OK",
-            dialogDismissFunction = { viewModel.onDialogDismiss() }
-        )
+            LoginScreenComponents.ErrorDialog(
+                isShowErrorDialog = isShowErrorDialog,
+                dialogText = dialogText,
+                buttonText = "OK",
+                dialogDismissFunction = { viewModel.onDialogDismiss() }
+            )
+        }
     }
 }

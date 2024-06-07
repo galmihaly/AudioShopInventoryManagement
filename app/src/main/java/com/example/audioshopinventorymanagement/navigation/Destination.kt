@@ -11,23 +11,26 @@ sealed class Destination(protected val route: String) {
         private const val MODIFYITEMSCREEN_ROUTE = "modifyitemscreen"
         private const val NEWITEMSCREEN_ROUTE = "newitemscreen"
         private const val STORAGESSCREEN_ROUTE = "storagesscreen"
-        private const val ONECATEGORYSCREEN_ROUTE = "onecategoryscreen"
+        private const val PRODUCTSOVERVIEWSCREEN_ROUTE = "productsoverviewscreen"
         private const val WAREHOUSESSCREEN_ROUTE = "warehousesscreen"
     }
 
     object ModifyItemScreenArguments {
-        const val barcode = -1
+        const val barcode = "-1"
     }
 
-    object StocksScreenArguments {
-        const val warehouseId = -1
+    object StoragesScreenArguments {
+        const val warehouseId = "-1"
+    }
+
+    object ProductsOverviewScreenArguments {
+        const val storageId = "-1"
     }
 
     object LoginScreen : Destination(LOGINSCREEN_ROUTE)
     object StartScreen : Destination(STARTSCREEN_ROUTE)
     object ProductListScreen : Destination(PRODUCTSLISTSCREEN_ROUTE)
     object NewItemScreen : Destination(NEWITEMSCREEN_ROUTE)
-    object OneCategoryScreen : Destination(ONECATEGORYSCREEN_ROUTE)
     object WareHousesScreen : Destination(WAREHOUSESSCREEN_ROUTE)
 
     object ModifyItemScreen : Destination("$MODIFYITEMSCREEN_ROUTE/{${ModifyItemScreenArguments.barcode}}") {
@@ -37,10 +40,17 @@ sealed class Destination(protected val route: String) {
         }
     }
 
-    object StoragesScreen : Destination("$STORAGESSCREEN_ROUTE/{${StocksScreenArguments.warehouseId}}") {
+    object StoragesScreen : Destination("$STORAGESSCREEN_ROUTE/{${StoragesScreenArguments.warehouseId}}") {
         fun passParameters(warehouseId: String): String {
             return this.route
-                .replace(oldValue = "{${StocksScreenArguments.warehouseId}}", newValue = warehouseId)
+                .replace(oldValue = "{${StoragesScreenArguments.warehouseId}}", newValue = warehouseId)
+        }
+    }
+
+    object ProductsOverviewScreen : Destination("$PRODUCTSOVERVIEWSCREEN_ROUTE/{${ProductsOverviewScreenArguments.storageId}}") {
+        fun passParameters(storageId: String): String {
+            return this.route
+                .replace(oldValue = "{${ProductsOverviewScreenArguments.storageId}}", newValue = storageId)
         }
     }
 }

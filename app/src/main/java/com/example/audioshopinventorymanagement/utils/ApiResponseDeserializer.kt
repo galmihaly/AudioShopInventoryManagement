@@ -1,6 +1,5 @@
 package com.example.audioshopinventorymanagement.utils
 
-import android.util.Log
 import com.example.audioshopinventorymanagement.authentication.responses.BaseResponse
 import com.example.audioshopinventorymanagement.authentication.responses.BrandDetails
 import com.example.audioshopinventorymanagement.authentication.responses.BrandListResponse
@@ -8,6 +7,8 @@ import com.example.audioshopinventorymanagement.authentication.responses.Categor
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.ModelDetails
 import com.example.audioshopinventorymanagement.authentication.responses.ModelListResponse
+import com.example.audioshopinventorymanagement.authentication.responses.ProductDetails
+import com.example.audioshopinventorymanagement.authentication.responses.ProductListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.StoragesDetails
 import com.example.audioshopinventorymanagement.authentication.responses.StoragesListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.WarehouseDetails
@@ -44,6 +45,9 @@ class ApiResponseDeserializer<T>(private val responseType : Class<T>) : JsonDese
                 }
                 is StoragesListResponse -> {
                     setStoragesFields(response, jsonObject, context)
+                }
+                is ProductListResponse -> {
+                    setProductListFields(response, jsonObject, context)
                 }
                 is BaseResponse -> {
                     setBaseResponseFields(response, jsonObject)
@@ -224,6 +228,37 @@ class ApiResponseDeserializer<T>(private val responseType : Class<T>) : JsonDese
                 }
             }
             else -> response.storagesDetails = null
+        }
+    }
+
+    private fun setProductListFields(
+        response: ProductListResponse,
+        jsonObject: JsonObject,
+        context: JsonDeserializationContext?
+    ) {
+        response.timeStamp = jsonObject.get("timestamp").toString()
+        response.statusCode = jsonObject.get("status_code").toString().toInt()
+        response.messageType = jsonObject.get("message_type").toString()
+        response.messageBody = jsonObject.get("message_body").toString()
+
+        val storagesDetails = jsonObject.get("products")
+        when {
+
+            storagesDetails.isJsonArray -> response.productDetails = context?.deserialize(
+                storagesDetails,
+                object : TypeToken<List<ProductDetails>>() {}.type
+            ) ?: emptyList()
+
+            storagesDetails.isJsonObject -> {
+                val singleProductDetails = context?.deserialize<ProductDetails>(storagesDetails, ProductDetails::class.java)
+                response.productDetails = if (singleProductDetails != null) {
+                    listOf(singleProductDetails)
+                }
+                else {
+                    emptyList()
+                }
+            }
+            else -> response.productDetails = null
         }
     }
 }

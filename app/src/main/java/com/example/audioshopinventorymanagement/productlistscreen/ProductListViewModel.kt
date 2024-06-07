@@ -220,7 +220,7 @@ class ProductListViewModel @Inject constructor(
                 val response = productApiRepository.sendProductList(request)
 
                 when (response){
-                    is ProductApiResponse.ProductSuccess -> {
+                    is ProductApiResponse.ProductSaveSuccess -> {
                         if(response.data.statusCode == 200){
                             onDialogShow("Save Products is success!")
                             productDatabaseRepository.deleteAllProduct()
@@ -231,7 +231,7 @@ class ProductListViewModel @Inject constructor(
                             }
                         }
                     }
-                    is ProductApiResponse.ProductError -> {
+                    is ProductApiResponse.ProductSaveError -> {
                         if(response.data.statusCode == 400){
                             onDialogShow("Saving of the products is unsuccessful!")
                         }

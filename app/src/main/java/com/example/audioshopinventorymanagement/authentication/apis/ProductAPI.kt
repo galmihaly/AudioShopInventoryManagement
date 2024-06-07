@@ -5,6 +5,7 @@ import com.example.audioshopinventorymanagement.authentication.responses.BaseRes
 import com.example.audioshopinventorymanagement.authentication.responses.BrandListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.CategoryListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.ModelListResponse
+import com.example.audioshopinventorymanagement.authentication.responses.ProductListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.StoragesListResponse
 import com.example.audioshopinventorymanagement.authentication.responses.WarehouseListResponse
 import retrofit2.Response
@@ -32,4 +33,7 @@ interface ProductAPI {
 
     @GET("/api/storage/get/{warehouseId}")
     suspend fun getAllStoragesByWarehouseId(@Path("warehouseId") warehouseId : String): Response<StoragesListResponse>
+
+    @GET("/api/product/get/{storageId}")
+    suspend fun getAllProductsByStorageId(@Path("storageId") storageId : String): Response<ProductListResponse>
 }
