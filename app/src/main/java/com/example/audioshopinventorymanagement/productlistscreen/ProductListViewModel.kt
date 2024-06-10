@@ -6,6 +6,7 @@ import com.auth0.android.jwt.JWT
 import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
 import com.example.audioshopinventorymanagement.authentication.requests.SaveProductListRequest
 import com.example.audioshopinventorymanagement.authentication.requests.SaveProductRequest
+import com.example.audioshopinventorymanagement.authentication.responses.ProductDetails
 import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
@@ -52,21 +53,13 @@ class ProductListViewModel @Inject constructor(
             val tokens = jwtTokenRepository.getAccessJwt()
             val token = JWT(tokens.accessToken)
 
-            val emailClaim = token.getClaim("email").asString()!!
-            val roleClaim = token.getClaim("role").asString()!!
             val nameClaim = token.getClaim("username").asString()!!
-            val deviceActiveClaim = token.getClaim("device_active").asString()!!
             val deviceIdClaim = token.getClaim("device_id").asString()!!
-            val warehouseIdClaim = token.getClaim("warehouse_id").asString()!!
 
             _userDetailsState.update {
                 it.copy(
-                    email = emailClaim,
-                    role = roleClaim,
                     name = nameClaim,
-                    deviceActive = deviceActiveClaim,
-                    deviceId = deviceIdClaim,
-                    warehouseId = warehouseIdClaim
+                    deviceId = deviceIdClaim
                 )
             }
         }

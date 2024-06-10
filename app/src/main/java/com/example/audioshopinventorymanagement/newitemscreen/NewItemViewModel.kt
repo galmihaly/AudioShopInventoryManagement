@@ -14,6 +14,7 @@ import com.example.audioshopinventorymanagement.room.entities.ModelEntity
 import com.example.audioshopinventorymanagement.room.entities.ProductEntity
 import com.example.audioshopinventorymanagement.room.repositories.ProductDatabaseRepository
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
+import com.example.audioshopinventorymanagement.utils.Formatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,8 +36,6 @@ class NewItemViewModel @Inject constructor(
     val viewState = _viewState.asStateFlow()
 
     private val _userDetailsState = MutableStateFlow(UserDetailsState())
-
-    private val productIdSeparator = '-'
 
     init {
         getJwtTokenFromRepository()
@@ -101,8 +100,8 @@ class NewItemViewModel @Inject constructor(
             }
 
 
-            val productId = createProductId(brandDetails.brandId!!, categoryDetails.categoryId!!, modelDetails.modelId!!)
-            val productName = createProductName(brandDDValue, modelDDValue)
+            val productId = Formatter.createProductId(brandDetails.brandId!!, categoryDetails.categoryId!!, modelDetails.modelId!!)
+            val productName = Formatter.createProductName(brandDDValue, modelDDValue)
 
             val daoEntity = ProductEntity(
                 productId = productId,
@@ -138,19 +137,14 @@ class NewItemViewModel @Inject constructor(
             val tokens = jwtTokenRepository.getAccessJwt()
             val token = JWT(tokens.accessToken)
 
-            val emailClaim = token.getClaim("email").asString()!!
             val roleClaim = token.getClaim("role").asString()!!
             val nameClaim = token.getClaim("username").asString()!!
-            val deviceActiveClaim = token.getClaim("device_active").asString()!!
             val deviceIdClaim = token.getClaim("device_id").asString()!!
             val warehouseIdClaim = token.getClaim("warehouse_id").asString()!!
 
             _userDetailsState.update {
                 it.copy(
-                    email = emailClaim,
-                    role = roleClaim,
                     name = nameClaim,
-                    deviceActive = deviceActiveClaim,
                     deviceId = deviceIdClaim,
                     warehouseId = warehouseIdClaim
                 )
@@ -295,24 +289,6 @@ class NewItemViewModel @Inject constructor(
                 )
             }
         }
-    }
-
-    private fun createProductId(brandId: String, modelId: String, categoryId: String): String {
-        return StringBuilder()
-            .append(brandId)
-            .append(productIdSeparator)
-            .append(categoryId)
-            .append(productIdSeparator)
-            .append(modelId)
-            .toString()
-    }
-
-    private fun createProductName(brand : String, model : String) : String{
-        return StringBuilder()
-            .append(brand)
-            .append(" ")
-            .append(model)
-            .toString()
     }
 
     fun updateWarehouseTFValue(value : String){

@@ -12,6 +12,7 @@ import com.example.audioshopinventorymanagement.room.entities.BrandEntity
 import com.example.audioshopinventorymanagement.room.entities.CategoryEntity
 import com.example.audioshopinventorymanagement.room.entities.ModelEntity
 import com.example.audioshopinventorymanagement.room.repositories.ProductDatabaseRepository
+import com.example.audioshopinventorymanagement.utils.Formatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,8 +26,7 @@ import javax.inject.Inject
 class ModifyItemViewModel @Inject constructor(
     private val appNavigator: AppNavigator,
     private val databaseRepo: ProductDatabaseRepository,
-    private val savedStateHandle: SavedStateHandle,
-    private val jwtTokenRepository: JwtTokenRepository
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     val navigationChannel = appNavigator.navigationChannel
@@ -34,11 +34,7 @@ class ModifyItemViewModel @Inject constructor(
     private val _viewState = MutableStateFlow(ModifyItemViewState())
     val viewState = _viewState.asStateFlow()
 
-    private val _userDetailsState = MutableStateFlow(UserDetailsState())
-
-    private val arg = checkNotNull(savedStateHandle[Destination.ModifyItemScreenArguments.barcode.toString()] ?: "")
-
-    private val productIdSeparator = '-'
+    private val arg = checkNotNull(savedStateHandle[Destination.ModifyItemScreenArguments.barcode] ?: "")
 
     init {
         getAllBrand()
@@ -46,7 +42,6 @@ class ModifyItemViewModel @Inject constructor(
         getAllModel()
 
         getProductFromRoom()
-        getJwtTokenFromRepository()
     }
 
     private fun getProductFromRoom(){
@@ -72,31 +67,6 @@ class ModifyItemViewModel @Inject constructor(
                         wholeSalePriceTFValue = product.wholeSalePrice.toString()
                     )
                 }
-            }
-        }
-    }
-
-    private fun getJwtTokenFromRepository(){
-        viewModelScope.launch(Dispatchers.IO) {
-            val tokens = jwtTokenRepository.getAccessJwt()
-            val token = JWT(tokens.accessToken)
-
-            val emailClaim = token.getClaim("email").asString()!!
-            val roleClaim = token.getClaim("role").asString()!!
-            val nameClaim = token.getClaim("username").asString()!!
-            val deviceActiveClaim = token.getClaim("device_active").asString()!!
-            val deviceIdClaim = token.getClaim("device_id").asString()!!
-            val warehouseIdClaim = token.getClaim("warehouse_id").asString()!!
-
-            _userDetailsState.update {
-                it.copy(
-                    email = emailClaim,
-                    role = roleClaim,
-                    name = nameClaim,
-                    deviceActive = deviceActiveClaim,
-                    deviceId = deviceIdClaim,
-                    warehouseId = warehouseIdClaim
-                )
             }
         }
     }
@@ -207,14 +177,14 @@ class ModifyItemViewModel @Inject constructor(
 
             if(brandDDValue.isNotEmpty() || categoryDDValue.isNotEmpty() || modelDDValue.isNotEmpty()){
                 if(brandDDValue != products.brandName || categoryDDValue != products.categoryName || modelDDValue != products.modelName){
-                    val productId = createProductId(brandDetails.brandId!!, categoryDetails.categoryId!!, modelDetails.modelId!!)
+                    val productId = Formatter.createProductId(brandDetails.brandId!!, categoryDetails.categoryId!!, modelDetails.modelId!!)
                     databaseRepo.updateProductId(barcodeTFValue, productId)
                 }
             }
 
             if(brandDDValue.isNotEmpty() || modelDDValue.isNotEmpty()){
                 if(brandDDValue != products.brandName || modelDDValue != products.modelName){
-                    val productName = createProductName(brandDDValue, modelDDValue)
+                    val productName = Formatter.createProductName(brandDDValue, modelDDValue)
                     databaseRepo.updateProductName(barcodeTFValue, productName)
                 }
             }
@@ -440,24 +410,6 @@ class ModifyItemViewModel @Inject constructor(
                 )
             }
         }
-    }
-
-    private fun createProductId(brandId: String, modelId: String, categoryId: String): String {
-        return StringBuilder()
-            .append(brandId)
-            .append(productIdSeparator)
-            .append(categoryId)
-            .append(productIdSeparator)
-            .append(modelId)
-            .toString()
-    }
-
-    private fun createProductName(brand : String, model : String) : String{
-        return StringBuilder()
-            .append(brand)
-            .append(" ")
-            .append(model)
-            .toString()
     }
 
     fun updateWarehouseTFValue(value : String){

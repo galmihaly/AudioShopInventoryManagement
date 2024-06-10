@@ -127,12 +127,18 @@ class LoginScreenViewModel @Inject constructor(
 
                     val jwtObject = JWT(authenticatedToken)
                     val isExpiredToken = jwtObject.isExpired(0)
+                    val isActiveDevice = jwtObject.getClaim("device_active").asString()!!
 
                     val authenticatedEmailFromToken = jwtObject.getClaim("email").asString()!!
                     val authValidator = Validator.isValidEmail(authenticatedEmailFromToken)
 
-                    if(!isExpiredToken && authValidator.isValid){
-                        onNavigateToStartScreen()
+                    if(isActiveDevice == "True"){
+                        if(!isExpiredToken && authValidator.isValid){
+                            onNavigateToStartScreen()
+                        }
+                    }
+                    else{
+                        onErrorDialogShow("Your device is currently inactive in the database.")
                     }
                 }
             }

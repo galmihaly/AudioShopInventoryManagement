@@ -28,7 +28,7 @@ class ProductsOverviewScreenViewModel @Inject constructor(
     private val _viewState = MutableStateFlow(ProductsOverViewState())
     val viewState = _viewState.asStateFlow()
 
-    private val arg = checkNotNull(savedStateHandle[Destination.StoragesScreenArguments.warehouseId.toString()] ?: "")
+    private val arg = checkNotNull(savedStateHandle[Destination.StoragesScreenArguments.warehouseId] ?: "")
 
     init {
         getAllProductsFromApi()
@@ -36,9 +36,7 @@ class ProductsOverviewScreenViewModel @Inject constructor(
 
     private fun getAllProductsFromApi(){
         viewModelScope.launch(Dispatchers.IO) {
-
-            if(arg != null){
-                Log.e("arg_stor", arg)
+            if(arg != ""){
                 val response = productApiRepository.getProductsByStorageId(arg)
 
                 when (response){

@@ -24,7 +24,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -71,21 +70,17 @@ object LoginScreenComponents {
         emailTextValue: String,
         textChangeFunction: (String) -> Unit
     ){
-        Column(
-            modifier = Modifier.padding(
-                top = 0.dp,
-                bottom = 10.dp
-            )
-        ){
+        Column{
             Text(
                 text = emailErrorText,
                 color = emailErrorTextColor,
                 fontSize = 12.sp,
-                fontFamily = CustomFonts.RobotoMono_Regular,
-                modifier = Modifier.padding(vertical = 10.dp)
+                fontFamily = CustomFonts.RobotoMono_Regular
             )
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp),
                 value = emailTextValue,
                 onValueChange = textChangeFunction,
                 label = {
@@ -129,11 +124,12 @@ object LoginScreenComponents {
                 text = passwordErrorText,
                 color = passwordErrorTextColor,
                 fontSize = 12.sp,
-                fontFamily = CustomFonts.RobotoMono_Regular,
-                modifier = Modifier.padding(vertical = 10.dp)
+                fontFamily = CustomFonts.RobotoMono_Regular
             )
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp),
                 value = passwordTextValue,
                 onValueChange = textChangeFunction,
                 label = {
@@ -276,7 +272,6 @@ object LoginScreenComponents {
     }
 }
 
-/*@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true, device = Devices.PIXEL_2)
 @Composable
 fun previewComponent(){
@@ -299,7 +294,7 @@ fun previewComponent(){
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
+                    .padding(horizontal = 20.dp)
             ){
                 Column(
                     modifier = Modifier.padding(
@@ -332,4 +327,4 @@ fun previewComponent(){
 
         /*ViewComponents.BackSaveDialog(viewModel = loginScreenViewModel)*/
     }
-}*/
+}

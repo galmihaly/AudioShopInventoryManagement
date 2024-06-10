@@ -91,45 +91,4 @@ fun LoginScreen(
             dialogDismissFunction = { loginScreenViewModel.onErrorDialogDismiss() }
         )
     }
-
-    /*Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(LIGHT_GRAY),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        AllViewComponents.HeadLineWithTextAndLogo(
-            headLineText = "Inventory Management",
-            headLineLogo = R.drawable.audioshop_logo
-        )
-        ViewComponents.LoginText(text = "Login")
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 30.dp)
-        ){
-            Column(
-                modifier = Modifier.padding(
-                    vertical = 0.dp
-                )
-            ) {
-                ViewComponents.EmailInputField(
-                    text = "Email",
-                    viewModel = loginScreenViewModel
-                )
-                ViewComponents.PasswordInputField(
-                    text = "Password",
-                    viewModel = loginScreenViewModel
-                )
-            }
-        }
-
-        ViewComponents.LoginButtonAndLink(
-            buttonText = "Login",
-            linkText = "Device Registration",
-            viewModel = loginScreenViewModel
-        )
-    }
-    
-    ViewComponents.BackSaveDialog(viewModel = loginScreenViewModel)*/
 }

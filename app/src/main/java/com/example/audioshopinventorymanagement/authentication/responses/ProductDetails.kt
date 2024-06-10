@@ -1,5 +1,6 @@
 package com.example.audioshopinventorymanagement.authentication.responses
 
+import com.example.audioshopinventorymanagement.room.entities.ProductEntity
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Required
 import java.time.LocalDateTime
@@ -50,4 +51,5 @@ data class ProductDetails(
     @Required
     @SerializedName("recording_date")
     var recordingDate: String? = "",
+
 )

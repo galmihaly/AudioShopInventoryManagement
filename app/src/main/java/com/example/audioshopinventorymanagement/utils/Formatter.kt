@@ -8,6 +8,7 @@ class Formatter {
     companion object{
         private val PRODUCTNAME_SEPARATOR = " "
         private val PRICE_SEPARATOR = '.'
+        private val PRODUCTID_SEPARATOR = '-'
         private val PRICE_FORINT = "Ft"
 
         private val  NUMERIC_PATTERN: Pattern = Pattern.compile(
@@ -42,6 +43,24 @@ class Formatter {
             return sb
                 .append(PRODUCTNAME_SEPARATOR)
                 .append(PRICE_FORINT)
+                .toString()
+        }
+
+        fun createProductId(brandId: String, modelId: String, categoryId: String): String {
+            return StringBuilder()
+                .append(brandId)
+                .append(PRODUCTID_SEPARATOR)
+                .append(categoryId)
+                .append(PRODUCTID_SEPARATOR)
+                .append(modelId)
+                .toString()
+        }
+
+        fun createProductName(brand : String, model : String) : String{
+            return StringBuilder()
+                .append(brand)
+                .append(PRODUCTNAME_SEPARATOR)
+                .append(model)
                 .toString()
         }
     }

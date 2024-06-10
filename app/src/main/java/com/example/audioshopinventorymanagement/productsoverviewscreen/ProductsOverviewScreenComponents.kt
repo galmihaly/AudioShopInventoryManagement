@@ -260,26 +260,6 @@ fun previewComponent(){
                         backgroundColor = GREEN,
                         onClick = {}
                     )
-                    AllViewComponents.NavigationButtons(
-                        buttonLogoId = R.drawable.add_list_logo,
-                        buttonLogoHeight = 40.dp,
-                        buttonLogoWidth = 40.dp,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .weight(1f),
-                        backgroundColor = BLUE,
-                        onClick = {}
-                    )
-                    AllViewComponents.NavigationButtons(
-                        buttonLogoId = R.drawable.delete_list_logo,
-                        buttonLogoHeight = 40.dp,
-                        buttonLogoWidth = 40.dp,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .weight(1f),
-                        backgroundColor = ERROR_RED,
-                        onClick = {}
-                    )
                 }
             }
         }
