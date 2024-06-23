@@ -23,7 +23,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.loginscreen.LoginScreenComponents
-import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
@@ -89,7 +88,7 @@ fun ProductsOverviewScreen(
                     ),
             ) {
                 AllViewComponents.SearchField(
-                    value = "Barcode",
+                    labelText = "Barcode",
                     textFieldValue = searchFieldValue,
                     textChangeFunction = { viewModel.filterListBySearchValue(it) },
                     deleteValueChange = { viewModel.filterListBySearchValue("") }

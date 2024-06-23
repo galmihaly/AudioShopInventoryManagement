@@ -189,7 +189,7 @@ object AllViewComponents {
 
     @Composable
     fun SearchField(
-        value: String,
+        labelText: String,
         textFieldValue: String,
         textChangeFunction : (String) -> Unit,
         deleteValueChange: () -> Unit)
@@ -202,7 +202,7 @@ object AllViewComponents {
             onValueChange = textChangeFunction,
             label = {
                 Text(
-                    text = value,
+                    text = labelText,
                     color = GREEN,
                     fontFamily = CustomFonts.RobotoMono_Regular
                 )
@@ -234,7 +234,8 @@ object AllViewComponents {
             ),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password
-            )
+            ),
+            singleLine = true
         )
     }
 

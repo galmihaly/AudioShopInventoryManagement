@@ -46,7 +46,7 @@ import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 object LoginScreenComponents {
 
     @Composable
-    fun LoginText(text: String){
+    fun PageText(text: String){
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
@@ -64,7 +64,7 @@ object LoginScreenComponents {
 
     @Composable
     fun EmailInputField(
-        text: String,
+        labelText: String,
         emailErrorText: String,
         emailErrorTextColor: Color,
         emailTextValue: String,
@@ -85,7 +85,7 @@ object LoginScreenComponents {
                 onValueChange = textChangeFunction,
                 label = {
                     Text(
-                        text = text,
+                        text = labelText,
                         color = GREEN,
                         fontFamily = CustomFonts.RobotoMono_Regular,
                     )
@@ -161,7 +161,6 @@ object LoginScreenComponents {
     @Composable
     fun LoginButtonAndLink(
         buttonText: String,
-        linkText: String,
         onClickFunction: () -> Unit
     ){
         Box(
@@ -186,13 +185,6 @@ object LoginScreenComponents {
                         fontFamily = CustomFonts.RobotoMono_Regular,
                     )
                 }
-                Spacer(modifier = Modifier.height(15.dp))
-                Text(
-                    text = linkText,
-                    color = Color.White,
-                    fontSize = 15.sp,
-                    fontFamily = CustomFonts.RobotoMono_Regular,
-                )
             }
         }
     }
@@ -272,6 +264,7 @@ object LoginScreenComponents {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true, device = Devices.PIXEL_2)
 @Composable
 fun previewComponent(){
@@ -290,7 +283,7 @@ fun previewComponent(){
                 .padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            LoginScreenComponents.LoginText(text = "Login")
+            LoginScreenComponents.PageText(text = "Login")
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -302,15 +295,15 @@ fun previewComponent(){
                     )
                 ) {
                     LoginScreenComponents.EmailInputField(
-                        text = "Email",
-                        emailErrorText = "emailText",
+                        labelText = "Email",
+                        emailErrorText = "EmailStateText",
                         emailErrorTextColor = ERROR_RED,
                         emailTextValue = "emailTextValue",
                         textChangeFunction = { }
                     )
                     LoginScreenComponents.PasswordInputField(
                         text = "Password",
-                        passwordErrorText = "passwordText",
+                        passwordErrorText = "PasswordStateText",
                         passwordErrorTextColor = ERROR_RED,
                         passwordTextValue = "passwordTextValue",
                         textChangeFunction = { }
@@ -318,11 +311,10 @@ fun previewComponent(){
                 }
             }
 
-           /* ViewComponents.LoginButtonAndLink(
+            LoginScreenComponents.LoginButtonAndLink(
                 buttonText = "Login",
-                linkText = "Device Registration",
-                viewModel = loginScreenViewModel
-            )*/
+                onClickFunction = {}
+            )
         }
 
         /*ViewComponents.BackSaveDialog(viewModel = loginScreenViewModel)*/

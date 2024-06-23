@@ -49,7 +49,7 @@ fun LoginScreen(
                 .padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            LoginScreenComponents.LoginText(text = "Login")
+            LoginScreenComponents.PageText(text = "Login")
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -61,7 +61,7 @@ fun LoginScreen(
                     )
                 ) {
                     LoginScreenComponents.EmailInputField(
-                        text = "Email",
+                        labelText = "Email",
                         emailErrorText = emailText,
                         emailErrorTextColor = emailErrorTextColor,
                         emailTextValue = emailTextValue,
@@ -79,7 +79,6 @@ fun LoginScreen(
 
             LoginScreenComponents.LoginButtonAndLink(
                 buttonText = "Login",
-                linkText = "Device Registration",
                 onClickFunction = { loginScreenViewModel.authLoginUser(emailTextValue, passwordTextValue) }
             )
         }

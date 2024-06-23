@@ -165,7 +165,7 @@ fun previewComponent(){
                     .padding(horizontal = 10.dp),
             ) {
                 AllViewComponents.SearchField(
-                    value = "Search",
+                    labelText = "Search",
                     textFieldValue = "",
                     textChangeFunction = {},
                     deleteValueChange = {}

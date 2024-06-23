@@ -11,11 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -26,11 +24,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.loginscreen.LoginScreenComponents
-import com.example.audioshopinventorymanagement.productlistscreen.ProducListScreenComponents
-import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
-import com.example.audioshopinventorymanagement.warehousesscreen.WareHousesScreenComponents
 
 @Composable
 fun StoragesScreen(
@@ -96,7 +91,7 @@ fun StoragesScreen(
                     ),
             ){
                 AllViewComponents.SearchField(
-                    value = "Barcode",
+                    labelText = "Barcode",
                     textFieldValue = searchFieldValue,
                     textChangeFunction = { viewModel.filterListBySearchValue(it) },
                     deleteValueChange = { viewModel.filterListBySearchValue("") }
