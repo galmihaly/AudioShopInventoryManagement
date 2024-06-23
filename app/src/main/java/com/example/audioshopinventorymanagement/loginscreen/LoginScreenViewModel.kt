@@ -1,19 +1,17 @@
 package com.example.audioshopinventorymanagement.loginscreen
 
-import android.util.Log
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.JWT
-import com.example.audioshopinventorymanagement.authentication.repositories.AuthApiRepository
-import com.example.audioshopinventorymanagement.authentication.requests.LoginAuthRequest
-import com.example.audioshopinventorymanagement.authentication.responses.sealed.LoginApiResponse
+import com.example.audioshopinventorymanagement.api.repositories.AuthApiRepository
+import com.example.audioshopinventorymanagement.api.requests.LoginAuthRequest
+import com.example.audioshopinventorymanagement.api.responses.sealed.LoginApiResponse
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
-import com.example.audioshopinventorymanagement.utils.Network
 import com.example.audioshopinventorymanagement.utils.Validator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -87,23 +85,28 @@ class LoginScreenViewModel @Inject constructor(
         when (response){
             is LoginApiResponse.Success -> {
                 if(response.data.statusCode == 200 && response.data.loginUserDetails.isLogin){
-                    // save tokens to DataStore
-                    jwtTokenRepository.saveAccessJwt(response.data.loginUserDetails.accessToken)
-                    jwtTokenRepository.saveRefreshJwt(response.data.loginUserDetails.refreshToken)
+                    val isLogin = response.data.loginUserDetails.isLogin
+                    if(isLogin){
+                        jwtTokenRepository.saveAccessJwt(response.data.loginUserDetails.accessToken)
+                        jwtTokenRepository.saveRefreshJwt(response.data.loginUserDetails.refreshToken)
 
-                    token = response.data.loginUserDetails.accessToken
+                        token = response.data.loginUserDetails.accessToken
+                    }
+                    else{
+                        onDialogShow("Authentication Failed!")
+                    }
                 }
             }
             is LoginApiResponse.Error -> {
                 if(response.data.statusCode == 401){
-                    onErrorDialogShow("Authentication Failed!")
+                    onDialogShow("Authentication Failed!")
                 }
                 else if(response.data.statusCode == 403){
-                    onErrorDialogShow("Authentication Failed!")
+                    onDialogShow("Authentication Failed!")
                 }
             }
             is LoginApiResponse.Exception -> {
-                onErrorDialogShow(response.exceptionMessage)
+                onDialogShow(response.exceptionMessage)
             }
         }
         
@@ -111,8 +114,8 @@ class LoginScreenViewModel @Inject constructor(
     }
 
     //Megszámoljuk, hogy tokenünk mennyi részből áll. Egy hivatalos JSON Web Token áll egy fejrészből, egy hasznos adat részből, valamint egy aláíró kulcsból.
-    //A 3 rész közül csak egy érkezik meg, ami nem megfelelő token, ezért megszámoljuk, hogy az API-ból megérkezett kulcs mennyi részből áll.
-    //Boolean értékkel visszatérve pedig megvizsgáljuk a token részeinek számát.
+    //Ha a 3 rész közül csak egy érkezik meg, akkor az nem egy teljes token (hibás token), ezért megszámoljuk, hogy az API-ból megérkezett kulcs mennyi részből áll.
+    //Boolean értékkel térünk vissza, hogyha 3 részből áll a token, akkor "true" értékkel térünk vissza
     private fun isUsefulTokenPartsCount(token : String) : Boolean {
         val tokenParts = Integer.valueOf(token.split(".").size)
         return tokenParts > 2
@@ -138,7 +141,7 @@ class LoginScreenViewModel @Inject constructor(
                         }
                     }
                     else{
-                        onErrorDialogShow("Your device is currently inactive in the database.")
+                        onDialogShow("Your device is currently inactive in the database.")
                     }
                 }
             }
@@ -169,7 +172,7 @@ class LoginScreenViewModel @Inject constructor(
         }
     }
 
-    fun onErrorDialogShow(dialogText : String){
+    fun onDialogShow(dialogText : String){
         viewModelScope.launch {
             _viewState.update {
                 it.copy(

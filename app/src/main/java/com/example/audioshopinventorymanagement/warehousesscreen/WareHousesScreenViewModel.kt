@@ -2,8 +2,8 @@ package com.example.audioshopinventorymanagement.warehousesscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
-import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
+import com.example.audioshopinventorymanagement.api.repositories.ProductApiRepository
+import com.example.audioshopinventorymanagement.api.responses.sealed.ProductApiResponse
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
 import dagger.hilt.android.lifecycle.HiltViewModel

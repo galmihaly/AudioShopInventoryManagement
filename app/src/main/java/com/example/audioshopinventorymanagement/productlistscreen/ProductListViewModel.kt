@@ -3,11 +3,10 @@ package com.example.audioshopinventorymanagement.productlistscreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.JWT
-import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
-import com.example.audioshopinventorymanagement.authentication.requests.SaveProductListRequest
-import com.example.audioshopinventorymanagement.authentication.requests.SaveProductRequest
-import com.example.audioshopinventorymanagement.authentication.responses.ProductDetails
-import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
+import com.example.audioshopinventorymanagement.api.repositories.ProductApiRepository
+import com.example.audioshopinventorymanagement.api.requests.SaveProductListRequest
+import com.example.audioshopinventorymanagement.api.requests.SaveProductRequest
+import com.example.audioshopinventorymanagement.api.responses.sealed.ProductApiResponse
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
@@ -219,7 +218,8 @@ class ProductListViewModel @Inject constructor(
                             productDatabaseRepository.deleteAllProduct()
                             _viewState.update {
                                 it.copy(
-                                    productList = mutableListOf()
+                                    productList = mutableListOf(),
+                                    allMatches = 0
                                 )
                             }
                         }

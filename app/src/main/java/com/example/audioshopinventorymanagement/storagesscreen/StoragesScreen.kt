@@ -89,7 +89,11 @@ fun StoragesScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 10.dp),
+                    .padding(
+                        start = 10.dp,
+                        end = 10.dp,
+                        bottom = 10.dp
+                    ),
             ){
                 AllViewComponents.SearchField(
                     value = "Barcode",

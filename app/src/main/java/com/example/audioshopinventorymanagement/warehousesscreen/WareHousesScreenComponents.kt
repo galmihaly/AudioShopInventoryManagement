@@ -33,8 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.authentication.responses.WarehouseDetails
-import com.example.audioshopinventorymanagement.room.entities.ProductEntity
+import com.example.audioshopinventorymanagement.api.responses.WarehouseDetails
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.DARK_GRAY
 import com.example.audioshopinventorymanagement.ui.theme.GREEN

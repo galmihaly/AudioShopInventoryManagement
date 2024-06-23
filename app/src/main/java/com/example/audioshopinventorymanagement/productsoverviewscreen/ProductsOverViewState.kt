@@ -1,6 +1,6 @@
 package com.example.audioshopinventorymanagement.productsoverviewscreen
 
-import com.example.audioshopinventorymanagement.authentication.responses.ProductDetails
+import com.example.audioshopinventorymanagement.api.responses.ProductDetails
 
 data class ProductsOverViewState(
 

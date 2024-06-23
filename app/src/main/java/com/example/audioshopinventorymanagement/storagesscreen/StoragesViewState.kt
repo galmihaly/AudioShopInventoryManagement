@@ -1,7 +1,7 @@
 package com.example.audioshopinventorymanagement.storagesscreen
 
 import androidx.compose.ui.graphics.Color
-import com.example.audioshopinventorymanagement.authentication.responses.StoragesDetails
+import com.example.audioshopinventorymanagement.api.responses.StoragesDetails
 import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 

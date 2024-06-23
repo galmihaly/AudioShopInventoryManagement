@@ -1,11 +1,10 @@
 package com.example.audioshopinventorymanagement.productsoverviewscreen
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
-import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
+import com.example.audioshopinventorymanagement.api.repositories.ProductApiRepository
+import com.example.audioshopinventorymanagement.api.responses.sealed.ProductApiResponse
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -42,10 +41,12 @@ class ProductsOverviewScreenViewModel @Inject constructor(
                 when (response){
                     is ProductApiResponse.ProductListSuccess -> {
                         if(response.data.statusCode == 200){
+                            val responseProductList = response.data.productDetails!!.toMutableList()
                             _viewState.update {
                                 it.copy(
-                                    productList = response.data.productDetails!!.toMutableList(),
-                                    searchedProductList = response.data.productDetails!!.toMutableList()
+                                    productList = responseProductList,
+                                    searchedProductList = responseProductList,
+                                    allMatches = responseProductList.size
                                 )
                             }
                         }

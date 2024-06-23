@@ -1,22 +1,20 @@
 package com.example.audioshopinventorymanagement.di
 
 import android.content.Context
-import com.example.audioshopinventorymanagement.authentication.AuthAuthenticator
-import com.example.audioshopinventorymanagement.authentication.apis.LoginAuthAPI
-import com.example.audioshopinventorymanagement.authentication.apis.ProductAPI
-import com.example.audioshopinventorymanagement.authentication.interceptors.AccessTokenInterceptor
-import com.example.audioshopinventorymanagement.authentication.repositories.AuthApiRepository
-import com.example.audioshopinventorymanagement.authentication.repositories.AuthApiRepositoryImpl
-import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
-import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepositoryImpl
-import com.example.audioshopinventorymanagement.authentication.responses.BaseResponse
-import com.example.audioshopinventorymanagement.authentication.responses.BrandListResponse
-import com.example.audioshopinventorymanagement.authentication.responses.CategoryListResponse
-import com.example.audioshopinventorymanagement.authentication.responses.ModelListResponse
+import com.example.audioshopinventorymanagement.api.AuthAuthenticator
+import com.example.audioshopinventorymanagement.api.apiinterfaces.LoginAuthAPI
+import com.example.audioshopinventorymanagement.api.apiinterfaces.ProductAPI
+import com.example.audioshopinventorymanagement.api.interceptors.AccessTokenInterceptor
+import com.example.audioshopinventorymanagement.api.repositories.AuthApiRepository
+import com.example.audioshopinventorymanagement.api.repositories.AuthApiRepositoryImpl
+import com.example.audioshopinventorymanagement.api.repositories.ProductApiRepository
+import com.example.audioshopinventorymanagement.api.repositories.ProductApiRepositoryImpl
+import com.example.audioshopinventorymanagement.api.responses.BaseResponse
+import com.example.audioshopinventorymanagement.api.responses.BrandListResponse
+import com.example.audioshopinventorymanagement.api.responses.CategoryListResponse
+import com.example.audioshopinventorymanagement.api.responses.ModelListResponse
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
-import com.example.audioshopinventorymanagement.room.ProductDatabase
 import com.example.audioshopinventorymanagement.utils.ApiResponseDeserializer
-import com.example.audioshopinventorymanagement.utils.Formatter
 import com.example.audioshopinventorymanagement.utils.Network
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -32,7 +30,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
 import javax.inject.Singleton
-import java.lang.StringBuilder
 
 
 @Module

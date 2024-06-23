@@ -3,8 +3,8 @@ package com.example.audioshopinventorymanagement.storagesscreen
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.audioshopinventorymanagement.authentication.repositories.ProductApiRepository
-import com.example.audioshopinventorymanagement.authentication.responses.sealed.ProductApiResponse
+import com.example.audioshopinventorymanagement.api.repositories.ProductApiRepository
+import com.example.audioshopinventorymanagement.api.responses.sealed.ProductApiResponse
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -42,10 +42,12 @@ class StoragesScreenViewModel @Inject constructor(
                 when (response){
                     is ProductApiResponse.StoragesSuccess -> {
                         if(response.data.statusCode == 200){
+                            val responseStorageList = response.data.storagesDetails!!.toMutableList()
                             _viewState.update {
                                 it.copy(
-                                    storagesList = response.data.storagesDetails!!.toMutableList(),
-                                    searchedStoragesList = response.data.storagesDetails!!.toMutableList()
+                                    storagesList = responseStorageList,
+                                    searchedStoragesList = responseStorageList,
+                                    allMatches = responseStorageList.size
                                 )
                             }
                         }

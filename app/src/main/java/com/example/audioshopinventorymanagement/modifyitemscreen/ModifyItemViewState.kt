@@ -1,9 +1,6 @@
 package com.example.audioshopinventorymanagement.modifyitemscreen
 
 import androidx.compose.ui.graphics.Color
-import com.example.audioshopinventorymanagement.authentication.responses.BrandDetails
-import com.example.audioshopinventorymanagement.authentication.responses.CategoryDetails
-import com.example.audioshopinventorymanagement.authentication.responses.ModelDetails
 import com.example.audioshopinventorymanagement.room.entities.BrandEntity
 import com.example.audioshopinventorymanagement.room.entities.CategoryEntity
 import com.example.audioshopinventorymanagement.room.entities.ModelEntity

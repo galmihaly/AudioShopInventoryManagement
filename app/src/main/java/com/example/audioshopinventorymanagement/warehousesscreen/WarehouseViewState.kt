@@ -1,7 +1,6 @@
 package com.example.audioshopinventorymanagement.warehousesscreen
 
-import com.example.audioshopinventorymanagement.authentication.responses.WarehouseDetails
-import com.example.audioshopinventorymanagement.room.entities.ProductEntity
+import com.example.audioshopinventorymanagement.api.responses.WarehouseDetails
 
 data class WarehouseViewState(
     var warehouseList: MutableList<WarehouseDetails> = ArrayList(),

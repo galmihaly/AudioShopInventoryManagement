@@ -79,7 +79,12 @@ fun WareHousesScreen(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 10.dp, vertical = 20.dp)
+                    .padding(
+                        start = 10.dp,
+                        end = 10.dp,
+                        top = 10.dp,
+                        bottom = 10.dp
+                    ),
             ) {
                 itemsIndexed(warehouseListState) { index, warehouse ->
                     val pIndex = index + 1
