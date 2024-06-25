@@ -52,7 +52,6 @@ object ProducListScreenComponents {
         Box(
             modifier = Modifier
                 .fillMaxWidth().height(80.dp)
-                .padding(vertical = 15.dp)
         ){
             Row (
                 modifier = Modifier.fillMaxWidth(),

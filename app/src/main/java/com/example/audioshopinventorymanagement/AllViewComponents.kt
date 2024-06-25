@@ -448,7 +448,7 @@ object AllViewComponents {
                         modifier = Modifier
                             .fillMaxWidth()
                             .wrapContentHeight()
-                            .padding(vertical = 10.dp, horizontal = 30.dp)
+                            .padding(30.dp)
                     ){
                         Row (
                             horizontalArrangement = Arrangement.SpaceBetween,
