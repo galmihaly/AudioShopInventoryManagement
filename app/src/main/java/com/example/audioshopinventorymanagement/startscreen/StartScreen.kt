@@ -56,18 +56,18 @@ fun StartScreen(
         ){
             Column{
                 StartScreenComponents.ButtonWithLogoAndText(
-                    buttonText = "Create New List",
-                    buttonLogoId = R.drawable.controlled_inventory_logo,
-                    buttonLogoHeight = 54.dp,
-                    buttonLogoWidth = 46.dp,
+                    text = "Create New List",
+                    logoId = R.drawable.controlled_inventory_logo,
+                    logoHeight = 54.dp,
+                    logoWidth = 46.dp,
                     onClick = { startScreenViewModel.onNavigateToProductListScreen() }
                 )
                 Spacer(modifier = Modifier.height(50.dp))
                 StartScreenComponents.ButtonWithLogoAndText(
-                    buttonText = "Stocks",
-                    buttonLogoId = R.drawable.stocks_logo,
-                    buttonLogoHeight = 50.dp,
-                    buttonLogoWidth = 50.dp,
+                    text = "Stocks",
+                    logoId = R.drawable.stocks_logo,
+                    logoHeight = 50.dp,
+                    logoWidth = 50.dp,
                     onClick = { startScreenViewModel.onNavigateToWareHousesScreen() }
                 )
             }

@@ -38,7 +38,7 @@ import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 object StartScreenComponents {
 
     @Composable
-    fun ButtonWithLogoAndText(buttonText: String, buttonLogoId: Int, buttonLogoHeight: Dp, buttonLogoWidth: Dp, onClick: () -> Unit){
+    fun ButtonWithLogoAndText(text: String, logoId: Int, logoHeight: Dp, logoWidth: Dp, onClick: () -> Unit){
         Button(
             onClick = onClick,
             modifier = Modifier
@@ -52,15 +52,15 @@ object StartScreenComponents {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Icon(
-                    painter = painterResource(id = buttonLogoId),
+                    painter = painterResource(id = logoId),
                     contentDescription = "",
                     modifier = Modifier
-                        .height(buttonLogoHeight)
-                        .width(buttonLogoWidth)
+                        .height(logoHeight)
+                        .width(logoWidth)
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text = buttonText,
+                    text = text,
                     color = Color.White,
                     fontFamily = CustomFonts.RobotoMono_Bold,
                     fontSize = 20.sp
@@ -84,7 +84,7 @@ fun previewComponent(){
             BottomAppBar(
                 modifier = Modifier.fillMaxWidth().height(60.dp),
                 contentPadding = PaddingValues(0.dp),
-                containerColor = Green
+                containerColor = GREEN
             ) {
                 AllViewComponents.BackButton(
                     buttonLogoId = R.drawable.back_logo,
@@ -104,18 +104,18 @@ fun previewComponent(){
         ){
             Column{
                 StartScreenComponents.ButtonWithLogoAndText(
-                    buttonText = "Create New List",
-                    buttonLogoId = R.drawable.controlled_inventory_logo,
-                    buttonLogoHeight = 54.dp,
-                    buttonLogoWidth = 46.dp,
+                    text = "Create New List",
+                    logoId = R.drawable.controlled_inventory_logo,
+                    logoHeight = 54.dp,
+                    logoWidth = 46.dp,
                     onClick = {}
                 )
                 Spacer(modifier = Modifier.height(50.dp))
                 StartScreenComponents.ButtonWithLogoAndText(
-                    buttonText = "Stocks",
-                    buttonLogoId = R.drawable.stocks_logo,
-                    buttonLogoHeight = 50.dp,
-                    buttonLogoWidth = 50.dp,
+                    text = "Stocks",
+                    logoId = R.drawable.stocks_logo,
+                    logoHeight = 50.dp,
+                    logoWidth = 50.dp,
                     onClick = {}
                 )
             }
