@@ -6,18 +6,18 @@ class Validator {
     companion object{
 
         //Password Validation Messages
-        private const val EMPTY_PASSWORD = "This is empty!"
         private const val ERROR_LENGTH = "This must have at least 8 characters!"
         private const val ERROR_WHITESPACE = "This must not contain whitespace!"
         private const val ERROR_DIGIT = "This must contain at least one digit!"
         private const val ERROR_UPPER = "This must have at least one uppercase letter!"
         private const val ERROR_SPECIAL = "This must have at least one special character!"
-        private const val CORRECT_PASSWORD = "This is correct!"
+        private const val CORRECT_PASSWORD = "Correct password!"
+        private const val EMPTY_PASSWORD = "Password field is empty!"
 
         //Email Validation Messages
-        private const val CORRECT_EMAIL = "This is correct!"
-        private const val INCORRECT_EMAIL = "This is incorrect!"
-        private const val EMPTY_EMAIL = "This is empty!"
+        private const val CORRECT_EMAIL = "Correct email!"
+        private const val INCORRECT_EMAIL = "Incorrect email!"
+        private const val EMPTY_EMAIL = "Email field is empty!"
         private fun String.isLongerThan8() = length >= 8
         private fun String.isWithoutWhitespace() = none { it.isWhitespace() }
         private fun String.isHasDigit() = any { it.isDigit() }

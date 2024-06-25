@@ -55,7 +55,7 @@ fun StartScreen(
                 .padding(paddingValues)
         ){
             Column{
-                StartScreenComponents.buttonWithLogoAndText(
+                StartScreenComponents.ButtonWithLogoAndText(
                     buttonText = "Create New List",
                     buttonLogoId = R.drawable.controlled_inventory_logo,
                     buttonLogoHeight = 54.dp,
@@ -63,7 +63,7 @@ fun StartScreen(
                     onClick = { startScreenViewModel.onNavigateToProductListScreen() }
                 )
                 Spacer(modifier = Modifier.height(50.dp))
-                StartScreenComponents.buttonWithLogoAndText(
+                StartScreenComponents.ButtonWithLogoAndText(
                     buttonText = "Stocks",
                     buttonLogoId = R.drawable.stocks_logo,
                     buttonLogoHeight = 50.dp,
