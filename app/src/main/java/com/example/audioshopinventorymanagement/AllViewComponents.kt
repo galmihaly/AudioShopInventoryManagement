@@ -47,8 +47,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -290,7 +288,6 @@ object AllViewComponents {
         }
     }
 
-    // ide kell paraméterként majd megadni viewstate data objectet, hogy abból beillesszük az adatokat a megfelelő helyre
     @Composable
     fun ItemCard(
         cardNumber: Int,
@@ -511,19 +508,4 @@ object AllViewComponents {
             }
         }
     }
-}
-
-
-@Preview(showBackground = true, device = Devices.PIXEL_2)
-@Composable
-fun previewComponent(){
-    AllViewComponents.ItemCard(
-        cardNumber = 1,
-        cardProduct = ProductEntity(),
-        modifyButtonLogo = R.drawable.modify_logo,
-        deleteButtonLogo = R.drawable.delete_x_logo,
-        modifyCardFunction = {},
-        deleteCardFunction = {},
-        expandedCard = false
-    )
 }

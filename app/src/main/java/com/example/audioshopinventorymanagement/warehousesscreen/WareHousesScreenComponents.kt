@@ -40,7 +40,6 @@ import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
 object WareHousesScreenComponents {
-
     @Composable
     fun WareHouseCard(
         cardNumber: Int,
@@ -142,7 +141,7 @@ object WareHousesScreenComponents {
 
 @Preview(showBackground = true, device = Devices.PIXEL_2)
 @Composable
-fun previewComponent(){
+fun PreviewComponent(){
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(

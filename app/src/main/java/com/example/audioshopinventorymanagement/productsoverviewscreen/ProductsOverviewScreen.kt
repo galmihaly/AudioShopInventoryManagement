@@ -41,7 +41,7 @@ fun ProductsOverviewScreen(
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "New Products List",
+                headLineText = "Products Overview",
             )
         },
         bottomBar = {

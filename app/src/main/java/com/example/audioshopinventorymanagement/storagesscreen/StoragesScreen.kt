@@ -44,7 +44,7 @@ fun StoragesScreen(
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "Storages",
+                headLineText = "Storage List",
             )
         },
         bottomBar = {

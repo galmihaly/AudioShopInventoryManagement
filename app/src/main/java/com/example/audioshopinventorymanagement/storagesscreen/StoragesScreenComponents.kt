@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -89,8 +90,7 @@ object StoragesScreenComponents {
         Row (
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(start = 20.dp, top = 10.dp, end = 20.dp),
+                .wrapContentHeight(),
             horizontalArrangement = Arrangement.Center
         ){
             Text(
@@ -119,14 +119,7 @@ object StoragesScreenComponents {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight()
-                .animateContentSize(
-                    animationSpec = tween(
-                        durationMillis = 300,
-                        delayMillis = 50,
-                        easing = LinearOutSlowInEasing
-                    )
-                ),
+                .wrapContentHeight(),
             onClick = onClick,
             shape = RectangleShape,
             border = BorderStroke(2.dp, GREEN),
@@ -167,10 +160,16 @@ object StoragesScreenComponents {
                     maxQuantity = cardStorage.maxQuantity.toString(),
                     maxQuantityColor = maxQuantityColor
                 )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
                 TextRowToCard(
                     text = "Storage ID:",
                     color = Color.White
                 )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
                 TextRowToCard(
                     text = cardStorage.storageId!!,
                     color = Color.White
@@ -188,30 +187,18 @@ object StoragesScreenComponents {
     fun MatchesText(
         text: String
     ){
+        Spacer(modifier = Modifier.height(20.dp))
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(80.dp)
-                .padding(vertical = 15.dp)
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.CenterStart
         ){
-            Row (
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Absolute.SpaceBetween
-            ) {
-                Box(
-                    modifier = Modifier
-                        .wrapContentWidth()
-                        .fillMaxHeight(),
-                    contentAlignment = Alignment.CenterStart
-                ){
-                    Text(
-                        text = text,
-                        color = Color.White,
-                        fontFamily = CustomFonts.RobotoMono_Regular
-                    )
-                }
-            }
+            Text(
+                text = text,
+                color = Color.White,
+                fontFamily = CustomFonts.RobotoMono_Regular
+            )
         }
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }
 
@@ -221,22 +208,22 @@ fun previewComponent(){
 
     val data : MutableList<StoragesDetails> = ArrayList()
     data.add(StoragesDetails(
-        storageId = "0100000000000000",
-        quantity = 50,
-        maxQuantity = 100
-    ))
-    data.add(StoragesDetails(
-        storageId = "01",
-        quantity = 20,
-        maxQuantity = 100
-    ))
-    data.add(StoragesDetails(
         storageId = "01",
         quantity = 50,
         maxQuantity = 100
     ))
     data.add(StoragesDetails(
-        storageId = "01",
+        storageId = "02",
+        quantity = 50,
+        maxQuantity = 100
+    ))
+    data.add(StoragesDetails(
+        storageId = "03",
+        quantity = 50,
+        maxQuantity = 100
+    ))
+    data.add(StoragesDetails(
+        storageId = "04",
         quantity = 50,
         maxQuantity = 100
     ))
@@ -244,7 +231,7 @@ fun previewComponent(){
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "Storages",
+                headLineText = "Storage List",
             )
         },
         bottomBar = {
@@ -285,11 +272,11 @@ fun previewComponent(){
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 10.dp),
+                    .padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
             ) {
                 AllViewComponents.SearchField(
                     labelText = "Barcode",
-                    textFieldValue = "searchFieldValue",
+                    textFieldValue = "",
                     textChangeFunction = { },
                     deleteValueChange = { }
                 )

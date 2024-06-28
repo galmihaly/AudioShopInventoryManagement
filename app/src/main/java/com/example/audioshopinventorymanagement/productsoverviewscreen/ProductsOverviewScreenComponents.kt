@@ -224,7 +224,7 @@ fun previewComponent(){
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "New Products List",
+                headLineText = "Products Overview",
             )
         },
         bottomBar = {
@@ -268,7 +268,7 @@ fun previewComponent(){
             ) {
                 AllViewComponents.SearchField(
                     labelText = "Barcode",
-                    textFieldValue = "searchFieldValue",
+                    textFieldValue = "",
                     textChangeFunction = {  },
                     deleteValueChange = {  }
                 )

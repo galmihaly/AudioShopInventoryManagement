@@ -189,119 +189,6 @@ object NewItemScreenComponents {
             }
         }
     }
-
-    @Composable
-    fun TwoModifyTextField(
-        textField1: String,
-        textFieldValue1 : String,
-        textChangeFunction1 : (String) -> Unit,
-        keyboardType1: KeyboardType,
-        isEnabled1: Boolean,
-        colorBorderState1: Color,
-        colorTextState1: Color,
-        textField2: String,
-        textFieldValue2 : String,
-        textChangeFunction2 : (String) -> Unit,
-        keyboardType2: KeyboardType,
-        isEnabled2: Boolean,
-        colorBorderState2: Color,
-        colorTextState2: Color,
-    ){
-        Row (horizontalArrangement = Arrangement.SpaceBetween)
-        {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1.0f)
-                    .padding(end = 5.dp)
-                    .wrapContentHeight()
-            ){
-                ModifyTextField(
-                    text = textField1,
-                    textFieldValue = textFieldValue1,
-                    textChangeFunction = textChangeFunction1,
-                    keyboardType = keyboardType1,
-                    isEnabled = isEnabled1,
-                    colorBorderState = colorBorderState1,
-                    colorTextState = colorTextState1
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1.0f)
-                    .padding(start = 5.dp)
-                    .wrapContentHeight()
-            ){
-                ModifyTextField(
-                    text = textField2,
-                    textFieldValue = textFieldValue2,
-                    textChangeFunction = textChangeFunction2,
-                    keyboardType = keyboardType2,
-                    isEnabled = isEnabled2,
-                    colorBorderState = colorBorderState2,
-                    colorTextState = colorTextState2
-                )
-            }
-        }
-    }
-
-    @Composable
-    fun TwoModifyDropDownMenu(
-        text1: String,
-        dropdownList1 : List<String>,
-        currentText1 : String,
-        expandedDropDown1 : Boolean,
-        expandedFunction1 : (Boolean) -> Unit,
-        currentFunction1 : (String) -> Unit,
-
-        text2: String,
-        dropdownList2 : List<String>,
-        currentText2 : String,
-        expandedDropDown2 : Boolean,
-        expandedFunction2 : (Boolean) -> Unit,
-        currentFunction2 : (String) -> Unit,
-    ){
-        Row (horizontalArrangement = Arrangement.SpaceBetween)
-        {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1.0f)
-                    .padding(end = 5.dp)
-                    .wrapContentHeight()
-            ){
-                Column {
-                    ModifyDropDownMenu(
-                        text = text1,
-                        dropdownList = dropdownList1,
-                        currentText = currentText1,
-                        expandedDropDown = expandedDropDown1,
-                        expandedFunction = expandedFunction1,
-                        currentFunction = currentFunction1,
-                    )
-                }
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1.0f)
-                    .padding(start = 5.dp)
-                    .wrapContentHeight()
-            ){
-                Column {
-                    ModifyDropDownMenu(
-                        text = text2,
-                        dropdownList = dropdownList2,
-                        currentText = currentText2,
-                        expandedDropDown = expandedDropDown2,
-                        expandedFunction = expandedFunction2,
-                        currentFunction = currentFunction2,
-                    )
-                }
-            }
-        }
-    }
 }
 
 @Preview(showBackground = true, device = Devices.PIXEL_2)
@@ -310,7 +197,7 @@ fun previewComponent(){
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "New Item",
+                headLineText = "New Product",
             )
         },
         bottomBar = {

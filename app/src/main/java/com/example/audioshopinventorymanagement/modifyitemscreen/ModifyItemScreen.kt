@@ -63,7 +63,7 @@ fun ModifyItemScreen(
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "Modify Item",
+                headLineText = "Modify Product",
             )
         },
         bottomBar = {
@@ -124,7 +124,7 @@ fun ModifyItemScreen(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
                     .fillMaxSize()
-                    .padding(horizontal = 20.dp),
+                    .padding(horizontal = 10.dp),
             ) {
                 Row (horizontalArrangement = Arrangement.SpaceBetween)
                 {

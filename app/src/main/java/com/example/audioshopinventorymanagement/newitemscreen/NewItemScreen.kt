@@ -63,7 +63,7 @@ fun NewItemScreen(
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "New Item",
+                headLineText = "New Product",
             )
         },
         bottomBar = {
@@ -124,7 +124,7 @@ fun NewItemScreen(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
                     .fillMaxSize()
-                    .padding(horizontal = 20.dp),
+                    .padding(horizontal = 10.dp),
             ) {
                 Row (horizontalArrangement = Arrangement.SpaceBetween)
                 {

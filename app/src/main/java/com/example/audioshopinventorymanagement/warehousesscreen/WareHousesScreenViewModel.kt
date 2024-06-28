@@ -64,7 +64,7 @@ class WareHousesScreenViewModel @Inject constructor(
         appNavigator.tryNavigateTo(Destination.StoragesScreen.passParameters(warehouseId))
     }
 
-    fun onDialogShow(dialogText : String){
+    private fun onDialogShow(dialogText : String){
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
