@@ -203,13 +203,13 @@ class ProductApiRepositoryImpl @Inject constructor(
                 ProductApiResponse.Exception("Timeout - Please check your internet connection or the server!")
             }
             is UnknownHostException -> {
-                ProductApiResponse.Exception("Unable to make a connection. Please check your internet!")
+                ProductApiResponse.Exception("Unable to make a connection. Please check your internet connection!")
             }
             is ConnectException -> {
-                ProductApiResponse.Exception("Cannot connect to the server. Please check your internet or state of the server!")
+                ProductApiResponse.Exception("Cannot connect to the server. Please check your internet connection or state of the server!")
             }
             is ConnectionShutdownException -> {
-                ProductApiResponse.Exception("Connection lost to the server. Please check your internet!")
+                ProductApiResponse.Exception("Connection lost to the server. Please check your internet connection!")
             }
             is IOException -> {
                 ProductApiResponse.Exception("Server is unreachable. Please try again later!")

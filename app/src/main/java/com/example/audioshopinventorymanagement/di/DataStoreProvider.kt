@@ -6,6 +6,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.dataStoreFile
+import com.example.audioshopinventorymanagement.BuildConfig
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepositoryImpl
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenSerializer
@@ -30,7 +31,7 @@ class DataStoreProvider {
     ): DataStore<JwtTokens> {
         return DataStoreFactory.create(
             serializer = JwtTokenSerializer(),
-            produceFile = { context.dataStoreFile("auth_tokens.json") },
+            produceFile = { context.dataStoreFile(BuildConfig.FILENAME) },
             scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
             corruptionHandler = ReplaceFileCorruptionHandler(
                 produceNewData = { JwtTokens(

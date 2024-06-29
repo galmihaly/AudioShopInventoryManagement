@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -27,11 +29,17 @@ android {
                 arg("room.schemaLocation", "$projectDir/schemas")
             }
         }
+
+        val p = Properties()
+        p.load(project.rootProject.file("gradle.properties").inputStream())
+
+        buildConfigField("String","API_KEY","${properties["API_KEY"]}")
+        buildConfigField("String","FILENAME","${properties["FILENAME"]}")
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -47,6 +55,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.12"

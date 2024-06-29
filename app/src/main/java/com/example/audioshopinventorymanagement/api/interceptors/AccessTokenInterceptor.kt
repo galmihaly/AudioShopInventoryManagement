@@ -1,16 +1,13 @@
 package com.example.audioshopinventorymanagement.api.interceptors
 
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
-import com.example.audioshopinventorymanagement.utils.Network
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
-import java.io.IOException
 import javax.inject.Inject
 
 class AccessTokenInterceptor @Inject constructor(
-    private val jwtTokenRepository: JwtTokenRepository,
-    private val network: Network
+    private val jwtTokenRepository: JwtTokenRepository
 ) : Interceptor {
     companion object {
         const val HEADER_AUTHORIZATION = "Authorization"
@@ -27,13 +24,8 @@ class AccessTokenInterceptor @Inject constructor(
             }
         }
 
-        if (network.isOnline()){
-            val request = chain.request().newBuilder()
-            request.addHeader(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")
-            return chain.proceed(request.build())
-        }
-        else{
-            throw IOException("No Internet Connection!")
-        }
+        val request = chain.request().newBuilder()
+        request.addHeader(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")
+        return chain.proceed(request.build())
     }
 }

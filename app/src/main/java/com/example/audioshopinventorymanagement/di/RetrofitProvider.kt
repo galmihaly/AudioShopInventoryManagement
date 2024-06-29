@@ -1,6 +1,6 @@
 package com.example.audioshopinventorymanagement.di
 
-import android.content.Context
+import com.example.audioshopinventorymanagement.BuildConfig
 import com.example.audioshopinventorymanagement.api.AuthAuthenticator
 import com.example.audioshopinventorymanagement.api.apiinterfaces.LoginAuthAPI
 import com.example.audioshopinventorymanagement.api.apiinterfaces.ProductAPI
@@ -15,13 +15,11 @@ import com.example.audioshopinventorymanagement.api.responses.CategoryListRespon
 import com.example.audioshopinventorymanagement.api.responses.ModelListResponse
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.utils.ApiResponseDeserializer
-import com.example.audioshopinventorymanagement.utils.Network
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -39,10 +37,9 @@ class RetrofitProvider {
     @Singleton
     @Provides
     fun provideAccessTokenInterceptor(
-        jwtTokenRepository: JwtTokenRepository,
-        network: Network
+        jwtTokenRepository: JwtTokenRepository
     ): AccessTokenInterceptor {
-        return AccessTokenInterceptor(jwtTokenRepository, network)
+        return AccessTokenInterceptor(jwtTokenRepository)
     }
 
     @Provides
@@ -112,7 +109,7 @@ class RetrofitProvider {
         gson: Gson
     ): ProductAPI {
         return Retrofit.Builder()
-            .baseUrl("http://192.168.1.153:5255")
+            .baseUrl(BuildConfig.API_KEY)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
@@ -150,7 +147,7 @@ class RetrofitProvider {
         @TokenRefreshClient okHttpClient: OkHttpClient
     ): RefreshTokenAPI {
         return Retrofit.Builder()
-            .baseUrl("http://192.168.1.153:5255")
+            .baseUrl(BuildConfig.API_KEY)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
@@ -185,7 +182,7 @@ class RetrofitProvider {
         @PublicClient okHttpClient: OkHttpClient
     ): LoginAuthAPI {
         return Retrofit.Builder()
-            .baseUrl("http://192.168.1.153:5255")
+            .baseUrl(BuildConfig.API_KEY)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
@@ -208,14 +205,6 @@ class RetrofitProvider {
         productAPI: ProductAPI,
     ) : ProductApiRepository {
         return ProductApiRepositoryImpl(productAPI)
-    }
-
-    @Provides
-    @Singleton
-    fun provideNetwork(
-        @ApplicationContext context: Context
-    ) : Network {
-        return Network(context)
     }
 }
 
