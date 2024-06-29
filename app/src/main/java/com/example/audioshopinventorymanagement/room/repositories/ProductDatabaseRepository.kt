@@ -10,7 +10,6 @@ interface ProductDatabaseRepository {
     suspend fun insertBrand(brand : BrandEntity)
     suspend fun insertCategory(category : CategoryEntity)
     suspend fun insertModel(model : ModelEntity)
-
     suspend fun deleteProduct(product : ProductEntity)
     suspend fun deleteBrand(brand: BrandEntity)
     suspend fun deleteCategory(category: CategoryEntity)

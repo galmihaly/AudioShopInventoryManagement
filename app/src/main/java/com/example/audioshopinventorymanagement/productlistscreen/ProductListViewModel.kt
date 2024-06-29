@@ -72,14 +72,13 @@ class ProductListViewModel @Inject constructor(
                 is ProductApiResponse.BrandSuccess -> {
                     if(response.data.statusCode == 200){
                         val brandList = response.data.brandDetails!!
+                        productDatabaseRepository.deleteAllBrand()
+
                         for (b in brandList){
-                            val existedBrandEntity = productDatabaseRepository.getBrandById(b.brandId!!)
-                            if(existedBrandEntity == null){
-                                productDatabaseRepository.insertBrand(BrandEntity(
-                                    brandId = b.brandId,
-                                    brandName = b.brandName
-                                ))
-                            }
+                            productDatabaseRepository.insertBrand(BrandEntity(
+                                brandId = b.brandId,
+                                brandName = b.brandName
+                            ))
                         }
                     }
                 }
@@ -104,14 +103,13 @@ class ProductListViewModel @Inject constructor(
                 is ProductApiResponse.CategorySuccess -> {
                     if(response.data.statusCode == 200){
                         val categoryList = response.data.categoryDetails!!
+                        productDatabaseRepository.deleteAllCategory()
+
                         for (c in categoryList){
-                            val existedCategoryEntity = productDatabaseRepository.getCategoryById(c.categoryId!!)
-                            if(existedCategoryEntity == null){
-                                productDatabaseRepository.insertCategory(CategoryEntity(
-                                    categoryId = c.categoryId,
-                                    categoryName = c.categoryName
-                                ))
-                            }
+                            productDatabaseRepository.insertCategory(CategoryEntity(
+                                categoryId = c.categoryId,
+                                categoryName = c.categoryName
+                            ))
                         }
                     }
                 }
@@ -136,14 +134,13 @@ class ProductListViewModel @Inject constructor(
                 is ProductApiResponse.ModelSuccess -> {
                     if(response.data.statusCode == 200){
                         val modelList = response.data.modelDetails!!
+                        productDatabaseRepository.deleteAllModel()
+
                         for (m in modelList){
-                            val existedModelEntity = productDatabaseRepository.getModelById(m.modelId!!)
-                            if(existedModelEntity == null){
-                                productDatabaseRepository.insertModel(ModelEntity(
-                                    modelId = m.modelId,
-                                    modelName = m.modelName
-                                ))
-                            }
+                            productDatabaseRepository.insertModel(ModelEntity(
+                                modelId = m.modelId,
+                                modelName = m.modelName
+                            ))
                         }
                     }
                 }

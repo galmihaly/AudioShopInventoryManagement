@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -33,19 +35,31 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
+import com.example.audioshopinventorymanagement.api.responses.StoragesDetails
 import com.example.audioshopinventorymanagement.api.responses.WarehouseDetails
+import com.example.audioshopinventorymanagement.storagesscreen.StoragesScreenComponents
+import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.DARK_GRAY
+import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
+import com.example.audioshopinventorymanagement.utils.Formatter
 
 object WareHousesScreenComponents {
     @Composable
     fun WareHouseCard(
         cardNumber: Int,
         cardWarehouse: WarehouseDetails,
+        currentQuantityColor: Color,
+        maxQuantityColor: Color,
         onClick: () -> Unit
     ){
+        var currentColor = currentQuantityColor
+        if (cardWarehouse.currentStockCapacity!! >= cardWarehouse.stockMaxCapacity!!) {
+            currentColor = ERROR_RED
+        }
+
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -95,39 +109,46 @@ object WareHousesScreenComponents {
                     key = "ID:",
                     value = cardWarehouse.warehouseId!!,
                     color = GREEN,
-                    keyTextWeight = 0.9f,
-                    valueStringTextWeight = 1.1f
+                    keyTextWeight = 0.5f,
+                    valueStringTextWeight = 1.5f
                 )
                 AllViewComponents.TextRowToCard(
                     key = "Name:",
                     value = cardWarehouse.name!!,
                     color = Color.White,
-                    keyTextWeight = 0.9f,
-                    valueStringTextWeight = 1.1f
+                    keyTextWeight = 0.5f,
+                    valueStringTextWeight = 1.5f
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                AllViewComponents.TextRowToCard(
+                AllViewComponents.QuantityRowToCard(
                     key = "Current Capacity:",
                     value = cardWarehouse.currentStockCapacity.toString() + " Piece",
-                    color = Color.White,
-                    keyTextWeight = 0.9f,
-                    valueStringTextWeight = 1.1f
+                    valueColor = currentColor,
+                    keyTextWeight = 1.1f,
+                    valueStringTextWeight = 0.9f
                 )
-                AllViewComponents.TextRowToCard(
+                AllViewComponents.QuantityRowToCard(
                     key = "Max Capacity:",
                     value = cardWarehouse.stockMaxCapacity.toString() + " Piece",
-                    color = Color.White,
-                    keyTextWeight = 0.9f,
-                    valueStringTextWeight = 1.1f
+                    valueColor = maxQuantityColor,
+                    keyTextWeight = 1.1f,
+                    valueStringTextWeight = 0.9f
                 )
                 AllViewComponents.TextRowToCard(
-                    key = "Stocks Value:",
-                    value = "58.260" + " Ft",
+                    key = "Stocks Netto Value:",
+                    value = Formatter.formatPrice(cardWarehouse.nettoValue.toString())!!,
                     color = Color.White,
-                    keyTextWeight = 0.9f,
-                    valueStringTextWeight = 1.1f
+                    keyTextWeight = 1.1f,
+                    valueStringTextWeight = 0.9f
+                )
+                AllViewComponents.TextRowToCard(
+                    key = "Stocks Brutto Value:",
+                    value = Formatter.formatPrice(cardWarehouse.bruttoValue.toString())!!,
+                    color = Color.White,
+                    keyTextWeight = 1.1f,
+                    valueStringTextWeight = 0.9f
                 )
                 Box(
                     modifier = Modifier
@@ -142,6 +163,15 @@ object WareHousesScreenComponents {
 @Preview(showBackground = true, device = Devices.PIXEL_2)
 @Composable
 fun PreviewComponent(){
+
+    val data : MutableList<WarehouseDetails> = ArrayList()
+    data.add(
+        WarehouseDetails()
+    )
+    data.add(
+        WarehouseDetails()
+    )
+
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
@@ -182,16 +212,23 @@ fun PreviewComponent(){
                 .background(LIGHT_GRAY)
                 .padding(paddingValues)
         ){
-            Column(
+            LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 10.dp, vertical = 20.dp),
-            ) {
-                WareHousesScreenComponents.WareHouseCard(
-                    cardNumber = 1,
-                    cardWarehouse = WarehouseDetails(),
-                    onClick = {}
-                )
+                    .padding(horizontal = 10.dp, vertical = 10.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ){
+                itemsIndexed(data) { index, warehouse ->
+                    val pIndex = index + 1
+
+                    WareHousesScreenComponents.WareHouseCard(
+                        cardNumber = pIndex,
+                        cardWarehouse = warehouse,
+                        currentQuantityColor = BLUE,
+                        maxQuantityColor = GREEN,
+                        onClick = {}
+                    )
+                }
             }
         }
     }

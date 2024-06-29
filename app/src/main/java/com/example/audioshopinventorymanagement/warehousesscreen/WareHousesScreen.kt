@@ -22,6 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.loginscreen.LoginScreenComponents
+import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
@@ -30,10 +31,11 @@ fun WareHousesScreen(
     viewModel: WareHousesScreenViewModel = hiltViewModel()
 ) {
     val warehouseListState = viewModel.viewState.collectAsState().value.warehouseList
+    val currentCapacityColor = viewModel.viewState.collectAsState().value.currentCapacityColor
+    val maxCapacityColor = viewModel.viewState.collectAsState().value.maxCapacityColor
 
     val isShowErrorDialog = viewModel.viewState.collectAsState().value.isShowErrorDialog
     val dialogText = viewModel.viewState.collectAsState().value.textShowErrorDialog
-
 
     Scaffold (
         topBar = {
@@ -79,12 +81,7 @@ fun WareHousesScreen(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(
-                        start = 10.dp,
-                        end = 10.dp,
-                        top = 10.dp,
-                        bottom = 10.dp
-                    ),
+                    .padding(horizontal = 10.dp, vertical = 10.dp),
             ) {
                 itemsIndexed(warehouseListState) { index, warehouse ->
                     val pIndex = index + 1
@@ -92,6 +89,8 @@ fun WareHousesScreen(
                     WareHousesScreenComponents.WareHouseCard(
                         cardNumber = pIndex,
                         cardWarehouse = warehouse,
+                        currentQuantityColor = currentCapacityColor,
+                        maxQuantityColor = maxCapacityColor,
                         onClick = { viewModel.onNavigateToStocksScreen(warehouse.warehouseId!!) },
                     )
                 }

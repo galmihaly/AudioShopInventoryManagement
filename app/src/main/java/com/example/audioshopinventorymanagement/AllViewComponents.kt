@@ -253,7 +253,13 @@ object AllViewComponents {
     }
 
     @Composable
-    fun TextRowToCard(key: String, value: String, color: Color, keyTextWeight: Float, valueStringTextWeight: Float){
+    fun TextRowToCard(
+        key: String,
+        value: String,
+        color: Color,
+        keyTextWeight: Float,
+        valueStringTextWeight: Float
+    ){
         Row (
             modifier = Modifier
                 .fillMaxWidth()
@@ -281,6 +287,48 @@ object AllViewComponents {
                 Text(
                     text = value,
                     color = color,
+                    fontFamily = CustomFonts.RobotoMono_Regular,
+                    fontSize = 13.sp
+                )
+            }
+        }
+    }
+
+    @Composable
+    fun QuantityRowToCard(
+        key: String,
+        value: String,
+        valueColor : Color,
+        keyTextWeight: Float,
+        valueStringTextWeight: Float
+    ){
+        Row (
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+        ){
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(keyTextWeight)
+                    .padding(start = 30.dp),
+            ){
+                Text(
+                    text = key,
+                    color = Color.White,
+                    fontFamily = CustomFonts.RobotoMono_Regular,
+                    fontSize = 13.sp
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(valueStringTextWeight)
+                    .padding(end = 30.dp)
+            ){
+                Text(
+                    text = value,
+                    color = valueColor,
                     fontFamily = CustomFonts.RobotoMono_Regular,
                     fontSize = 13.sp
                 )

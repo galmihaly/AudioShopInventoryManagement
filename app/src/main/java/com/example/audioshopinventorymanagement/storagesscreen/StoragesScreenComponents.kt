@@ -1,8 +1,5 @@
 package com.example.audioshopinventorymanagement.storagesscreen
 
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,9 +15,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -45,6 +43,7 @@ import com.example.audioshopinventorymanagement.ui.theme.DARK_GRAY
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
+import com.example.audioshopinventorymanagement.utils.Formatter
 
 object StoragesScreenComponents {
 
@@ -78,26 +77,6 @@ object StoragesScreenComponents {
                 color = maxQuantityColor,
                 fontFamily = CustomFonts.RobotoMono_Regular,
                 fontSize = 25.sp
-            )
-        }
-    }
-
-    @Composable
-    fun TextRowToCard(
-        text: String,
-        color: Color
-    ){
-        Row (
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            horizontalArrangement = Arrangement.Center
-        ){
-            Text(
-                text = text,
-                color = color,
-                fontFamily = CustomFonts.RobotoMono_Regular,
-                fontSize = 15.sp
             )
         }
     }
@@ -154,31 +133,42 @@ object StoragesScreenComponents {
                     }
                 }
 
-                CounterRowToCard(
-                    currentQuantity = cardStorage.quantity.toString(),
-                    currentQuantityColor = currentColor,
-                    maxQuantity = cardStorage.maxQuantity.toString(),
-                    maxQuantityColor = maxQuantityColor
+                AllViewComponents.TextRowToCard(
+                    key = "ID:",
+                    value = cardStorage.storageId!!,
+                    color = Color.White,
+                    keyTextWeight = 1.0f,
+                    valueStringTextWeight = 1.0f
                 )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                TextRowToCard(
-                    text = "Storage ID:",
-                    color = Color.White
+                AllViewComponents.QuantityRowToCard(
+                    key = "Current Quantity:",
+                    value = cardStorage.quantity.toString() + " Piece",
+                    valueColor = currentColor,
+                    keyTextWeight = 1.0f,
+                    valueStringTextWeight = 1.0f
                 )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                TextRowToCard(
-                    text = cardStorage.storageId!!,
-                    color = Color.White
+                AllViewComponents.QuantityRowToCard(
+                    key = "Maximum Quantity:",
+                    value = cardStorage.maxQuantity.toString() + " Piece",
+                    valueColor = maxQuantityColor,
+                    keyTextWeight = 1.0f,
+                    valueStringTextWeight = 1.0f
                 )
-                Box(
-                    modifier = Modifier
-                        .height(30.dp)
-                        .fillMaxWidth()
+                AllViewComponents.TextRowToCard(
+                    key = "Netto Value:",
+                    value = Formatter.formatPrice(cardStorage.nettoValue.toString())!!,
+                    color = Color.White,
+                    keyTextWeight = 1.0f,
+                    valueStringTextWeight = 1.0f
                 )
+                AllViewComponents.TextRowToCard(
+                    key = "Brutto Value:",
+                    value = Formatter.formatPrice(cardStorage.bruttoValue.toString())!!,
+                    color = Color.White,
+                    keyTextWeight = 1.0f,
+                    valueStringTextWeight = 1.0f
+                )
+                Box(modifier = Modifier.height(30.dp).fillMaxWidth())
             }
         }
     }
@@ -214,16 +204,6 @@ fun previewComponent(){
     ))
     data.add(StoragesDetails(
         storageId = "02",
-        quantity = 50,
-        maxQuantity = 100
-    ))
-    data.add(StoragesDetails(
-        storageId = "03",
-        quantity = 50,
-        maxQuantity = 100
-    ))
-    data.add(StoragesDetails(
-        storageId = "04",
         quantity = 50,
         maxQuantity = 100
     ))
@@ -275,7 +255,7 @@ fun previewComponent(){
                     .padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
             ) {
                 AllViewComponents.SearchField(
-                    labelText = "Barcode",
+                    labelText = "Storage ID",
                     textFieldValue = "",
                     textChangeFunction = { },
                     deleteValueChange = { }
@@ -283,12 +263,9 @@ fun previewComponent(){
                 StoragesScreenComponents.MatchesText(
                     text = "All Matches: 0"
                 )
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(10.dp),
-                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     itemsIndexed(data) { index, storage ->
                         val pIndex = index + 1
@@ -302,7 +279,6 @@ fun previewComponent(){
                         )
                     }
                 }
-
             }
         }
     }

@@ -24,4 +24,12 @@ data class WarehouseDetails(
     @Required
     @SerializedName("stock_max_capacity")
     val stockMaxCapacity: Int? = 0,
+
+    @Required
+    @SerializedName("netto_value")
+    val nettoValue: Int? = 0,
+
+    @Required
+    @SerializedName("brutto_value")
+    val bruttoValue: Int? = 0,
 )
