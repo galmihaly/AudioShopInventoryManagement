@@ -67,7 +67,6 @@ class ProductListViewModel @Inject constructor(
     private fun getAllBrandFromApi(){
         viewModelScope.launch(Dispatchers.IO) {
             val response = productApiRepository.getAllBrand()
-
             when (response){
                 is ProductApiResponse.BrandSuccess -> {
                     if(response.data.statusCode == 200){
@@ -98,7 +97,6 @@ class ProductListViewModel @Inject constructor(
     private fun getAllCategoryFromApi(){
         viewModelScope.launch(Dispatchers.IO) {
             val response = productApiRepository.getAllCategory()
-
             when (response){
                 is ProductApiResponse.CategorySuccess -> {
                     if(response.data.statusCode == 200){
@@ -129,7 +127,6 @@ class ProductListViewModel @Inject constructor(
     private fun getAllModelFromApi(){
         viewModelScope.launch(Dispatchers.IO) {
             val response = productApiRepository.getAllModel()
-
             when (response){
                 is ProductApiResponse.ModelSuccess -> {
                     if(response.data.statusCode == 200){
