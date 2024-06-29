@@ -1,9 +1,11 @@
 package com.example.audioshopinventorymanagement.modifyitemscreen
 
+import android.content.res.Resources
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.JWT
+import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
@@ -90,7 +92,7 @@ class ModifyItemViewModel @Inject constructor(
             val products = databaseRepo.getProductByBarcode(arg)
 
             if (warehouseTFValue.isEmpty()) {
-                onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_WAREHOUSE_ID_EMPTY))
                 return@launch
             }
             else{
@@ -100,7 +102,7 @@ class ModifyItemViewModel @Inject constructor(
             }
 
             if (storageTFValue.isEmpty()) {
-                onDialogShow(dialogText = "The Storage Identifier field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_STORAGE_ID_EMPTY))
                 return@launch
             }
             else{
@@ -110,7 +112,7 @@ class ModifyItemViewModel @Inject constructor(
             }
 
             if (brandDDValue.isEmpty()) {
-                onDialogShow(dialogText = "The Brand field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_BRAND_EMPTY))
                 return@launch
             }
             else{
@@ -122,7 +124,7 @@ class ModifyItemViewModel @Inject constructor(
             }
 
             if (categoryDDValue.isEmpty()) {
-                onDialogShow(dialogText = "The Category field field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_CATEGORY_EMPTY))
                 return@launch
             }
             else{
@@ -134,7 +136,7 @@ class ModifyItemViewModel @Inject constructor(
             }
 
             if (modelDDValue.isEmpty()) {
-                onDialogShow(dialogText = "The Model field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_MODEL_EMPTY))
                 return@launch
             }
             else{
@@ -146,7 +148,7 @@ class ModifyItemViewModel @Inject constructor(
             }
 
             if (barcodeTFValue.isEmpty()) {
-                onDialogShow(dialogText = "The barcode field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_BARCODE_EMPTY))
                 return@launch
             }
             else{
@@ -156,7 +158,7 @@ class ModifyItemViewModel @Inject constructor(
             }
 
             if (basePriceTFValue.isEmpty()) {
-                onDialogShow(dialogText = "The Base Price field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_BASE_PRICE_EMPTY))
                 return@launch
             }
             else{
@@ -166,7 +168,7 @@ class ModifyItemViewModel @Inject constructor(
             }
 
             if (wholeSalePriceTFValue.isEmpty()) {
-                onDialogShow(dialogText = "The WholeSale Price field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_WHOLESALE_PRICE_EMPTY))
                 return@launch
             }
             else{
@@ -206,89 +208,89 @@ class ModifyItemViewModel @Inject constructor(
             val products = databaseRepo.getProductByBarcode(arg)
 
             if (warehouseTFValue.isEmpty()) {
-                onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_WAREHOUSE_ID_EMPTY))
                 return@launch
             }
             else{
                 if(warehouseTFValue != products.warehouseId){
-                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
+                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
                     return@launch
                 }
             }
 
             if (storageTFValue.isEmpty()) {
-                onDialogShow(dialogText = "The Storage Identifier field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_STORAGE_ID_EMPTY))
                 return@launch
             }
             else{
                 if(storageTFValue != products.storageId){
-                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
+                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
                     return@launch
                 }
             }
 
             if (brandDDValue.isEmpty()) {
-                onDialogShow(dialogText = "The Brand field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_BRAND_EMPTY))
                 return@launch
             }
             else{
                 if(brandDDValue != products.brandName){
-                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
+                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
                     return@launch
                 }
             }
 
             if (categoryDDValue.isEmpty()) {
-                onDialogShow(dialogText = "The Category field field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_CATEGORY_EMPTY))
                 return@launch
             }
             else{
                 if(categoryDDValue != products.categoryName){
-                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
+                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
                     return@launch
                 }
             }
 
             if (modelDDValue.isEmpty()) {
-                onDialogShow(dialogText = "The Model field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_MODEL_EMPTY))
                 return@launch
             }
             else{
                 if(modelDDValue != products.modelName){
-                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
+                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
                     return@launch
                 }
             }
 
             if (barcodeTFValue.isEmpty()) {
-                onDialogShow(dialogText = "The barcode field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_BARCODE_EMPTY))
                 return@launch
             }
             else{
                 if(barcodeTFValue != products.barcode){
-                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
+                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
                     return@launch
                 }
             }
 
             if (basePriceTFValue.isEmpty()) {
-                onDialogShow(dialogText = "The Base Price field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_BASE_PRICE_EMPTY))
                 return@launch
             }
             else{
                 if(basePriceTFValue != products.basePrice.toString()){
-                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
+                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
                     return@launch
                 }
             }
 
             if (wholeSalePriceTFValue.isEmpty()) {
-                onDialogShow(dialogText = "The WholeSale Price field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_WHOLESALE_PRICE_EMPTY))
                 return@launch
             }
             else{
                 if(wholeSalePriceTFValue != products.wholeSalePrice.toString()){
-                    onDialogShow(dialogText = "Are you sure you want to quit without a saving the changes?")
+                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
                     return@launch
                 }
             }

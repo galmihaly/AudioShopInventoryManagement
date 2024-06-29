@@ -28,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
@@ -220,7 +221,7 @@ fun previewComponent(){
                             .wrapContentHeight()
                     ){
                         NewItemScreenComponents.ModifyTextField(
-                            text = "Warehouse Identifier:",
+                            text = stringResource(R.string.MODIFY_WAREHOUSE_ID_TEXT),
                             textFieldValue = "DE01",
                             textChangeFunction = {  },
                             keyboardType = KeyboardType.Text,
@@ -237,7 +238,7 @@ fun previewComponent(){
                             .wrapContentHeight()
                     ){
                         NewItemScreenComponents.ModifyTextField(
-                            text = "Storage Identifier:",
+                            text = stringResource(R.string.MODIFY_STORAGE_ID_TEXT),
                             textFieldValue = "01",
                             textChangeFunction = { },
                             keyboardType = KeyboardType.Text,
@@ -258,7 +259,7 @@ fun previewComponent(){
                     ){
                         Column {
                             NewItemScreenComponents.ModifyDropDownMenu(
-                                text = "Brand:",
+                                text = stringResource(R.string.MODIFY_BRAND_TEXT),
                                 dropdownList = listOf(),
                                 currentText = "",
                                 expandedDropDown = true,
@@ -276,7 +277,7 @@ fun previewComponent(){
                     ){
                         Column {
                             NewItemScreenComponents.ModifyDropDownMenu(
-                                text = "Category:",
+                                text = stringResource(R.string.MODIFY_CATEGORY_TEXT),
                                 dropdownList = listOf(),
                                 currentText = "",
                                 expandedDropDown = true,
@@ -295,7 +296,7 @@ fun previewComponent(){
                     currentFunction = {  }
                 )
                 NewItemScreenComponents.ModifyTextField(
-                    text = "Barcode:",
+                    text = stringResource(R.string.MODIFY_BARCODE_TEXT),
                     textFieldValue = "123456789",
                     textChangeFunction = {  },
                     keyboardType = KeyboardType.Number,
@@ -313,7 +314,7 @@ fun previewComponent(){
                             .wrapContentHeight()
                     ){
                         NewItemScreenComponents.ModifyTextField(
-                            text = "Base Price:",
+                            text = stringResource(R.string.MODIFY_BASE_PRICE_TEXT),
                             textFieldValue = "58620",
                             textChangeFunction = {  },
                             keyboardType = KeyboardType.Number,
@@ -330,7 +331,7 @@ fun previewComponent(){
                             .wrapContentHeight()
                     ){
                         NewItemScreenComponents.ModifyTextField(
-                            text = "WholeSale Price:",
+                            text = stringResource(R.string.MODIFY_WHOLESALE_PRICE_TEXT),
                             textFieldValue = "73990",
                             textChangeFunction = {  },
                             keyboardType = KeyboardType.Number,

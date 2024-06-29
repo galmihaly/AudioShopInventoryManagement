@@ -1,8 +1,10 @@
 package com.example.audioshopinventorymanagement.storagesscreen
 
+import android.content.res.Resources
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.api.repositories.ProductApiRepository
 import com.example.audioshopinventorymanagement.api.responses.sealed.ProductApiResponse
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
@@ -27,7 +29,7 @@ class StoragesScreenViewModel @Inject constructor(
     private val _viewState = MutableStateFlow(StoragesViewState())
     val viewState = _viewState.asStateFlow()
 
-    private val arg = checkNotNull(savedStateHandle[Destination.StoragesScreenArguments.warehouseId.toString()] ?: "")
+    private val arg = checkNotNull(savedStateHandle[Destination.StoragesScreenArguments.warehouseId] ?: "")
 
     init {
         getAllStorageFromApi()
@@ -36,7 +38,7 @@ class StoragesScreenViewModel @Inject constructor(
     private fun getAllStorageFromApi(){
         viewModelScope.launch(Dispatchers.IO) {
 
-            if(arg != null){
+            if(arg != "-1"){
                 val response = productApiRepository.getStoragesByWarehouseId(arg)
 
                 when (response){
@@ -54,7 +56,7 @@ class StoragesScreenViewModel @Inject constructor(
                     }
                     is ProductApiResponse.StoragesError -> {
                         if(response.data.statusCode == 401){
-                            onDialogShow("Read of the storages has been failed!")
+                            onDialogShow(Resources.getSystem().getString(R.string.STORAGE_API_READ_FAILED))
                         }
                     }
                     is ProductApiResponse.Exception -> {

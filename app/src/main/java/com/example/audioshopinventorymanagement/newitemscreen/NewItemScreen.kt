@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -63,7 +64,7 @@ fun NewItemScreen(
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "New Product",
+                headLineText = stringResource(R.string.NEWITEM_TOPBAR_HEADLINE_TEXT),
             )
         },
         bottomBar = {
@@ -136,7 +137,7 @@ fun NewItemScreen(
                             .wrapContentHeight()
                     ){
                         NewItemScreenComponents.ModifyTextField(
-                            text = "Warehouse Identifier:",
+                            text = stringResource(R.string.NEWITEM_WAREHOUSE_ID_TEXT),
                             textFieldValue = warehouseTFValue,
                             textChangeFunction = { viewModel.updateWarehouseTFValue(it) },
                             keyboardType = KeyboardType.Text,
@@ -153,7 +154,7 @@ fun NewItemScreen(
                             .wrapContentHeight()
                     ){
                         NewItemScreenComponents.ModifyTextField(
-                            text = "Storage Identifier:",
+                            text = stringResource(R.string.NEWITEM_STORAGE_ID_TEXT),
                             textFieldValue = storageTFValue,
                             textChangeFunction = { viewModel.updateStockTFValue(it) },
                             keyboardType = KeyboardType.Text,
@@ -174,7 +175,7 @@ fun NewItemScreen(
                     ){
                         Column {
                             NewItemScreenComponents.ModifyDropDownMenu(
-                                text = "Brand:",
+                                text = stringResource(R.string.NEWITEM_BRAND_TEXT),
                                 dropdownList = brandDDList,
                                 currentText = brandDDValue,
                                 expandedDropDown = brandExpandedDD,
@@ -192,7 +193,7 @@ fun NewItemScreen(
                     ){
                         Column {
                             NewItemScreenComponents.ModifyDropDownMenu(
-                                text = "Category:",
+                                text = stringResource(R.string.NEWITEM_CATEGORY_TEXT),
                                 dropdownList = categoryDDList,
                                 currentText = categoryDDValue,
                                 expandedDropDown = categoryExpandedDD,
@@ -211,7 +212,7 @@ fun NewItemScreen(
                     currentFunction = { viewModel.updateModelDropDownValue(it) }
                 )
                 NewItemScreenComponents.ModifyTextField(
-                    text = "Barcode:",
+                    text = stringResource(R.string.NEWITEM_BARCODE_TEXT),
                     textFieldValue = barcodeTFValue,
                     textChangeFunction = { viewModel.updateBarcodeTFValue(it) },
                     keyboardType = KeyboardType.Number,
@@ -229,7 +230,7 @@ fun NewItemScreen(
                             .wrapContentHeight()
                     ){
                         NewItemScreenComponents.ModifyTextField(
-                            text = "Base Price:",
+                            text = stringResource(R.string.NEWITEM_BASE_PRICE_TEXT),
                             textFieldValue = basePriceTFValue,
                             textChangeFunction = { viewModel.updateBasePriceTFValue(it) },
                             keyboardType = KeyboardType.Number,
@@ -246,7 +247,7 @@ fun NewItemScreen(
                             .wrapContentHeight()
                     ){
                         NewItemScreenComponents.ModifyTextField(
-                            text = "WholeSale Price:",
+                            text = stringResource(R.string.NEWITEM_WHOLESALE_PRICE_TEXT),
                             textFieldValue = wholeSalePriceTFValue,
                             textChangeFunction = { viewModel.updateWholeSalePriceTFValue(it) },
                             keyboardType = KeyboardType.Number,
@@ -262,7 +263,7 @@ fun NewItemScreen(
         LoginScreenComponents.ErrorDialog(
             isShowErrorDialog = isShowErrorDialog,
             dialogText = dialogText,
-            buttonText = "OK",
+            buttonText = stringResource(R.string.DIALOG_BUTTON_OK_TEXT),
             dialogDismissFunction = { viewModel.onDialogDismiss() }
         )
     }

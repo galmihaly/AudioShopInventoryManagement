@@ -1,15 +1,16 @@
 package com.example.audioshopinventorymanagement.utils
 
+import android.content.res.Resources
+import com.example.audioshopinventorymanagement.R
 import java.lang.StringBuilder
 import java.util.regex.Pattern
-import javax.inject.Inject
 
 class Formatter {
     companion object{
-        private val PRODUCTNAME_SEPARATOR = " "
-        private val PRICE_SEPARATOR = '.'
-        private val PRODUCTID_SEPARATOR = '-'
-        private val PRICE_FORINT = "Ft"
+        private val PRODUCT_NAME_SEPARATOR = Resources.getSystem().getString(R.string.PRODUCT_NAME_SEPARATOR)
+        private val PRICE_SEPARATOR = Resources.getSystem().getString(R.string.PRICE_SEPARATOR)
+        private val PRODUCT_ID_SEPARATOR = Resources.getSystem().getString(R.string.PRODUCT_ID_SEPARATOR)
+        private val PRICE_FORINT = Resources.getSystem().getString(R.string.PRICE_FORINT)
 
         private val  NUMERIC_PATTERN: Pattern = Pattern.compile(
             "-?[0-9]+(\\.[0-9]+)?"
@@ -41,7 +42,7 @@ class Formatter {
                 }
             }
             return sb
-                .append(PRODUCTNAME_SEPARATOR)
+                .append(PRODUCT_NAME_SEPARATOR)
                 .append(PRICE_FORINT)
                 .toString()
         }
@@ -49,9 +50,9 @@ class Formatter {
         fun createProductId(brandId: String, modelId: String, categoryId: String): String {
             return StringBuilder()
                 .append(brandId)
-                .append(PRODUCTID_SEPARATOR)
+                .append(PRODUCT_ID_SEPARATOR)
                 .append(categoryId)
-                .append(PRODUCTID_SEPARATOR)
+                .append(PRODUCT_ID_SEPARATOR)
                 .append(modelId)
                 .toString()
         }
@@ -59,7 +60,7 @@ class Formatter {
         fun createProductName(brand : String, model : String) : String{
             return StringBuilder()
                 .append(brand)
-                .append(PRODUCTNAME_SEPARATOR)
+                .append(PRODUCT_NAME_SEPARATOR)
                 .append(model)
                 .toString()
         }

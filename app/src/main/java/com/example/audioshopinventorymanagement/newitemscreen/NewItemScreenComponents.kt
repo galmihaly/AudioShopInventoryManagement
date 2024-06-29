@@ -33,6 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -106,8 +107,8 @@ object NewItemScreenComponents {
         expandedFunction : (Boolean) -> Unit,
         currentFunction : (String) -> Unit,
     ){
-        var colorBorderTextField by remember { mutableStateOf(GREEN) }
-        var textColorState by remember { mutableStateOf(Color.White) }
+        val colorBorderTextField by remember { mutableStateOf(GREEN) }
+        val textColorState by remember { mutableStateOf(Color.White) }
 
         Column {
             Text(
@@ -193,11 +194,11 @@ object NewItemScreenComponents {
 
 @Preview(showBackground = true, device = Devices.PIXEL_2)
 @Composable
-fun previewComponent(){
+fun PreviewComponent(){
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "New Product",
+                headLineText = stringResource(R.string.NEWITEM_TOPBAR_HEADLINE_TEXT),
             )
         },
         bottomBar = {
@@ -270,7 +271,7 @@ fun previewComponent(){
                             .wrapContentHeight()
                     ){
                         NewItemScreenComponents.ModifyTextField(
-                            text = "Warehouse Identifier:",
+                            text = stringResource(R.string.NEWITEM_WAREHOUSE_ID_TEXT),
                             textFieldValue = "",
                             textChangeFunction = { },
                             keyboardType = KeyboardType.Text,
@@ -287,7 +288,7 @@ fun previewComponent(){
                             .wrapContentHeight()
                     ){
                         NewItemScreenComponents.ModifyTextField(
-                            text = "Stock Identifier:",
+                            text = stringResource(R.string.NEWITEM_STORAGE_ID_TEXT),
                             textFieldValue = "",
                             textChangeFunction = { },
                             keyboardType = KeyboardType.Text,
@@ -308,7 +309,7 @@ fun previewComponent(){
                     ){
                         Column {
                             NewItemScreenComponents.ModifyDropDownMenu(
-                                text = "Brand:",
+                                text = stringResource(R.string.NEWITEM_BRAND_TEXT),
                                 dropdownList = listOf(
                                     "Sennheiser HD 560s",
                                     "Bill Payment",
@@ -332,7 +333,7 @@ fun previewComponent(){
                     ){
                         Column {
                             NewItemScreenComponents.ModifyDropDownMenu(
-                                text = "Category:",
+                                text = stringResource(R.string.NEWITEM_CATEGORY_TEXT),
                                 dropdownList = listOf(
                                     "Sennheiser HD 560s",
                                     "Bill Payment",
@@ -349,7 +350,7 @@ fun previewComponent(){
                     }
                 }
                 NewItemScreenComponents.ModifyDropDownMenu(
-                    text = "Model:",
+                    text = stringResource(R.string.NEWITEM_MODEL_TEXT),
                     dropdownList = listOf(
                         "Sennheiser HD 560s",
                         "Bill Payment",
@@ -363,7 +364,7 @@ fun previewComponent(){
                     currentFunction = { }
                 )
                 NewItemScreenComponents.ModifyTextField(
-                    text = "Barcode:",
+                    text = stringResource(R.string.NEWITEM_BARCODE_TEXT),
                     textFieldValue = "",
                     textChangeFunction = {},
                     keyboardType = KeyboardType.Number,
@@ -381,7 +382,7 @@ fun previewComponent(){
                             .wrapContentHeight()
                     ){
                         NewItemScreenComponents.ModifyTextField(
-                            text = "Base Price:",
+                            text = stringResource(R.string.NEWITEM_BASE_PRICE_TEXT),
                             textFieldValue = "",
                             textChangeFunction = { },
                             keyboardType = KeyboardType.Number,
@@ -398,7 +399,7 @@ fun previewComponent(){
                             .wrapContentHeight()
                     ){
                         NewItemScreenComponents.ModifyTextField(
-                            text = "WholeSale Price:",
+                            text = stringResource(R.string.NEWITEM_WHOLESALE_PRICE_TEXT),
                             textFieldValue = "",
                             textChangeFunction = { },
                             keyboardType = KeyboardType.Number,

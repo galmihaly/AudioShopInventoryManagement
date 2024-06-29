@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="STORAGE_SEARCHFIELD_LABEL_TEXT">Storage ID</string>
+    <string name="STORAGE_TOPBAR_HEADLINE_TEXT">Storage List</string>
+    <string name="STORAGE_API_READ_FAILED">Read of the storages has been failed!</string>
+    <string name="STORAGE_FORWARD_SLASH">/</string>
+    <string name="STORAGE_CARD_ROWTEXT_ID">ID:</string>
+    <string name="STORAGE_CARD_ROWTEXT_CURRENT">Current Quantity:</string>
+    <string name="STORAGE_CARD_ROWTEXT_MAX">Maximum Quantity:</string>
+    <string name="STORAGE_CARD_ROWTEXT_NETTO">Netto Value:</string>
+    <string name="STORAGE_CARD_ROWTEXT_BRUTTO">Brutto Value:</string>
+</resources>

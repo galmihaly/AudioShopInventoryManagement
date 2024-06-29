@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="LOGIN_AUTHENTICATION_FAILED">Authentication Failed!</string>
+    <string name="TOKEN_SEPARATOR">.</string>
+    <string name="LOGIN_DEVICE_INACTIVE">Your device is currently inactive in the database.</string>
+    <string name="LOGIN_TEXT">Login</string>
+    <string name="LOGIN_TOPBAR_HEADLINE_TEXT">Inventory Management</string>
+    <string name="LOGIN_EMAIL_TEXT">Email</string>
+    <string name="LOGIN_PASSWORD_TEXT">Password</string>
+    <string name="LOGIN_AUTHORIZATION_HEADER">Authorization</string>
+    <string name="LOGIN_TOKEN_TYPE">Bearer</string>
+</resources>

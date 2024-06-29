@@ -2,6 +2,7 @@ package com.example.audioshopinventorymanagement.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.room.daos.ProductDAO
 import com.example.audioshopinventorymanagement.room.ProductDatabase
 import com.example.audioshopinventorymanagement.room.daos.BrandDAO
@@ -27,7 +28,7 @@ class RoomProvider {
     ) = Room.databaseBuilder(
         context = context,
         klass = ProductDatabase::class.java,
-        name = "ProductDatabase"
+        name = context.getString(R.string.DATABASE_NAME)
     )
         .fallbackToDestructiveMigration()
         .build()

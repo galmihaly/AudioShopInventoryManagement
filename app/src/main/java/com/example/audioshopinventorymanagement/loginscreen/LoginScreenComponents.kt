@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -267,11 +268,11 @@ object LoginScreenComponents {
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true, device = Devices.PIXEL_2)
 @Composable
-fun previewComponent(){
+fun PreviewComponent(){
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithTextAndLogo(
-                headLineText = "Inventory Management",
+                headLineText = stringResource(R.string.LOGIN_TOPBAR_HEADLINE_TEXT),
                 headLineLogo = R.drawable.audioshop_logo
             )
         }
@@ -283,7 +284,7 @@ fun previewComponent(){
                 .padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            LoginScreenComponents.PageText(text = "Login")
+            LoginScreenComponents.PageText(text = stringResource(R.string.LOGIN_TEXT))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -295,14 +296,14 @@ fun previewComponent(){
                     )
                 ) {
                     LoginScreenComponents.EmailInputField(
-                        labelText = "Email",
+                        labelText = stringResource(R.string.LOGIN_EMAIL_TEXT),
                         emailErrorText = "EmailStateText",
                         emailErrorTextColor = ERROR_RED,
                         emailTextValue = "emailTextValue",
                         textChangeFunction = { }
                     )
                     LoginScreenComponents.PasswordInputField(
-                        text = "Password",
+                        text = stringResource(R.string.LOGIN_PASSWORD_TEXT),
                         passwordErrorText = "PasswordStateText",
                         passwordErrorTextColor = ERROR_RED,
                         passwordTextValue = "passwordTextValue",
@@ -312,7 +313,7 @@ fun previewComponent(){
             }
 
             LoginScreenComponents.LoginButtonAndLink(
-                buttonText = "Login",
+                buttonText = stringResource(R.string.LOGIN_TEXT),
                 onClickFunction = {}
             )
         }

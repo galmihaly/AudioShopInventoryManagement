@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -51,14 +52,17 @@ object ProducListScreenComponents {
     ){
         Box(
             modifier = Modifier
-                .fillMaxWidth().height(80.dp)
+                .fillMaxWidth()
+                .height(80.dp)
         ){
             Row (
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Absolute.SpaceBetween
             ) {
                 Box(
-                    modifier = Modifier.wrapContentWidth().fillMaxHeight(),
+                    modifier = Modifier
+                        .wrapContentWidth()
+                        .fillMaxHeight(),
                     contentAlignment = Alignment.CenterStart
                 ){
                     Text(
@@ -68,7 +72,9 @@ object ProducListScreenComponents {
                     )
                 }
                 Box(
-                    modifier = Modifier.wrapContentWidth().fillMaxHeight(),
+                    modifier = Modifier
+                        .wrapContentWidth()
+                        .fillMaxHeight(),
                     contentAlignment = Alignment.CenterStart
                 ){
                     Button(
@@ -101,7 +107,7 @@ fun previewComponent(){
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "New Product List",
+                headLineText = stringResource(R.string.PRODUCT_LIST_TOPBAR_HEADLINE_TEXT),
             )
         },
         bottomBar = {
@@ -164,13 +170,13 @@ fun previewComponent(){
                     .padding(horizontal = 10.dp),
             ) {
                 AllViewComponents.SearchField(
-                    labelText = "Barcode",
+                    labelText = stringResource(R.string.PRODUCT_BARCODE_TEXT2),
                     textFieldValue = "",
                     textChangeFunction = {},
                     deleteValueChange = {}
                 )
                 ProducListScreenComponents.MatchesTextAndSendButton(
-                    text = "All Matches: " + "12345",
+                    text = stringResource(R.string.ALL_MATCHES_TEXT) + "12345",
                     sendButtonFunction = {},
                     buttonLogoId = R.drawable.send_cube,
                     buttonLogoWidth = 40.dp,

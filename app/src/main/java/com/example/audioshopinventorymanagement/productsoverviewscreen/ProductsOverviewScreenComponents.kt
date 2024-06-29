@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -126,21 +127,21 @@ object ProductsOverviewScreenComponents {
                 }
 
                 AllViewComponents.TextRowToCard(
-                    key = "Barcode:",
+                    key = stringResource(R.string.PRODUCT_BARCODE_TEXT1),
                     value = cardProduct.barcode!!,
                     color = GREEN,
                     keyTextWeight = 0.9f,
                     valueStringTextWeight = 1.1f
                 )
                 AllViewComponents.TextRowToCard(
-                    key = "Product ID:",
+                    key = stringResource(R.string.PRODUCT_ID_TEXT),
                     value = cardProduct.productId!!,
                     color = Color.White,
                     keyTextWeight = 0.9f,
                     valueStringTextWeight = 1.1f
                 )
                 AllViewComponents.TextRowToCard(
-                    key = "Product Name:",
+                    key = stringResource(R.string.PRODUCT_NAME_TEXT),
                     value = cardProduct.productName!!,
                     color = Color.White,
                     keyTextWeight = 0.9f,
@@ -149,21 +150,21 @@ object ProductsOverviewScreenComponents {
 
                 if(isExpanded){
                     AllViewComponents.TextRowToCard(
-                        key = "Product Type:",
+                        key = stringResource(R.string.PRODUCT_TYPE_TEXT),
                         value = cardProduct.productType!!,
                         color = Color.White,
                         keyTextWeight = 0.9f,
                         valueStringTextWeight = 1.1f
                     )
                     AllViewComponents.TextRowToCard(
-                        key = "Base Price:",
+                        key = stringResource(R.string.PRODUCT_BASE_PRICE_TEXT),
                         value = Formatter.formatPrice(cardProduct.basePrice.toString())!!,
                         color = Color.White,
                         keyTextWeight = 0.9f,
                         valueStringTextWeight = 1.1f
                     )
                     AllViewComponents.TextRowToCard(
-                        key = "WholeSale Price:",
+                        key = stringResource(R.string.PRODUCT_WHOLESALE_PRICE_TEXT),
                         value = Formatter.formatPrice(cardProduct.wholeSalePrice.toString())!!,
                         color = Color.White,
                         keyTextWeight = 0.9f,
@@ -173,35 +174,35 @@ object ProductsOverviewScreenComponents {
                     Spacer(modifier = Modifier.height(30.dp))
 
                     AllViewComponents.TextRowToCard(
-                        key = "WareHouse ID:",
+                        key = stringResource(R.string.PRODUCT_WAREHOUSE_ID_TEXT),
                         value = cardProduct.warehouseId!!,
                         Color.White,
                         keyTextWeight = 0.9f,
                         valueStringTextWeight = 1.1f
                     )
                     AllViewComponents.TextRowToCard(
-                        key = "Storage ID:",
+                        key = stringResource(R.string.PRODUCT_STORAGE_ID_TEXT),
                         value = cardProduct.storageId!!,
                         Color.White,
                         keyTextWeight = 0.9f,
                         valueStringTextWeight = 1.1f
                     )
                     AllViewComponents.TextRowToCard(
-                        key = "Device ID:",
+                        key = stringResource(R.string.PRODUCT_DEVICE_ID_TEXT),
                         value = cardProduct.deviceId!!,
                         color = Color.White,
                         keyTextWeight = 0.9f,
                         valueStringTextWeight = 1.1f
                     )
                     AllViewComponents.TextRowToCard(
-                        key = "Recorder Name:",
+                        key = stringResource(R.string.PRODUCT_RECORDER_NAME_TEXT),
                         value = cardProduct.recorderName!!,
                         color = Color.White,
                         keyTextWeight = 0.9f,
                         valueStringTextWeight = 1.1f
                     )
                     AllViewComponents.TextRowToCard(
-                        key = "Recording Date:",
+                        key = stringResource(R.string.PRODUCT_RECORDING_DATE_TEXT),
                         value = cardProduct.recordingDate.toString(),
                         color = Color.White,
                         keyTextWeight = 0.9f,
@@ -224,7 +225,7 @@ fun previewComponent(){
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "Products Overview",
+                headLineText = stringResource(R.string.PRODUCT_OVERVIEW_TOPBAR_HEADLINE_TEXT),
             )
         },
         bottomBar = {
@@ -267,13 +268,13 @@ fun previewComponent(){
                     .padding(horizontal = 10.dp),
             ) {
                 AllViewComponents.SearchField(
-                    labelText = "Barcode",
+                    labelText = stringResource(R.string.PRODUCT_BARCODE_TEXT2),
                     textFieldValue = "",
                     textChangeFunction = {  },
                     deleteValueChange = {  }
                 )
                 AllViewComponents.MatchesText(
-                    text = "All Matches: 0"
+                    text = stringResource(R.string.ALL_MATCHES_TEXT) + "0"
                 )
                 ProductsOverviewScreenComponents.ExtendedItemCard(
                     cardNumber = 1,

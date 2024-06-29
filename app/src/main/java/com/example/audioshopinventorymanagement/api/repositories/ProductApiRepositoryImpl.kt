@@ -1,6 +1,8 @@
 package com.example.audioshopinventorymanagement.api.repositories
 
+import android.content.res.Resources
 import android.util.Log
+import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.api.apiinterfaces.ProductAPI
 import com.example.audioshopinventorymanagement.api.requests.SaveProductListRequest
 import com.example.audioshopinventorymanagement.api.responses.BaseResponse
@@ -200,22 +202,21 @@ class ProductApiRepositoryImpl @Inject constructor(
     private fun getExceptionMessage(e : Exception) : ProductApiResponse {
         return when (e) {
             is SocketTimeoutException -> {
-                ProductApiResponse.Exception("Timeout - Please check your internet connection or the server!")
+                ProductApiResponse.Exception(Resources.getSystem().getString(R.string.API_SOCKET_TIMEOUT))
             }
             is UnknownHostException -> {
-                ProductApiResponse.Exception("Unable to make a connection. Please check your internet connection!")
+                ProductApiResponse.Exception(Resources.getSystem().getString(R.string.API_UNABLE_CONNECTION))
             }
             is ConnectException -> {
-                ProductApiResponse.Exception("Cannot connect to the server. Please check your internet connection or state of the server!")
+                ProductApiResponse.Exception(Resources.getSystem().getString(R.string.API_CANNOT_CONNECTION))
             }
             is ConnectionShutdownException -> {
-                ProductApiResponse.Exception("Connection lost to the server. Please check your internet connection!")
+                ProductApiResponse.Exception(Resources.getSystem().getString(R.string.API_LOST_CONNECTION))
             }
             is IOException -> {
-                ProductApiResponse.Exception("Server is unreachable. Please try again later!")
+                ProductApiResponse.Exception(Resources.getSystem().getString(R.string.API_UNREACHABLE_SERVER))
             }
             else -> {
-                Log.e("e", e.stackTraceToString())
                 ProductApiResponse.Exception("${e.message}")
             }
         }

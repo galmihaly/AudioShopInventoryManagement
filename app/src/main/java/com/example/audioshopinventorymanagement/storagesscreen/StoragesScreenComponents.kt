@@ -14,11 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
@@ -30,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -67,7 +64,7 @@ object StoragesScreenComponents {
                 fontSize = 25.sp
             )
             Text(
-                text = "/",
+                text = stringResource(R.string.STORAGE_FORWARD_SLASH),
                 color = Color.White,
                 fontFamily = CustomFonts.RobotoMono_Regular,
                 fontSize = 25.sp
@@ -134,41 +131,43 @@ object StoragesScreenComponents {
                 }
 
                 AllViewComponents.TextRowToCard(
-                    key = "ID:",
+                    key = stringResource(R.string.STORAGE_CARD_ROWTEXT_ID),
                     value = cardStorage.storageId!!,
                     color = Color.White,
                     keyTextWeight = 1.0f,
                     valueStringTextWeight = 1.0f
                 )
                 AllViewComponents.QuantityRowToCard(
-                    key = "Current Quantity:",
+                    key = stringResource(R.string.STORAGE_CARD_ROWTEXT_CURRENT),
                     value = cardStorage.quantity.toString() + " Piece",
                     valueColor = currentColor,
                     keyTextWeight = 1.0f,
                     valueStringTextWeight = 1.0f
                 )
                 AllViewComponents.QuantityRowToCard(
-                    key = "Maximum Quantity:",
+                    key = stringResource(R.string.STORAGE_CARD_ROWTEXT_MAX),
                     value = cardStorage.maxQuantity.toString() + " Piece",
                     valueColor = maxQuantityColor,
                     keyTextWeight = 1.0f,
                     valueStringTextWeight = 1.0f
                 )
                 AllViewComponents.TextRowToCard(
-                    key = "Netto Value:",
+                    key = stringResource(R.string.STORAGE_CARD_ROWTEXT_NETTO),
                     value = Formatter.formatPrice(cardStorage.nettoValue.toString())!!,
                     color = Color.White,
                     keyTextWeight = 1.0f,
                     valueStringTextWeight = 1.0f
                 )
                 AllViewComponents.TextRowToCard(
-                    key = "Brutto Value:",
+                    key = stringResource(R.string.STORAGE_CARD_ROWTEXT_BRUTTO),
                     value = Formatter.formatPrice(cardStorage.bruttoValue.toString())!!,
                     color = Color.White,
                     keyTextWeight = 1.0f,
                     valueStringTextWeight = 1.0f
                 )
-                Box(modifier = Modifier.height(30.dp).fillMaxWidth())
+                Box(modifier = Modifier
+                    .height(30.dp)
+                    .fillMaxWidth())
             }
         }
     }
@@ -211,7 +210,7 @@ fun previewComponent(){
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "Storage List",
+                headLineText = stringResource(R.string.STORAGE_TOPBAR_HEADLINE_TEXT),
             )
         },
         bottomBar = {
@@ -255,13 +254,13 @@ fun previewComponent(){
                     .padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
             ) {
                 AllViewComponents.SearchField(
-                    labelText = "Storage ID",
+                    labelText = stringResource(R.string.STORAGE_SEARCHFIELD_LABEL_TEXT),
                     textFieldValue = "",
                     textChangeFunction = { },
                     deleteValueChange = { }
                 )
                 StoragesScreenComponents.MatchesText(
-                    text = "All Matches: 0"
+                    text = stringResource(R.string.ALL_MATCHES_TEXT) + "0"
                 )
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),

@@ -1,9 +1,11 @@
 package com.example.audioshopinventorymanagement.newitemscreen
 
+import android.content.res.Resources
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.JWT
+import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
@@ -67,35 +69,35 @@ class NewItemViewModel @Inject constructor(
             val warehouseTFValue = _viewState.value.warehouseTFValue
 
             if (warehouseTFValue == "") {
-                onDialogShow(dialogText = "The Warehouse Identifier field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_WAREHOUSE_ID_EMPTY))
                 return@launch
             }
             else if (storageTFValue == "") {
-                onDialogShow(dialogText = "The Storage Identifier field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_STORAGE_ID_EMPTY))
                 return@launch
             }
             else if (brandDDValue == "") {
-                onDialogShow(dialogText = "The Brand field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_BRAND_FIELD_EMPTY))
                 return@launch
             }
             else if (categoryDDValue == "") {
-                onDialogShow(dialogText = "The Category field field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_CATEGORY_FIELD_EMPTY))
                 return@launch
             }
             else if (modelDDValue == "") {
-                onDialogShow(dialogText = "The Model field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_MODEL_FIELD_EMPTY))
                 return@launch
             }
             else if (barcodeTFValue == "") {
-                onDialogShow(dialogText = "The barcode field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_BARCODE_FIELD_EMPTY))
                 return@launch
             }
             else if (basePriceTFValue == "") {
-                onDialogShow(dialogText = "The Base Price field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_BASE_PRICE_FIELD_EMPTY))
                 return@launch
             }
             else if (wholeSalePriceTFValue == "") {
-                onDialogShow(dialogText = "The WholeSale Price field cannot be empty!")
+                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_WHOLESALE_PRICE_EMPTY))
                 return@launch
             }
 
@@ -127,7 +129,7 @@ class NewItemViewModel @Inject constructor(
                 onNavigateToProductListScreen()
             }
             else{
-                onDialogShow("The Product has already been added to list!")
+                onDialogShow(Resources.getSystem().getString(R.string.NEWITEM_ALREADY_ADDED))
             }
         }
     }

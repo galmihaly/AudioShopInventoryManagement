@@ -21,6 +21,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
@@ -46,7 +47,7 @@ fun StoragesScreen(
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "Storage List",
+                headLineText = stringResource(R.string.STORAGE_TOPBAR_HEADLINE_TEXT),
             )
         },
         bottomBar = {
@@ -89,13 +90,13 @@ fun StoragesScreen(
                     .padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
             ) {
                 AllViewComponents.SearchField(
-                    labelText = "Storage ID",
+                    labelText = stringResource(R.string.STORAGE_SEARCHFIELD_LABEL_TEXT),
                     textFieldValue = searchFieldValue,
                     textChangeFunction = { viewModel.filterListBySearchValue(it) },
                     deleteValueChange = { viewModel.filterListBySearchValue("") }
                 )
                 StoragesScreenComponents.MatchesText(
-                    text = "All Matches: $allMatches"
+                    text = stringResource(R.string.ALL_MATCHES_TEXT) + "$allMatches"
                 )
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
@@ -119,7 +120,7 @@ fun StoragesScreen(
         LoginScreenComponents.ErrorDialog(
             isShowErrorDialog = isShowErrorDialog,
             dialogText = dialogText,
-            buttonText = "OK",
+            buttonText = stringResource(R.string.DIALOG_BUTTON_OK_TEXT),
             dialogDismissFunction = { viewModel.onDialogDismiss() }
         )
     }

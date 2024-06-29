@@ -18,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
@@ -43,7 +44,7 @@ fun ProductListScreen(
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "New Products List",
+                headLineText = stringResource(R.string.PRODUCT_LIST_TOPBAR_HEADLINE_TEXT),
             )
         },
         bottomBar = {
@@ -110,13 +111,13 @@ fun ProductListScreen(
                     ),
             ) {
                 AllViewComponents.SearchField(
-                    labelText = "Barcode",
+                    labelText = stringResource(R.string.PRODUCT_BARCODE_TEXT1),
                     textFieldValue = searchFieldValue,
                     textChangeFunction = { viewModel.filterListBySearchValue(it) },
                     deleteValueChange = { viewModel.filterListBySearchValue("") }
                 )
                 ProducListScreenComponents.MatchesTextAndSendButton(
-                    text = "All Matches: $allMatches",
+                    text = stringResource(R.string.ALL_MATCHES_TEXT) + "$allMatches",
                     sendButtonFunction = { viewModel.sendListToApi() },
                     buttonLogoId = R.drawable.send_cube,
                     buttonLogoWidth = 40.dp,
@@ -144,7 +145,7 @@ fun ProductListScreen(
             LoginScreenComponents.ErrorDialog(
                 isShowErrorDialog = isShowErrorDialog,
                 dialogText = dialogText,
-                buttonText = "OK",
+                buttonText = stringResource(R.string.DIALOG_BUTTON_OK_TEXT),
                 dialogDismissFunction = { viewModel.onDialogDismiss() }
             )
         }

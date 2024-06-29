@@ -1,9 +1,11 @@
 package com.example.audioshopinventorymanagement.loginscreen
 
+import android.content.res.Resources
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.JWT
+import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.api.repositories.AuthApiRepository
 import com.example.audioshopinventorymanagement.api.requests.LoginAuthRequest
 import com.example.audioshopinventorymanagement.api.responses.sealed.LoginApiResponse
@@ -93,16 +95,16 @@ class LoginScreenViewModel @Inject constructor(
                         token = response.data.loginUserDetails.accessToken
                     }
                     else{
-                        onDialogShow("Authentication Failed!")
+                        onDialogShow(Resources.getSystem().getString(R.string.LOGIN_AUTHENTICATION_FAILED))
                     }
                 }
             }
             is LoginApiResponse.Error -> {
                 if(response.data.statusCode == 401){
-                    onDialogShow("Authentication Failed!")
+                    onDialogShow(Resources.getSystem().getString(R.string.LOGIN_AUTHENTICATION_FAILED))
                 }
                 else if(response.data.statusCode == 403){
-                    onDialogShow("Authentication Failed!")
+                    onDialogShow(Resources.getSystem().getString(R.string.LOGIN_AUTHENTICATION_FAILED))
                 }
             }
             is LoginApiResponse.Exception -> {
@@ -113,11 +115,8 @@ class LoginScreenViewModel @Inject constructor(
         return token
     }
 
-    //Megszámoljuk, hogy tokenünk mennyi részből áll. Egy hivatalos JSON Web Token áll egy fejrészből, egy hasznos adat részből, valamint egy aláíró kulcsból.
-    //Ha a 3 rész közül csak egy érkezik meg, akkor az nem egy teljes token (hibás token), ezért megszámoljuk, hogy az API-ból megérkezett kulcs mennyi részből áll.
-    //Boolean értékkel térünk vissza, hogyha 3 részből áll a token, akkor "true" értékkel térünk vissza
     private fun isUsefulTokenPartsCount(token : String) : Boolean {
-        val tokenParts = Integer.valueOf(token.split(".").size)
+        val tokenParts = Integer.valueOf(token.split(Resources.getSystem().getString(R.string.TOKEN_SEPARATOR)).size)
         return tokenParts > 2
     }
 
@@ -141,7 +140,7 @@ class LoginScreenViewModel @Inject constructor(
                         }
                     }
                     else{
-                        onDialogShow("Your device is currently inactive in the database.")
+                        onDialogShow(Resources.getSystem().getString(R.string.LOGIN_DEVICE_INACTIVE))
                     }
                 }
             }

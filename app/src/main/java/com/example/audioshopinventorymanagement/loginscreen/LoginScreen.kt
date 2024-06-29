@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
@@ -37,7 +38,7 @@ fun LoginScreen(
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithTextAndLogo(
-                headLineText = "Inventory Management",
+                headLineText = stringResource(R.string.LOGIN_TOPBAR_HEADLINE_TEXT),
                 headLineLogo = R.drawable.audioshop_logo
             )
         }
@@ -49,7 +50,7 @@ fun LoginScreen(
                 .padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            LoginScreenComponents.PageText(text = "Login")
+            LoginScreenComponents.PageText(text = stringResource(R.string.LOGIN_EMAIL_TEXT))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -61,14 +62,14 @@ fun LoginScreen(
                     )
                 ) {
                     LoginScreenComponents.EmailInputField(
-                        labelText = "Email",
+                        labelText = stringResource(R.string.LOGIN_EMAIL_TEXT),
                         emailErrorText = emailText,
                         emailErrorTextColor = emailErrorTextColor,
                         emailTextValue = emailTextValue,
                         textChangeFunction = { loginScreenViewModel.updateUsername(it) }
                     )
                     LoginScreenComponents.PasswordInputField(
-                        text = "Password",
+                        text = stringResource(R.string.LOGIN_PASSWORD_TEXT),
                         passwordErrorText = passwordText,
                         passwordErrorTextColor = passwordErrorTextColor,
                         passwordTextValue = passwordTextValue,
@@ -78,7 +79,7 @@ fun LoginScreen(
             }
 
             LoginScreenComponents.LoginButtonAndLink(
-                buttonText = "Login",
+                buttonText = stringResource(R.string.LOGIN_EMAIL_TEXT),
                 onClickFunction = { loginScreenViewModel.authLoginUser(emailTextValue, passwordTextValue) }
             )
         }
@@ -86,7 +87,7 @@ fun LoginScreen(
         LoginScreenComponents.ErrorDialog(
             isShowErrorDialog = isShowErrorDialog,
             dialogText = dialogText,
-            buttonText = "OK",
+            buttonText = stringResource(R.string.DIALOG_BUTTON_OK_TEXT),
             dialogDismissFunction = { loginScreenViewModel.onErrorDialogDismiss() }
         )
     }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="NEWITEM_WAREHOUSE_ID_EMPTY">The Warehouse Identifier field cannot be empty!</string>
+    <string name="NEWITEM_STORAGE_ID_EMPTY">The Storage Identifier field cannot be empty!</string>
+    <string name="NEWITEM_BRAND_FIELD_EMPTY">The Brand field cannot be empty!</string>
+    <string name="NEWITEM_ALREADY_ADDED">The Product has already been added to list!</string>
+    <string name="NEWITEM_CATEGORY_FIELD_EMPTY">The Category field cannot be empty!</string>
+    <string name="NEWITEM_MODEL_FIELD_EMPTY">The Model field cannot be empty!</string>
+    <string name="NEWITEM_BARCODE_FIELD_EMPTY">The barcode field cannot be empty!</string>
+    <string name="NEWITEM_BASE_PRICE_FIELD_EMPTY">The Base Price field cannot be empty!</string>
+    <string name="NEWITEM_WHOLESALE_PRICE_EMPTY">The WholeSale Price field cannot be empty!</string>
+    <string name="NEWITEM_TOPBAR_HEADLINE_TEXT">New Product</string>
+    <string name="NEWITEM_WAREHOUSE_ID_TEXT">Warehouse Identifier:</string>
+    <string name="NEWITEM_STORAGE_ID_TEXT">Storage Identifier:</string>
+    <string name="NEWITEM_MODEL_TEXT">Model:</string>
+    <string name="NEWITEM_BRAND_TEXT">Brand:</string>
+    <string name="NEWITEM_CATEGORY_TEXT">Category:</string>
+    <string name="NEWITEM_BARCODE_TEXT">Barcode:</string>
+    <string name="NEWITEM_BASE_PRICE_TEXT">Base Price:</string>
+    <string name="NEWITEM_WHOLESALE_PRICE_TEXT">WholeSale Price:</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="START_TOPBAR_HEADLINE_TEXT">Inventory Management</string>
+    <string name="START_STOCKS_TEXT">Stocks</string>
+    <string name="START_NEW_LIST_BUTTON_TEXT">Create New List</string>
+</resources>

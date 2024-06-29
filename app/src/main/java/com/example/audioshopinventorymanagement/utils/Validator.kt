@@ -1,23 +1,25 @@
 package com.example.audioshopinventorymanagement.utils
 
+import android.content.res.Resources
+import com.example.audioshopinventorymanagement.R
 import java.util.regex.Pattern
 
 class Validator {
     companion object{
 
         //Password Validation Messages
-        private const val ERROR_LENGTH = "This must have at least 8 characters!"
-        private const val ERROR_WHITESPACE = "This must not contain whitespace!"
-        private const val ERROR_DIGIT = "This must contain at least one digit!"
-        private const val ERROR_UPPER = "This must have at least one uppercase letter!"
-        private const val ERROR_SPECIAL = "This must have at least one special character!"
-        private const val CORRECT_PASSWORD = "Correct password!"
-        private const val EMPTY_PASSWORD = "Password field is empty!"
+        private var ERROR_LENGTH = Resources.getSystem().getString(R.string.PASSWORD_ERROR_LENGTH)
+        private val ERROR_WHITESPACE = Resources.getSystem().getString(R.string.PASSWORD_ERROR_WHITESPACE)
+        private val ERROR_DIGIT = Resources.getSystem().getString(R.string.PASSWORD_ERROR_DIGIT)
+        private val ERROR_UPPER = Resources.getSystem().getString(R.string.PASSWORD_ERROR_UPPER)
+        private val ERROR_SPECIAL = Resources.getSystem().getString(R.string.PASSWORD_ERROR_SPECIAL)
+        private val CORRECT_PASSWORD = Resources.getSystem().getString(R.string.PASSWORD_CORRECT)
+        private val EMPTY_PASSWORD = Resources.getSystem().getString(R.string.PASSWORD_EMPTY)
 
         //Email Validation Messages
-        private const val CORRECT_EMAIL = "Correct email!"
-        private const val INCORRECT_EMAIL = "Incorrect email!"
-        private const val EMPTY_EMAIL = "Email field is empty!"
+        private val CORRECT_EMAIL = Resources.getSystem().getString(R.string.EMAIL_CORRECT)
+        private val INCORRECT_EMAIL = Resources.getSystem().getString(R.string.EMAIL_INCORRECT)
+        private val EMPTY_EMAIL = Resources.getSystem().getString(R.string.EMAIL_EMPTY)
         private fun String.isLongerThan8() = length >= 8
         private fun String.isWithoutWhitespace() = none { it.isWhitespace() }
         private fun String.isHasDigit() = any { it.isDigit() }

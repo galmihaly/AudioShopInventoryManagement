@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="WAREHOUSE_API_READ_FAILED">Read of the warehouses has been failed!</string>
+    <string name="WAREHOUSE_TOPBAR_HEADLINE_TEXT">WareHouse List</string>
+    <string name="WAREHOUSE_CARD_ROWTEXT_ID">ID:</string>
+    <string name="WAREHOUSE_CARD_ROWTEXT_NAME">Name:</string>
+    <string name="WAREHOUSE_CARD_ROWTEXT_CURRENT">Current Capacity:</string>
+    <string name="WAREHOUSE_CARD_ROWTEXT_MAX">Max Capacity:</string>
+    <string name="WAREHOUSE_CARD_ROWTEXT_NETTO">Stocks Netto Value:</string>
+    <string name="WAREHOUSE_CARD_ROWTEXT_BRUTTO">Stocks Brutto Value:</string>
+</resources>

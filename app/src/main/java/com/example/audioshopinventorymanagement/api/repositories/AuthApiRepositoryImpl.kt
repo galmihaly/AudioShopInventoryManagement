@@ -1,5 +1,7 @@
 package com.example.audioshopinventorymanagement.api.repositories
 
+import android.content.res.Resources
+import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.api.requests.LoginAuthRequest
 import com.example.audioshopinventorymanagement.api.apiinterfaces.LoginAuthAPI
 import com.example.audioshopinventorymanagement.api.responses.LoginAuthResponse
@@ -45,19 +47,19 @@ class AuthApiRepositoryImpl @Inject constructor(private val loginAuthAPI: LoginA
     private fun getExceptionMessage(e : Exception) : LoginApiResponse {
         return when (e) {
             is SocketTimeoutException -> {
-                LoginApiResponse.Exception("Timeout - Please check your internet connection or status of the server!")
+                LoginApiResponse.Exception(Resources.getSystem().getString(R.string.API_SOCKET_TIMEOUT))
             }
             is UnknownHostException -> {
-                LoginApiResponse.Exception("Unable to make a connection. Please check your internet!")
+                LoginApiResponse.Exception(Resources.getSystem().getString(R.string.API_UNABLE_CONNECTION))
             }
             is ConnectException -> {
-                LoginApiResponse.Exception("Cannot connect to the server. Please check your internet or status of the server!")
+                LoginApiResponse.Exception(Resources.getSystem().getString(R.string.API_CANNOT_CONNECTION))
             }
             is ConnectionShutdownException -> {
-                LoginApiResponse.Exception("Connection lost to the server. Please check your internet!")
+                LoginApiResponse.Exception(Resources.getSystem().getString(R.string.API_LOST_CONNECTION))
             }
             is IOException -> {
-                LoginApiResponse.Exception("Server is unreachable. Please try again later!")
+                LoginApiResponse.Exception(Resources.getSystem().getString(R.string.API_UNREACHABLE_SERVER))
             }
             else -> {
                 LoginApiResponse.Exception("${e.message}")

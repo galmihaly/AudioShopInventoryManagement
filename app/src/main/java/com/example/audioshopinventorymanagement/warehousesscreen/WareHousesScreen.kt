@@ -17,12 +17,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.loginscreen.LoginScreenComponents
-import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.GREEN
 import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 
@@ -40,7 +40,7 @@ fun WareHousesScreen(
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "WareHouses",
+                headLineText = stringResource(R.string.WAREHOUSE_TOPBAR_HEADLINE_TEXT),
             )
         },
         bottomBar = {
@@ -100,7 +100,7 @@ fun WareHousesScreen(
         LoginScreenComponents.ErrorDialog(
             isShowErrorDialog = isShowErrorDialog,
             dialogText = dialogText,
-            buttonText = "OK",
+            buttonText = stringResource(R.string.DIALOG_BUTTON_OK_TEXT),
             dialogDismissFunction = { viewModel.onDialogDismiss() }
         )
     }

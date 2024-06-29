@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Green
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -76,7 +77,7 @@ fun previewComponent(){
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithTextAndLogo(
-                headLineText = "Inventory Management",
+                headLineText = stringResource(R.string.START_TOPBAR_HEADLINE_TEXT),
                 headLineLogo = R.drawable.audioshop_logo
             )
         },
@@ -104,7 +105,7 @@ fun previewComponent(){
         ){
             Column{
                 StartScreenComponents.ButtonWithLogoAndText(
-                    text = "Create New List",
+                    text = stringResource(R.string.START_NEW_LIST_BUTTON_TEXT),
                     logoId = R.drawable.controlled_inventory_logo,
                     logoHeight = 54.dp,
                     logoWidth = 46.dp,
@@ -112,7 +113,7 @@ fun previewComponent(){
                 )
                 Spacer(modifier = Modifier.height(50.dp))
                 StartScreenComponents.ButtonWithLogoAndText(
-                    text = "Stocks",
+                    text = stringResource(R.string.START_STOCKS_TEXT),
                     logoId = R.drawable.stocks_logo,
                     logoHeight = 50.dp,
                     logoWidth = 50.dp,

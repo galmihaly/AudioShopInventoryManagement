@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">AudioShopInventoryManagement</string>
+
+    <string name="ALL_MATCHES_TEXT">All Matches: </string>
+    <string name="DIALOG_BUTTON_OK_TEXT">OK</string>
+    <string name="DIALOG_BUTTON_YES_TEXT">YES</string>
+    <string name="DIALOG_BUTTON_NO_TEXT">NO</string>
+    <string name="PIECE">" Piece"</string>
+
+    <string name="PASSWORD_ERROR_LENGTH">This must have at least 8 characters!</string>
+    <string name="PASSWORD_ERROR_WHITESPACE">This must not contain whitespace!</string>
+    <string name="PASSWORD_ERROR_DIGIT">This must contain at least one digit!</string>
+    <string name="PASSWORD_ERROR_UPPER">This must have at least one uppercase letter!</string>
+    <string name="PASSWORD_ERROR_SPECIAL">This must have at least one special character!</string>
+    <string name="PASSWORD_CORRECT">Correct password!</string>
+    <string name="PASSWORD_EMPTY">Password field is empty!</string>
+
+    <string name="EMAIL_CORRECT">Correct email!</string>
+    <string name="EMAIL_INCORRECT">Incorrect email!</string>
+    <string name="EMAIL_EMPTY">Email field is empty!</string>
+    <string name="DATABASE_NAME">ProductDatabase</string>
+
 </resources>

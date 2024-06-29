@@ -1,5 +1,7 @@
 package com.example.audioshopinventorymanagement.api
 
+import android.content.res.Resources
+import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.api.apiinterfaces.LoginAuthAPI
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import kotlinx.coroutines.runBlocking
@@ -14,8 +16,8 @@ class AuthAuthenticator @Inject constructor(
     private val loginAuthAPI: LoginAuthAPI
 ) : Authenticator {
     companion object {
-        const val HEADER_AUTHORIZATION = "Authorization"
-        const val TOKEN_TYPE = "Bearer"
+        var HEADER_AUTHORIZATION = Resources.getSystem().getString(R.string.LOGIN_AUTHORIZATION_HEADER)
+        var TOKEN_TYPE = Resources.getSystem().getString(R.string.LOGIN_TOKEN_TYPE)
     }
     override fun authenticate(route: Route?, response: Response): Request? {
 

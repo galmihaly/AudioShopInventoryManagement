@@ -1,7 +1,9 @@
 package com.example.audioshopinventorymanagement.warehousesscreen
 
+import android.content.res.Resources
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.api.repositories.ProductApiRepository
 import com.example.audioshopinventorymanagement.api.responses.sealed.ProductApiResponse
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
@@ -45,7 +47,7 @@ class WareHousesScreenViewModel @Inject constructor(
                 }
                 is ProductApiResponse.WarehouseError -> {
                     if(response.data.statusCode == 401){
-                        onDialogShow("Read of the warehouses has been failed!")
+                        onDialogShow(Resources.getSystem().getString(R.string.WAREHOUSE_API_READ_FAILED))
                     }
                 }
                 is ProductApiResponse.Exception -> {

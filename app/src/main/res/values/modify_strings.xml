@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="MODIFY_WAREHOUSE_ID_TEXT">Warehouse Identifier:</string>
+    <string name="MODIFY_STORAGE_ID_TEXT">Storage Identifier:</string>
+    <string name="MODIFY_MODEL_TEXT">Model:</string>
+    <string name="MODIFY_BRAND_TEXT">Brand:</string>
+    <string name="MODIFY_CATEGORY_TEXT">Category:</string>
+    <string name="MODIFY_BARCODE_TEXT">Barcode:</string>
+    <string name="MODIFY_BASE_PRICE_TEXT">Base Price:</string>
+    <string name="MODIFY_WHOLESALE_PRICE_TEXT">WholeSale Price:</string>
+    <string name="MODIFY_TOPBAR_HEADLINE_TEXT">Modify Product</string>
+
+    <string name="MODIFY_WAREHOUSE_ID_EMPTY">The warehouse identifier field cannot be empty!</string>
+    <string name="MODIFY_QUIT_WITHOUT_SAVE">Are you sure you want to quit without a saving the changes?</string>
+    <string name="MODIFY_STORAGE_ID_EMPTY">The storage identifier field cannot be empty!</string>
+    <string name="MODIFY_BRAND_EMPTY">The brand field cannot be empty!</string>
+    <string name="MODIFY_CATEGORY_EMPTY">The category field cannot be empty!</string>
+    <string name="MODIFY_MODEL_EMPTY">The model field cannot be empty!</string>
+    <string name="MODIFY_BARCODE_EMPTY">The barcode field cannot be empty!</string>
+    <string name="MODIFY_BASE_PRICE_EMPTY">The base price field cannot be empty!</string>
+    <string name="MODIFY_WHOLESALE_PRICE_EMPTY">The wholeSale price field cannot be empty!</string>
+
+</resources>

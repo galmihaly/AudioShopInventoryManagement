@@ -1,8 +1,10 @@
 package com.example.audioshopinventorymanagement.productsoverviewscreen
 
+import android.content.res.Resources
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.api.repositories.ProductApiRepository
 import com.example.audioshopinventorymanagement.api.responses.sealed.ProductApiResponse
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
@@ -53,10 +55,10 @@ class ProductsOverviewScreenViewModel @Inject constructor(
                     }
                     is ProductApiResponse.ProductListError -> {
                         if(response.data.statusCode == 400){
-                            onDialogShow("Read of the products has been failed!")
+                            onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_API_READ_FAILED))
                         }
                         else if(response.data.statusCode == 401){
-                            onDialogShow("Read of the products has been failed!")
+                            onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_API_READ_FAILED))
                         }
                     }
                     is ProductApiResponse.Exception -> {

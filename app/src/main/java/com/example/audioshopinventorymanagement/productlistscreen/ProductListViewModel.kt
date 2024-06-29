@@ -1,8 +1,10 @@
 package com.example.audioshopinventorymanagement.productlistscreen
 
+import android.content.res.Resources
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.JWT
+import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.api.repositories.ProductApiRepository
 import com.example.audioshopinventorymanagement.api.requests.SaveProductListRequest
 import com.example.audioshopinventorymanagement.api.requests.SaveProductRequest
@@ -83,7 +85,7 @@ class ProductListViewModel @Inject constructor(
                 }
                 is ProductApiResponse.BrandError -> {
                     if(response.data.statusCode == 401){
-                        onDialogShow("Read of the brands has been failed!")
+                        onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_BRANDS_API_READ_FAILED))
                     }
                 }
                 is ProductApiResponse.Exception -> {
@@ -113,7 +115,7 @@ class ProductListViewModel @Inject constructor(
                 }
                 is ProductApiResponse.CategoryError -> {
                     if(response.data.statusCode == 401){
-                        onDialogShow("Read of the categories has been failed!")
+                        onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_CATEGORIES_API_READ_FAILED))
                     }
                 }
                 is ProductApiResponse.Exception -> {
@@ -143,7 +145,7 @@ class ProductListViewModel @Inject constructor(
                 }
                 is ProductApiResponse.ModelError -> {
                     if(response.data.statusCode == 401){
-                        onDialogShow("Read of the models has been failed!")
+                        onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_MODELS_API_READ_FAILED))
                     }
                 }
                 is ProductApiResponse.Exception -> {
@@ -208,7 +210,7 @@ class ProductListViewModel @Inject constructor(
                 when (response){
                     is ProductApiResponse.ProductSaveSuccess -> {
                         if(response.data.statusCode == 200){
-                            onDialogShow("Save Products is success!")
+                            onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_SAVE_SUCCESS))
                             productDatabaseRepository.deleteAllProduct()
                             _viewState.update {
                                 it.copy(
@@ -220,10 +222,10 @@ class ProductListViewModel @Inject constructor(
                     }
                     is ProductApiResponse.ProductSaveError -> {
                         if(response.data.statusCode == 400){
-                            onDialogShow("Saving of the products is unsuccessful!")
+                            onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_SAVE_UNSUCCESFUL))
                         }
                         else if(response.data.statusCode == 409){
-                            onDialogShow("Saving of the products is unsuccessful!")
+                            onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_SAVE_UNSUCCESFUL))
                         }
                     }
                     is ProductApiResponse.Exception -> {

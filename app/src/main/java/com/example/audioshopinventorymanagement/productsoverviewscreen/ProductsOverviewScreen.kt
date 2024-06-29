@@ -18,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
@@ -41,7 +42,7 @@ fun ProductsOverviewScreen(
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "Products Overview",
+                headLineText = stringResource(R.string.PRODUCT_OVERVIEW_TOPBAR_HEADLINE_TEXT),
             )
         },
         bottomBar = {
@@ -88,13 +89,13 @@ fun ProductsOverviewScreen(
                     ),
             ) {
                 AllViewComponents.SearchField(
-                    labelText = "Barcode",
+                    labelText = stringResource(R.string.PRODUCT_OVERVIEW_SEARCHFIELD_LABEL_TEXT),
                     textFieldValue = searchFieldValue,
                     textChangeFunction = { viewModel.filterListBySearchValue(it) },
                     deleteValueChange = { viewModel.filterListBySearchValue("") }
                 )
                 AllViewComponents.MatchesText(
-                    text = "All Matches: $allMatches"
+                    text = stringResource(R.string.ALL_MATCHES_TEXT) + "$allMatches"
                 )
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(10.dp),
@@ -114,7 +115,7 @@ fun ProductsOverviewScreen(
             LoginScreenComponents.ErrorDialog(
                 isShowErrorDialog = isShowErrorDialog,
                 dialogText = dialogText,
-                buttonText = "OK",
+                buttonText = stringResource(R.string.DIALOG_BUTTON_OK_TEXT),
                 dialogDismissFunction = { viewModel.onDialogDismiss() }
             )
         }

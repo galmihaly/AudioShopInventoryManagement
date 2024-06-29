@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="API_SOCKET_TIMEOUT">Timeout - Please check your internet connection or the server!</string>
+    <string name="API_UNABLE_CONNECTION">Unable to make a connection. Please check your internet connection!</string>
+    <string name="API_CANNOT_CONNECTION">Cannot connect to the server. Please check your internet connection or state of the server!</string>
+    <string name="API_LOST_CONNECTION">Connection lost to the server. Please check your internet connection!</string>
+    <string name="API_UNREACHABLE_SERVER">Server is unreachable. Please try again later!</string>
+</resources>

@@ -14,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
@@ -28,13 +29,15 @@ fun StartScreen(
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithTextAndLogo(
-                headLineText = "Inventory Management",
+                headLineText = stringResource(R.string.START_TOPBAR_HEADLINE_TEXT),
                 headLineLogo = R.drawable.audioshop_logo
             )
         },
         bottomBar = {
             BottomAppBar(
-                modifier = Modifier.fillMaxWidth().height(60.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp),
                 contentPadding = PaddingValues(0.dp),
                 containerColor = GREEN
             ) {
@@ -56,7 +59,7 @@ fun StartScreen(
         ){
             Column{
                 StartScreenComponents.ButtonWithLogoAndText(
-                    text = "Create New List",
+                    text = stringResource(R.string.START_NEW_LIST_BUTTON_TEXT),
                     logoId = R.drawable.controlled_inventory_logo,
                     logoHeight = 54.dp,
                     logoWidth = 46.dp,
@@ -64,7 +67,7 @@ fun StartScreen(
                 )
                 Spacer(modifier = Modifier.height(50.dp))
                 StartScreenComponents.ButtonWithLogoAndText(
-                    text = "Stocks",
+                    text = stringResource(R.string.START_STOCKS_TEXT),
                     logoId = R.drawable.stocks_logo,
                     logoHeight = 50.dp,
                     logoWidth = 50.dp,

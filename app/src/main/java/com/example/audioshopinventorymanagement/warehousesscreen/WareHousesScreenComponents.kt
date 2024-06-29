@@ -29,15 +29,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.api.responses.StoragesDetails
 import com.example.audioshopinventorymanagement.api.responses.WarehouseDetails
-import com.example.audioshopinventorymanagement.storagesscreen.StoragesScreenComponents
 import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.CustomFonts
 import com.example.audioshopinventorymanagement.ui.theme.DARK_GRAY
@@ -106,14 +105,14 @@ object WareHousesScreenComponents {
                 }
 
                 AllViewComponents.TextRowToCard(
-                    key = "ID:",
+                    key = stringResource(R.string.WAREHOUSE_CARD_ROWTEXT_ID),
                     value = cardWarehouse.warehouseId!!,
                     color = GREEN,
                     keyTextWeight = 0.5f,
                     valueStringTextWeight = 1.5f
                 )
                 AllViewComponents.TextRowToCard(
-                    key = "Name:",
+                    key = stringResource(R.string.WAREHOUSE_CARD_ROWTEXT_NAME),
                     value = cardWarehouse.name!!,
                     color = Color.White,
                     keyTextWeight = 0.5f,
@@ -123,28 +122,28 @@ object WareHousesScreenComponents {
                 Spacer(modifier = Modifier.height(20.dp))
 
                 AllViewComponents.QuantityRowToCard(
-                    key = "Current Capacity:",
-                    value = cardWarehouse.currentStockCapacity.toString() + " Piece",
+                    key = stringResource(R.string.WAREHOUSE_CARD_ROWTEXT_CURRENT),
+                    value = cardWarehouse.currentStockCapacity.toString() + stringResource(R.string.PIECE),
                     valueColor = currentColor,
                     keyTextWeight = 1.1f,
                     valueStringTextWeight = 0.9f
                 )
                 AllViewComponents.QuantityRowToCard(
-                    key = "Max Capacity:",
-                    value = cardWarehouse.stockMaxCapacity.toString() + " Piece",
+                    key = stringResource(R.string.WAREHOUSE_CARD_ROWTEXT_MAX),
+                    value = cardWarehouse.stockMaxCapacity.toString() + stringResource(R.string.PIECE),
                     valueColor = maxQuantityColor,
                     keyTextWeight = 1.1f,
                     valueStringTextWeight = 0.9f
                 )
                 AllViewComponents.TextRowToCard(
-                    key = "Stocks Netto Value:",
+                    key = stringResource(R.string.WAREHOUSE_CARD_ROWTEXT_NETTO),
                     value = Formatter.formatPrice(cardWarehouse.nettoValue.toString())!!,
                     color = Color.White,
                     keyTextWeight = 1.1f,
                     valueStringTextWeight = 0.9f
                 )
                 AllViewComponents.TextRowToCard(
-                    key = "Stocks Brutto Value:",
+                    key = stringResource(R.string.WAREHOUSE_CARD_ROWTEXT_BRUTTO),
                     value = Formatter.formatPrice(cardWarehouse.bruttoValue.toString())!!,
                     color = Color.White,
                     keyTextWeight = 1.1f,
@@ -175,7 +174,7 @@ fun PreviewComponent(){
     Scaffold (
         topBar = {
             AllViewComponents.HeadLineWithText(
-                headLineText = "WareHouse List",
+                headLineText = stringResource(R.string.WAREHOUSE_TOPBAR_HEADLINE_TEXT),
             )
         },
         bottomBar = {
