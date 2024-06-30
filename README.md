@@ -15,7 +15,7 @@
     <h3>A projekt leírása:</h3>
     <ul style="font-size: 20px">
         <li>Az alkalmazás fő célja, hogy segítse a bolt leltározásának folyamatát.</li>
-        <li>A szoftver úgy lett megalkotva, hogy tudjon futni Android alapú, vonalkód olvasására képes PDA eszközökön, azon belül is az <b style="color:#82BFAB;">Android 8 (Oreo)</b> alapú eszközökön.</li>
+        <li>A szoftver úgy lett megalkotva, hogy tudjon futni Android alapú, vonalkód olvasására képes PDA eszközökön, azon belül is az <b>Android 8 (Oreo)</b> alapú eszközökön.</li>
         <li>Az alkalmazáshoz hozzátartozik az <a href="https://github.com/galmihaly/AudioShopInventoryManagementRestAPI">AudioShopInventoryManagementAPI</a> program is, ami az alkalmazás backend részétvalósítja meg, ez fogja az adatokat szolgáltatni az alkalmazás számára.</li>
     </ul>
 </div>
@@ -25,15 +25,18 @@
 <div>
     <h3>Az alkalmazás grafikai megjelenése:</h3>
     <ul style="font-size: 20px">
-        <li>A program grafikáját a jelenleg piacon lévő PDA-k közül a <strong>ZEBRA TC-51</strong> eszköz alapján készítettem el.</li>
-        <li>Az alkalmazás elemeinek elhelyezkedéseit, méreteit és megjelenésüket <strong>Figma</strong>-ban készítettem el.</li>
-        <li>A logót, valamint az alkalmazásban megtalálható összes ikont az <strong>Adobe Illustrator</strong> nevű program alkottam meg.</li>
-        <li>Az alkalmazás grafikáját (logót és dizájnt egybevéve) saját magam alkottam meg, tehát
-          a valóságban nem tartozik semmilyen más szoftverhez vagy bármilyen weboldalhoz!</li>
+        <li>A program grafikáját a jelenleg piacon lévő PDA-k közül a <b>ZEBRA TC-51</b> eszköz alapján készítettem el.</li>
+        <li>Az alkalmazás elemeinek elhelyezkedéseit, méreteit és megjelenésüket <b>Figma</b>-ban készítettem el.</li>
+        <li>A logót, valamint az alkalmazásban megtalálható összes ikont az <b>Adobe Illustrator</b> nevű program alkottam meg.</li>
+        <li>Az alkalmazás grafikája (logót és dizájnt egybevéve) nem tartozik egyetlen valós céghez sem, csak a projekt érdekéken készítettem el.</li>
     </ul>
 </div>
 
 ---
+
+<div align="center">
+        <h3>A projekt részletes leírása</h3>
+</div>
 
 <div>
     <h3>A program részei:</h3>
