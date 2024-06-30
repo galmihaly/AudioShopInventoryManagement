@@ -15,7 +15,7 @@
     <h3>A projekt leírása:</h3>
     <ul style="font-size: 20px">
         <li>Az alkalmazás fő célja, hogy segítse a bolt leltározásának folyamatát.</li>
-        <li>A szoftver úgy lett megalkotva, hogy tudjon futni Android alapú, vonalkód olvasására képes PDA eszközökön, azon belül is az <mark style="background-color:#82BFAB;">Android 8 (Oreo)</mark> alapú eszközökön.</li>
+        <li>A szoftver úgy lett megalkotva, hogy tudjon futni Android alapú, vonalkód olvasására képes PDA eszközökön, azon belül is az <b style="color:#82BFAB;">Android 8 (Oreo)</b> alapú eszközökön.</li>
         <li>Az alkalmazáshoz hozzátartozik az <a href="https://github.com/galmihaly/AudioShopInventoryManagementRestAPI">AudioShopInventoryManagementAPI</a> program is, ami az alkalmazás backend részétvalósítja meg, ez fogja az adatokat szolgáltatni az alkalmazás számára.</li>
     </ul>
 </div>
