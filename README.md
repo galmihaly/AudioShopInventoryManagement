@@ -44,9 +44,9 @@
     <ul style="font-size: 20px">
         <li>A progamnak 3 fő része van:
             <ol style="list-style-type: square;">
-                <li>Bejelentkező oldal
-                <li>Terméklista készítő oldal
-                <li>Terméklista átekintő oldal
+                <li>Bejelentkező oldal</li>
+                <li>Terméklista készítő oldal</li>
+                <li>Terméklista átekintő oldal</li>
             </ol>
         </li>
     </ul>
@@ -60,13 +60,23 @@
         <br>
         <img src="readme_images/login_screen.png" alt="AudioShop Logo">
     </div>
+    <br>
     <ul style="font-size: 20px">
-        <li>A progamnak 3 fő része van:
+        <li>Amikor az alkalmazás elindul, akkor ez az első oldal, amely megjelenik a felhasználó számára.</li>
+        <li>Az adatbázisba beregisztrált felhasználó email és jelszó beírásával tud bejelentkezni.</li>
+        <li>A bejelentkezés <b>JWT (Json Web Token)</b> segítségével történik: az email és jelszó továbbítódik a backend oldalra, ahol az adatbázis segítségével a rendszer először ellenőrzi a személy azonosságát, majd az API visszaküld egy olyan üzenetet, amely tartalmaz két tokent.</li>
+        <li>A tokennek két típusból állnak:
             <ol style="list-style-type: square;">
-                <li>Bejelentkező oldal
-                <li>Terméklista készítő oldal
-                <li>Terméklista átekintő oldal
+                <li>Hozzáférési token</li>
+                <li>Frissítési token</li>
             </ol>
         </li>
+    </ul>
+</div>
+
+<div>
+    <h4>Hozzáférési token:</h4>
+    <ul style="font-size: 20px">
+        <li>Asszimetrikus, 512 bites RSA kulccsal van titkosítva a token.</li>
     </ul>
 </div>
