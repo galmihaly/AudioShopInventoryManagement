@@ -77,6 +77,6 @@
 <div>
     <h4>Hozzáférési token:</h4>
     <ul style="font-size: 20px">
-        <li>Asszimetrikus, 512 bites RSA kulccsal van titkosítva a token.</li>
+        <li>Asszimetrikus, 256 bites RSA kulccsal van titkosítva a token.</li>
     </ul>
 </div>
