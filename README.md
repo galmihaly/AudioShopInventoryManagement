@@ -156,12 +156,12 @@
     <br>
 </div>
 
-- Ha az <b>Tároló</b> felületen rákattintunk egy tároló "kártyára", akkor ez a felület fogja fogadni a felhasználót.
+- Ha a <b>Tároló</b> felületen rákattintunk egy tároló "kártyára", akkor ez a felület fogja fogadni a felhasználót.
 - Ezen a felületen tudja áttekinteni a rögzítő személy az eddig adatbázisba felvett termékeket.
-- A termékek közt RFID alapján lehet keresni, amely a PDA segítségével tud beolvasni a rögzítő személy (be lehet manuálisan is írni a kódot)
+- A termékek közt RFID alapján lehet keresni, amelyet a PDA segítségével tud beolvasni a rögzítő személy (be lehet manuálisan is írni a kódot)
 - Egy termék kártyán látjuk:
   - a termék egyedi RFID kódját
-  - a termék adatbázisban tárolt, termék kategórájának (Brand-Categória-Model) azonosító kódját (erről később lesz magyarázat)
+  - a termék adatbázisban tárolt, termék kategóriájának (Brand-Categória-Model) azonosító kódját (erről később lesz magyarázat)
   - a termék neve (Brand-Model)
   - a termék netto (áfa nélküli) árát
   - a termék brutto (áfával számított) árát
@@ -169,3 +169,14 @@
   - az tároló azonosítóját, ahová el lett tárolva a termék
   - a terméket rögzítő személy neve
   - az felvevő eszköz azonosítója, amiről a felhasználó rögzítette a terméket
+
+---
+
+<div>
+    <div align="center">
+        <h2>Új terméklista készítése felület</h2>
+        <br>
+        <img src="readme_images/product_list_screen.png" alt="AudioShop Logo">
+    </div>
+    <br>
+</div>
