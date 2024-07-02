@@ -4,7 +4,7 @@
 
 <div align="center">
     <h1>AudioShop Inventory Management</h1>
-    <h3>Mobil Alkalmazás (Frontend)</h3>
+    <h2>Mobil Alkalmazás (Frontend)</h2>
     <h4>Portfólió munka</h4>
     <br>
 </div>
@@ -36,34 +36,45 @@
 ---
 
 <div align="center">
-        <a href="https://github.com/galmihaly/AudioShopInventoryManagement/blob/master/readme_images/all_screen.png"><img src="readme_images/all_screen.png" alt="AudioShop Logo"></a>
-        <p style="font-size: 15px">A különbőző felületek közti kapcsolatok és egyes felületek másik verzójának kinézetei</p>
+        <h2>A projekt részletes leírása</h2>
         <br>
 </div>
 
 <div align="center">
-        <h3>A projekt részletes leírása</h3>
+        <a href="https://github.com/galmihaly/AudioShopInventoryManagement/blob/master/readme_images/all_screen.png"><img src="readme_images/all_screen.png" alt="AudioShop Logo"></a>
+        <p style="font-size: 15px">A különbőző felületek közti kapcsolatok és egyes felületek másik verzójának kinézetei</p>
 </div>
 
-<div>
-    <h3>A program részei:</h3>
-    <ul style="font-size: 20px">
-        <li>A progamnak 3 fő része van:
-            <ol style="list-style-type: square;">
-                <li>Bejelentkező oldal</li>
-                <li>Terméklista készítő oldal</li>
-                <li>Terméklista átekintő oldal</li>
-            </ol>
-        </li>
-    </ul>
-</div>
+[//]: # (<div>)
+
+[//]: # (    <h3>A program részei:</h3>)
+
+[//]: # (    <ul style="font-size: 20px">)
+
+[//]: # (        <li>A progamnak 3 fő része van:)
+
+[//]: # (            <ol style="list-style-type: square;">)
+
+[//]: # (                <li>Bejelentkező felület</li>)
+
+[//]: # (                <li>Terméklista készítő felület</li>)
+
+[//]: # (                <li>Terméklista átekintő felület</li>)
+
+[//]: # (            </ol>)
+
+[//]: # (        </li>)
+
+[//]: # (    </ul>)
+
+[//]: # (</div>)
 
 ---
 
 <div>
-    <h3>Bejelentkező felület</h3>
-    <br>
-    <div style="overlay">
+    <div align="center">
+        <h2>Bejelentkező felület</h2>
+        <br>
         <img src="readme_images/login_screen.png" alt="AudioShop Logo">
     </div>
     <br>
@@ -84,7 +95,7 @@
 
 <div>
     <div align="center">
-        <h3>Kezdő felület</h3>
+        <h2>Kezdő felület</h2>
         <br>
         <img src="readme_images/start_screen.png" alt="AudioShop Logo">
     </div>
@@ -99,36 +110,30 @@
 
 <div>
     <div align="center">
-        <h3>Áruház felület</h3>
+        <h2>Áruház felület</h2>
         <br>
         <img src="readme_images/warehouse_screen.png" alt="AudioShop Logo">
     </div>
     <br>
     <ul style="font-size: 20px">
         <li>A készlet (Stocks) gomb megnyomása után ez az oldal fogja fogadni a felhasználót.</li>
-        <li>Ha egy nem <b>Admin</b> joggal beregisztrált felhasználó ejelentkezik be, akkor csak azt az áruház adatait látja, ahová a beregisztrált felhasználó is be van jegyezve az adatbázisban.</li>
+        <li>Ha egy nem <b>Admin</b> joggal beregisztrált felhasználó jelentkezik be, akkor csak azt az áruház adatait látja, ahová a beregisztrált felhasználó is be van jegyezve az adatbázisban.</li>
+        <li><b>Admin</b> jog esetén egy lista látható, ahol összes bejegyzett áruház látható, így minden áruház készlete látható válik a felhasználó számára.</li>
     </ul>
 </div>
 
-<style>
+---
 
-.overlay {
-  position: absolute; 
-  bottom: 0; 
-  background: rgb(0, 0, 0);
-  background: rgba(0, 0, 0, 0.5); /* Black see-through */
-  color: #f1f1f1; 
-  width: 100%;
-  transition: .5s ease;
-  opacity:0;
-  color: white;
-  font-size: 20px;
-  padding: 20px;
-  text-align: center;
-}
-
-.container:hover .overlay {
-  opacity: 1;
-}
-
-</style>
+<div>
+    <div align="center">
+        <h2>Tároló felület</h2>
+        <br>
+        <img src="readme_images/warehouse_screen.png" alt="AudioShop Logo">
+    </div>
+    <br>
+    <ul style="font-size: 20px">
+        <li>A készlet (Stocks) gomb megnyomása után ez az oldal fogja fogadni a felhasználót.</li>
+        <li>Ha egy nem <b>Admin</b> joggal beregisztrált felhasználó jelentkezik be, akkor csak azt az áruház adatait látja, ahová a beregisztrált felhasználó is be van jegyezve az adatbázisban.</li>
+        <li><b>Admin</b> jog esetén egy lista látható, ahol összes bejegyzett áruház látható, így minden áruház készlete látható válik a felhasználó számára.</li>
+    </ul>
+</div>
