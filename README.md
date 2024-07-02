@@ -16,7 +16,7 @@
 </div>
 
 - Az alkalmazás fő célja, hogy segítse a bolt leltározásának folyamatát.
-- A szoftver úgy lett megalkotva, hogy tudjon futni Android alapú, vonalkód olvasására képes PDA eszközökön, azon belül is az <b>Android 8 (Oreo)</b> alapú eszközökön.
+- A szoftver úgy lett megalkotva, hogy tudjon futni Android alapú, vonalkód olvasására képes PDA eszközökön, azon belül is az <b>Android 8 (Oreo)</b> vagy az a fölötti rendszereken.
 - Az alkalmazáshoz hozzátartozik az <a href="https://github.com/galmihaly/AudioShopInventoryManagementRestAPI">AudioShopInventoryManagementAPI</a> program is, ami az alkalmazás backend részét valósítja meg, ez fogja az adatokat szolgáltatni az alkalmazás számára.
 
 ---
@@ -180,3 +180,14 @@
     </div>
     <br>
 </div>
+
+- Ha a <b>Kezdő</b> felületen rákattintunk a <b>Create New List</b> gombra, akkor ez a felület fogja fogadni a felhasználót.
+- Ezen a felületen tudjuk kezelni az új termékek felvételét, amelyeket listába rendezve tudjuk áttekinteni hozzáadás után.
+- A termékek közt RFID alapján lehet keresni, amelyet a PDA segítségével tud beolvasni a rögzítő személy (be lehet manuálisan is írni a kódot)
+- Ha egy terméket hozzáadtunk a listához, akkor azokat utólag tudjuk módosítani, vagy magát, az egész terméket törölni a listából.
+- Az <b>All Matches</b> résznél látjuk, hogy a listában mennyi termék van (keresés során azt mutatja, hogy mennyi terméket talált meg a keresett RFID által)
+- Az <b>All Matches</b> résszel ellentétes oldalon található gombbal tudjuk elküldeni a listát a <b>Backend</b> oldalra (a lista feldolgozása backend oldalon történik, itt csak össeállítjuk a termékfelvételhez szükséges adatcsomagot).
+- Az alsó sávban 3 gomb található:
+  - Az 1. gombbal vissza tudunk menni az előző oldalra
+  - A 2. gombbal egy új terméket tudunk felvenni listára (új oldalra visz át)
+  - A 3. gombbal magát az egész listát törölni tudjuk (nem visz át egy másik oldalra)
