@@ -3,9 +3,9 @@
 </div>
 
 <div align="center">
-    <p style="font-size: 70px"><strong>AudioShop Inventory Management</strong></p>
-    <p style="font-size: 25px"><strong>Mobil Alkalmazás (Frontend)</strong></p>
-    <p style="font-size: 20px"><strong>Portfólió munka</strong></p>
+    <h1 style="border-bottom: 0">AudioShop Inventory Management</h1>
+    <h3>Mobil Alkalmazás (Frontend)</h3>
+    <h4>Portfólió munka</h4>
     <br>
 </div>
 
@@ -36,7 +36,7 @@
 ---
 
 <div align="center">
-        <p style="font-size: 30px"><strong>A projekt részletes leírása</strong></p>
+        <h2>A projekt részletes leírása</h2>
         <br>
 </div>
 
@@ -73,7 +73,7 @@
 
 <div>
     <div align="center">
-        <p style="font-size: 30px"><strong>Bejelentkező felület</strong></p>
+        <h2>Bejelentkező felület</h2>
         <br>
         <img src="readme_images/login_screen.png" alt="AudioShop Logo">
     </div>
@@ -95,7 +95,7 @@
 
 <div>
     <div align="center">
-        <p style="font-size: 30px"><strong>Kezdő felület</strong></p>
+        <h2>Kezdő felület</h2>
         <br>
         <img src="readme_images/start_screen.png" alt="AudioShop Logo">
     </div>
@@ -110,7 +110,7 @@
 
 <div>
     <div align="center">
-        <p style="font-size: 30px"><strong>Áruház felület</strong></p>
+        <h2>Áruház felület</h2>
         <br>
         <img src="readme_images/warehouse_screen.png" alt="AudioShop Logo">
     </div>
@@ -126,7 +126,7 @@
 
 <div>
     <div align="center">
-        <p style="font-size: 30px"><strong>Tároló felület</strong></p>
+        <h2>Tároló felület</h2>
         <br>
         <img src="readme_images/warehouse_screen.png" alt="AudioShop Logo">
     </div>
