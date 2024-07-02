@@ -137,3 +137,7 @@
         <li><b>Admin</b> jog esetén egy lista látható, ahol összes bejegyzett áruház látható, így minden áruház készlete látható válik a felhasználó számára.</li>
     </ul>
 </div>
+
+<style>
+    h1,h2,h3,h4 { border-bottom: 0; }
+</style>
