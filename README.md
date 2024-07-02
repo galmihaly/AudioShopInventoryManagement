@@ -3,7 +3,7 @@
 </div>
 
 <div align="center">
-    <p style="font-size: 40px"><strong>AudioShop Inventory Management</strong></p>
+    <p style="font-size: 70px"><strong>AudioShop Inventory Management</strong></p>
     <p style="font-size: 25px"><strong>Mobil Alkalmazás (Frontend)</strong></p>
     <p style="font-size: 20px"><strong>Portfólió munka</strong></p>
     <br>
