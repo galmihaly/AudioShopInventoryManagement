@@ -36,9 +36,9 @@
 ---
 
 <div align="center">
-        <h3>Bejelentkező felület</h3>
-        <br>
         <a href="https://github.com/galmihaly/AudioShopInventoryManagement/blob/master/readme_images/all_screen.png"><img src="readme_images/all_screen.png" alt="AudioShop Logo"></a>
+        <p style="font-size: 15px">A különbőző felületek közti kapcsolatok és egyes felületek másik verzójának kinézetei</p>
+        <br>
 </div>
 
 <div align="center">
@@ -61,9 +61,9 @@
 ---
 
 <div>
-    <div align="center">
-        <h3>Bejelentkező felület</h3>
-        <br>
+    <h3>Bejelentkező felület</h3>
+    <br>
+    <div style="overlay">
         <img src="readme_images/login_screen.png" alt="AudioShop Logo">
     </div>
     <br>
@@ -109,3 +109,26 @@
         <li>Ha egy nem <b>Admin</b> joggal beregisztrált felhasználó ejelentkezik be, akkor csak azt az áruház adatait látja, ahová a beregisztrált felhasználó is be van jegyezve az adatbázisban.</li>
     </ul>
 </div>
+
+<style>
+
+.overlay {
+  position: absolute; 
+  bottom: 0; 
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1; 
+  width: 100%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.container:hover .overlay {
+  opacity: 1;
+}
+
+</style>
