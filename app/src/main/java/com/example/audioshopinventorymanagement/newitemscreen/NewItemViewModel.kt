@@ -69,35 +69,35 @@ class NewItemViewModel @Inject constructor(
             val warehouseTFValue = _viewState.value.warehouseTFValue
 
             if (warehouseTFValue == "") {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_WAREHOUSE_ID_EMPTY))
+                onDialogShow(dialogTextId = R.string.NEWITEM_WAREHOUSE_ID_EMPTY)
                 return@launch
             }
             else if (storageTFValue == "") {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_STORAGE_ID_EMPTY))
+                onDialogShow(dialogTextId = R.string.NEWITEM_STORAGE_ID_EMPTY)
                 return@launch
             }
             else if (brandDDValue == "") {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_BRAND_FIELD_EMPTY))
+                onDialogShow(dialogTextId = R.string.NEWITEM_BRAND_FIELD_EMPTY)
                 return@launch
             }
             else if (categoryDDValue == "") {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_CATEGORY_FIELD_EMPTY))
+                onDialogShow(dialogTextId = R.string.NEWITEM_CATEGORY_FIELD_EMPTY)
                 return@launch
             }
             else if (modelDDValue == "") {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_MODEL_FIELD_EMPTY))
+                onDialogShow(dialogTextId = R.string.NEWITEM_MODEL_FIELD_EMPTY)
                 return@launch
             }
             else if (barcodeTFValue == "") {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_BARCODE_FIELD_EMPTY))
+                onDialogShow(dialogTextId = R.string.NEWITEM_BARCODE_FIELD_EMPTY)
                 return@launch
             }
             else if (basePriceTFValue == "") {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_BASE_PRICE_FIELD_EMPTY))
+                onDialogShow(dialogTextId = R.string.NEWITEM_BASE_PRICE_FIELD_EMPTY)
                 return@launch
             }
             else if (wholeSalePriceTFValue == "") {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.NEWITEM_WHOLESALE_PRICE_EMPTY))
+                onDialogShow(dialogTextId = R.string.NEWITEM_WHOLESALE_PRICE_EMPTY)
                 return@launch
             }
 
@@ -129,7 +129,7 @@ class NewItemViewModel @Inject constructor(
                 onNavigateToProductListScreen()
             }
             else{
-                onDialogShow(Resources.getSystem().getString(R.string.NEWITEM_ALREADY_ADDED))
+                onDialogShow(R.string.NEWITEM_ALREADY_ADDED)
             }
         }
     }
@@ -147,12 +147,13 @@ class NewItemViewModel @Inject constructor(
             _userDetailsState.update {
                 it.copy(
                     name = nameClaim,
+                    role = roleClaim,
                     deviceId = deviceIdClaim,
                     warehouseId = warehouseIdClaim
                 )
             }
 
-            if(roleClaim != "" && warehouseIdClaim != ""){
+            /*if(roleClaim != "" && warehouseIdClaim != ""){
                 if(roleClaim == "ADMIN"){
                     _viewState.update {
                         it.copy(
@@ -163,13 +164,16 @@ class NewItemViewModel @Inject constructor(
                         )
                     }
                 }
-                else if(roleClaim == "BLIND_INVENTORY"){
+            }*/
+
+            if(roleClaim != "" && warehouseIdClaim != ""){
+                if(roleClaim == "ADMIN"){
                     _viewState.update {
                         it.copy(
-                            warehouseTFValue = warehouseIdClaim,
-                            warehouseTFIsEnabled = false,
-                            warehouseTFIsEnabledBorderColor = Color.Gray,
-                            warehouseTFIsEnabledTextColor = Color.Gray,
+                            warehouseTFValue = "",
+                            warehouseTFIsEnabled = true,
+                            warehouseTFIsEnabledBorderColor = GREEN,
+                            warehouseTFIsEnabledTextColor = Color.White,
                         )
                     }
                 }
@@ -278,17 +282,36 @@ class NewItemViewModel @Inject constructor(
 
     fun deleteAllTextField() {
         viewModelScope.launch {
-            _viewState.update {
-                it.copy(
-                    warehouseTFValue = "",
-                    storageTFValue = "",
-                    brandDDValue = "",
-                    categoryDDValue = "",
-                    modelDDValue = "",
-                    barcodeTFValue = "",
-                    basePriceTFValue = "",
-                    wholeSalePriceTFValue = ""
-                )
+            val roleClaim = _userDetailsState.value.role
+
+            if(roleClaim != ""){
+                if(roleClaim == "ADMIN"){
+                    _viewState.update {
+                        it.copy(
+                            warehouseTFValue = "",
+                            storageTFValue = "",
+                            brandDDValue = "",
+                            categoryDDValue = "",
+                            modelDDValue = "",
+                            barcodeTFValue = "",
+                            basePriceTFValue = "",
+                            wholeSalePriceTFValue = ""
+                        )
+                    }
+                }
+            }
+            else{
+                _viewState.update {
+                    it.copy(
+                        storageTFValue = "",
+                        brandDDValue = "",
+                        categoryDDValue = "",
+                        modelDDValue = "",
+                        barcodeTFValue = "",
+                        basePriceTFValue = "",
+                        wholeSalePriceTFValue = ""
+                    )
+                }
             }
         }
     }
@@ -407,11 +430,11 @@ class NewItemViewModel @Inject constructor(
         appNavigator.tryNavigateTo(Destination.ProductListScreen.fullRoute)
     }
 
-    private fun onDialogShow(dialogText : String){
+    private fun onDialogShow(dialogTextId : Int){
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    textShowErrorDialog = dialogText,
+                    textShowErrorDialogId = dialogTextId,
                     isShowErrorDialog = true
                 )
             }
@@ -422,7 +445,7 @@ class NewItemViewModel @Inject constructor(
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    textShowErrorDialog = "",
+                    textShowErrorDialogId = -1,
                     isShowErrorDialog = false
                 )
             }

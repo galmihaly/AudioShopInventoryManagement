@@ -33,8 +33,11 @@ data class ModifyItemViewState(
     val basePriceTFValue : String = "",
     val wholeSalePriceTFValue : String = "",
 
-    val isShowErrorDialog : Boolean = false,
-    val textShowErrorDialog : String = "",
+    val isShowErrorDialogOne : Boolean = false,
+    val textShowErrorDialogOneId : Int = -1,
+
+    val isShowErrorDialogTwo : Boolean = false,
+    val textShowErrorDialogTwoId : Int = -1,
 
     val modifyItemScreenArgument : String = ""
 )

@@ -85,7 +85,7 @@ class ProductListViewModel @Inject constructor(
                 }
                 is ProductApiResponse.BrandError -> {
                     if(response.data.statusCode == 401){
-                        onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_BRANDS_API_READ_FAILED))
+                        onDialogShow(R.string.PRODUCT_BRANDS_API_READ_FAILED)
                     }
                 }
                 is ProductApiResponse.Exception -> {
@@ -115,7 +115,7 @@ class ProductListViewModel @Inject constructor(
                 }
                 is ProductApiResponse.CategoryError -> {
                     if(response.data.statusCode == 401){
-                        onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_CATEGORIES_API_READ_FAILED))
+                        onDialogShow(R.string.PRODUCT_CATEGORIES_API_READ_FAILED)
                     }
                 }
                 is ProductApiResponse.Exception -> {
@@ -145,7 +145,7 @@ class ProductListViewModel @Inject constructor(
                 }
                 is ProductApiResponse.ModelError -> {
                     if(response.data.statusCode == 401){
-                        onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_MODELS_API_READ_FAILED))
+                        onDialogShow(R.string.PRODUCT_MODELS_API_READ_FAILED)
                     }
                 }
                 is ProductApiResponse.Exception -> {
@@ -210,7 +210,7 @@ class ProductListViewModel @Inject constructor(
                 when (response){
                     is ProductApiResponse.ProductSaveSuccess -> {
                         if(response.data.statusCode == 200){
-                            onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_SAVE_SUCCESS))
+                            onDialogShow(R.string.PRODUCT_SAVE_SUCCESS)
                             productDatabaseRepository.deleteAllProduct()
                             _viewState.update {
                                 it.copy(
@@ -222,10 +222,10 @@ class ProductListViewModel @Inject constructor(
                     }
                     is ProductApiResponse.ProductSaveError -> {
                         if(response.data.statusCode == 400){
-                            onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_SAVE_UNSUCCESFUL))
+                            onDialogShow(R.string.PRODUCT_SAVE_UNSUCCESFUL)
                         }
                         else if(response.data.statusCode == 409){
-                            onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_SAVE_UNSUCCESFUL))
+                            onDialogShow(R.string.PRODUCT_SAVE_UNSUCCESFUL)
                         }
                     }
                     is ProductApiResponse.Exception -> {
@@ -290,11 +290,11 @@ class ProductListViewModel @Inject constructor(
         appNavigator.tryNavigateTo(Destination.StartScreen.fullRoute)
     }
 
-    fun onDialogShow(dialogText : String){
+    fun onDialogShow(dialogTextId : Int){
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    textShowErrorDialog = dialogText,
+                    textShowErrorDialogId = dialogTextId,
                     isShowErrorDialog = true
                 )
             }
@@ -305,7 +305,7 @@ class ProductListViewModel @Inject constructor(
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    textShowErrorDialog = "",
+                    textShowErrorDialogId = -1,
                     isShowErrorDialog = false
                 )
             }

@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -35,6 +36,8 @@ import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 fun NewItemScreen(
     viewModel: NewItemViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+
     val warehouseTFValue = viewModel.viewState.collectAsState().value.warehouseTFValue
     val warehouseTFIsEnabled = viewModel.viewState.collectAsState().value.warehouseTFIsEnabled
     val warehouseTFIsEnabledBorderColor = viewModel.viewState.collectAsState().value.warehouseTFIsEnabledBorderColor
@@ -59,7 +62,12 @@ fun NewItemScreen(
     val wholeSalePriceTFValue = viewModel.viewState.collectAsState().value.wholeSalePriceTFValue
 
     val isShowErrorDialog = viewModel.viewState.collectAsState().value.isShowErrorDialog
-    val dialogText = viewModel.viewState.collectAsState().value.textShowErrorDialog
+    val dialogTextId = viewModel.viewState.collectAsState().value.textShowErrorDialogId
+
+    var dialogText = ""
+    if(dialogTextId != -1){
+        dialogText = context.getString(dialogTextId)
+    }
 
     Scaffold (
         topBar = {

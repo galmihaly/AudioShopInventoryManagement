@@ -202,22 +202,22 @@ class ProductApiRepositoryImpl @Inject constructor(
     private fun getExceptionMessage(e : Exception) : ProductApiResponse {
         return when (e) {
             is SocketTimeoutException -> {
-                ProductApiResponse.Exception(Resources.getSystem().getString(R.string.API_SOCKET_TIMEOUT))
+                ProductApiResponse.Exception(R.string.API_SOCKET_TIMEOUT)
             }
             is UnknownHostException -> {
-                ProductApiResponse.Exception(Resources.getSystem().getString(R.string.API_UNABLE_CONNECTION))
+                ProductApiResponse.Exception(R.string.API_UNABLE_CONNECTION)
             }
             is ConnectException -> {
-                ProductApiResponse.Exception(Resources.getSystem().getString(R.string.API_CANNOT_CONNECTION))
+                ProductApiResponse.Exception(R.string.API_CANNOT_CONNECTION)
             }
             is ConnectionShutdownException -> {
-                ProductApiResponse.Exception(Resources.getSystem().getString(R.string.API_LOST_CONNECTION))
+                ProductApiResponse.Exception(R.string.API_LOST_CONNECTION)
             }
             is IOException -> {
-                ProductApiResponse.Exception(Resources.getSystem().getString(R.string.API_UNREACHABLE_SERVER))
+                ProductApiResponse.Exception(R.string.API_UNREACHABLE_SERVER)
             }
             else -> {
-                ProductApiResponse.Exception("${e.message}")
+                ProductApiResponse.Exception(R.string.SOMETHING_WENT_WRONG)
             }
         }
     }

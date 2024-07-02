@@ -47,7 +47,7 @@ class WareHousesScreenViewModel @Inject constructor(
                 }
                 is ProductApiResponse.WarehouseError -> {
                     if(response.data.statusCode == 401){
-                        onDialogShow(Resources.getSystem().getString(R.string.WAREHOUSE_API_READ_FAILED))
+                        onDialogShow(R.string.WAREHOUSE_API_READ_FAILED)
                     }
                 }
                 is ProductApiResponse.Exception -> {
@@ -66,11 +66,11 @@ class WareHousesScreenViewModel @Inject constructor(
         appNavigator.tryNavigateTo(Destination.StoragesScreen.passParameters(warehouseId))
     }
 
-    private fun onDialogShow(dialogText : String){
+    private fun onDialogShow(dialogTextId : Int){
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    textShowErrorDialog = dialogText,
+                    textShowErrorDialogId = dialogTextId,
                     isShowErrorDialog = true
                 )
             }
@@ -81,7 +81,7 @@ class WareHousesScreenViewModel @Inject constructor(
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    textShowErrorDialog = "",
+                    textShowErrorDialogId = -1,
                     isShowErrorDialog = false
                 )
             }

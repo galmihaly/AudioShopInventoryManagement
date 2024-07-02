@@ -19,12 +19,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.audioshopinventorymanagement.AllViewComponents
 import com.example.audioshopinventorymanagement.R
+import com.example.audioshopinventorymanagement.loginscreen.LoginScreenComponents
 import com.example.audioshopinventorymanagement.newitemscreen.NewItemScreenComponents
 import com.example.audioshopinventorymanagement.ui.theme.BLUE
 import com.example.audioshopinventorymanagement.ui.theme.ERROR_RED
@@ -35,6 +37,8 @@ import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 fun ModifyItemScreen(
     viewModel: ModifyItemViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+
     val warehouseTFValue = viewModel.viewState.collectAsState().value.warehouseTFValue
     val warehouseTFIsEnabled = viewModel.viewState.collectAsState().value.warehouseTFIsEnabled
     val warehouseTFIsEnabledBorderColor = viewModel.viewState.collectAsState().value.warehouseTFIsEnabledBorderColor
@@ -58,8 +62,20 @@ fun ModifyItemScreen(
     val basePriceTFValue = viewModel.viewState.collectAsState().value.basePriceTFValue
     val wholeSalePriceTFValue = viewModel.viewState.collectAsState().value.wholeSalePriceTFValue
 
-    val isShowErrorDialog = viewModel.viewState.collectAsState().value.isShowErrorDialog
-    val dialogText = viewModel.viewState.collectAsState().value.textShowErrorDialog
+    val isShowErrorDialogOne = viewModel.viewState.collectAsState().value.isShowErrorDialogOne
+    val dialogTextOneId = viewModel.viewState.collectAsState().value.textShowErrorDialogOneId
+
+    val isShowErrorDialogTwo = viewModel.viewState.collectAsState().value.isShowErrorDialogTwo
+    val dialogTextTwoId = viewModel.viewState.collectAsState().value.textShowErrorDialogTwoId
+
+    var dialogTextOne = ""
+    var dialogTextTwo = ""
+    if(dialogTextOneId != -1){
+        dialogTextOne = context.getString(dialogTextOneId)
+    }
+    if(dialogTextTwoId != -1){
+        dialogTextTwo = context.getString(dialogTextTwoId)
+    }
 
     Scaffold (
         topBar = {
@@ -261,12 +277,19 @@ fun ModifyItemScreen(
         }
 
         ModifyItemScreenComponents.ErrorDialog(
-            isShowErrorDialog = isShowErrorDialog,
-            dialogText = dialogText,
+            isShowErrorDialog = isShowErrorDialogOne,
+            dialogText = dialogTextOne,
             readyButtonText = stringResource(R.string.DIALOG_BUTTON_YES_TEXT),
             cancelButtonText = stringResource(R.string.DIALOG_BUTTON_NO_TEXT),
-            dialogDismissFunction = { viewModel.onDialogDismiss() },
+            dialogDismissFunction = { viewModel.onOneDialogDismiss() },
             navigateFunction = { viewModel.onNavigateBackToProductListScreen() }
+        )
+
+        LoginScreenComponents.ErrorDialog(
+            isShowErrorDialog = isShowErrorDialogTwo,
+            dialogText = dialogTextTwo,
+            buttonText = stringResource(R.string.DIALOG_BUTTON_OK_TEXT),
+            dialogDismissFunction = { viewModel.onTwoDialogDismiss() }
         )
     }
 }

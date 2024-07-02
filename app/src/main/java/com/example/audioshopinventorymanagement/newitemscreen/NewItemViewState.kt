@@ -35,5 +35,5 @@ data class NewItemViewState(
     val wholeSalePriceTFValue : String = "",
 
     val isShowErrorDialog : Boolean = false,
-    val textShowErrorDialog : String = ""
+    val textShowErrorDialogId : Int = -1
 )

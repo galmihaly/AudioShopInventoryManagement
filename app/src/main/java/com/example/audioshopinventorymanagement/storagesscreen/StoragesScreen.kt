@@ -12,15 +12,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -34,6 +32,8 @@ import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 fun StoragesScreen(
     viewModel: StoragesScreenViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+
     val searchedStorageListState = viewModel.viewState.collectAsState().value.searchedStoragesList
     val currentCapacityColor = viewModel.viewState.collectAsState().value.currentCapacityColor
     val maxCapacityColor = viewModel.viewState.collectAsState().value.maxCapacityColor
@@ -42,7 +42,12 @@ fun StoragesScreen(
     val allMatches = viewModel.viewState.collectAsState().value.allMatches
 
     val isShowErrorDialog = viewModel.viewState.collectAsState().value.isShowErrorDialog
-    val dialogText = viewModel.viewState.collectAsState().value.textShowErrorDialog
+    val dialogTextId = viewModel.viewState.collectAsState().value.textShowErrorDialogId
+
+    var dialogText = ""
+    if(dialogTextId != -1){
+        dialogText = context.getString(dialogTextId)
+    }
 
     Scaffold (
         topBar = {

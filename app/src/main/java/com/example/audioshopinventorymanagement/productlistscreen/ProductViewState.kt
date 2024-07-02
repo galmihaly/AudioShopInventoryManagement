@@ -9,5 +9,5 @@ data class ProductViewState(
     val allMatches: Int = 0,
 
     val isShowErrorDialog : Boolean = false,
-    val textShowErrorDialog : String = "",
+    val textShowErrorDialogId : Int = -1,
 )

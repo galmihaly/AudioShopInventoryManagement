@@ -47,22 +47,22 @@ class AuthApiRepositoryImpl @Inject constructor(private val loginAuthAPI: LoginA
     private fun getExceptionMessage(e : Exception) : LoginApiResponse {
         return when (e) {
             is SocketTimeoutException -> {
-                LoginApiResponse.Exception(Resources.getSystem().getString(R.string.API_SOCKET_TIMEOUT))
+                LoginApiResponse.Exception(R.string.API_SOCKET_TIMEOUT)
             }
             is UnknownHostException -> {
-                LoginApiResponse.Exception(Resources.getSystem().getString(R.string.API_UNABLE_CONNECTION))
+                LoginApiResponse.Exception(R.string.API_UNABLE_CONNECTION)
             }
             is ConnectException -> {
-                LoginApiResponse.Exception(Resources.getSystem().getString(R.string.API_CANNOT_CONNECTION))
+                LoginApiResponse.Exception(R.string.API_CANNOT_CONNECTION)
             }
             is ConnectionShutdownException -> {
-                LoginApiResponse.Exception(Resources.getSystem().getString(R.string.API_LOST_CONNECTION))
+                LoginApiResponse.Exception(R.string.API_LOST_CONNECTION)
             }
             is IOException -> {
-                LoginApiResponse.Exception(Resources.getSystem().getString(R.string.API_UNREACHABLE_SERVER))
+                LoginApiResponse.Exception(R.string.API_UNREACHABLE_SERVER)
             }
             else -> {
-                LoginApiResponse.Exception("${e.message}")
+                LoginApiResponse.Exception(R.string.SOMETHING_WENT_WRONG)
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.example.audioshopinventorymanagement.api.interceptors
 
+import android.content.Context
 import android.content.res.Resources
 import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
@@ -9,12 +10,12 @@ import okhttp3.Response
 import javax.inject.Inject
 
 class AccessTokenInterceptor @Inject constructor(
-    private val jwtTokenRepository: JwtTokenRepository
+    private val jwtTokenRepository: JwtTokenRepository,
+    private val context: Context
 ) : Interceptor {
-    companion object {
-        var HEADER_AUTHORIZATION = Resources.getSystem().getString(R.string.LOGIN_AUTHORIZATION_HEADER)
-        var TOKEN_TYPE = Resources.getSystem().getString(R.string.LOGIN_TOKEN_TYPE)
-    }
+
+    private var HEADER_AUTHORIZATION = context.getString(R.string.LOGIN_AUTHORIZATION_HEADER)
+    private var TOKEN_TYPE = context.getString(R.string.LOGIN_TOKEN_TYPE)
     override fun intercept(chain: Interceptor.Chain): Response {
         var token = runBlocking {
             jwtTokenRepository.getAccessJwt().accessToken

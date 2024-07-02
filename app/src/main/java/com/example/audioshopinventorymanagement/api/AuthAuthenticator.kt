@@ -1,5 +1,6 @@
 package com.example.audioshopinventorymanagement.api
 
+import android.content.Context
 import android.content.res.Resources
 import com.example.audioshopinventorymanagement.R
 import com.example.audioshopinventorymanagement.api.apiinterfaces.LoginAuthAPI
@@ -13,12 +14,12 @@ import javax.inject.Inject
 
 class AuthAuthenticator @Inject constructor(
     private val jwtTokenRepository: JwtTokenRepository,
-    private val loginAuthAPI: LoginAuthAPI
+    private val loginAuthAPI: LoginAuthAPI,
+    private val context: Context
 ) : Authenticator {
-    companion object {
-        var HEADER_AUTHORIZATION = Resources.getSystem().getString(R.string.LOGIN_AUTHORIZATION_HEADER)
-        var TOKEN_TYPE = Resources.getSystem().getString(R.string.LOGIN_TOKEN_TYPE)
-    }
+
+    private var HEADER_AUTHORIZATION = context.getString(R.string.LOGIN_AUTHORIZATION_HEADER)
+    private var TOKEN_TYPE = context.getString(R.string.LOGIN_TOKEN_TYPE)
     override fun authenticate(route: Route?, response: Response): Request? {
 
         val currentToken = runBlocking {

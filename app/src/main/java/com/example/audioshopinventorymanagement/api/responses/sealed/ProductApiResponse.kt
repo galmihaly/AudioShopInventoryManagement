@@ -23,5 +23,5 @@ sealed class ProductApiResponse(){
     class WarehouseError(val data: WarehouseListResponse) : ProductApiResponse()
     class StoragesSuccess(val data: StoragesListResponse) : ProductApiResponse()
     class StoragesError(val data: StoragesListResponse) : ProductApiResponse()
-    class Exception(val exceptionMessage: String) : ProductApiResponse()
+    class Exception(val exceptionMessage: Int) : ProductApiResponse()
 }

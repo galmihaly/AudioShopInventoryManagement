@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,16 +25,31 @@ import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 fun LoginScreen(
     loginScreenViewModel: LoginScreenViewModel = hiltViewModel()
 ) {
-    val emailText = loginScreenViewModel.viewState.collectAsState().value.validationEmailText
+    val context = LocalContext.current
+
+    val emailTextId = loginScreenViewModel.viewState.collectAsState().value.validationEmailTextId
     val emailErrorTextColor = loginScreenViewModel.viewState.collectAsState().value.validationEmailColor
     val emailTextValue = loginScreenViewModel.viewState.collectAsState().value.email
 
-    val passwordText = loginScreenViewModel.viewState.collectAsState().value.validationPasswordText
+    val passwordTextId = loginScreenViewModel.viewState.collectAsState().value.validationPasswordTextId
     val passwordErrorTextColor = loginScreenViewModel.viewState.collectAsState().value.validationPasswordColor
     val passwordTextValue = loginScreenViewModel.viewState.collectAsState().value.password
 
     val isShowErrorDialog = loginScreenViewModel.viewState.collectAsState().value.isShowErrorDialog
-    val dialogText = loginScreenViewModel.viewState.collectAsState().value.textShowErrorDialog
+    val dialogTextId = loginScreenViewModel.viewState.collectAsState().value.textShowErrorDialogId
+
+    var emailText = ""
+    var passwordText = ""
+    var dialogText = ""
+    if(emailTextId != -1){
+        emailText = context.getString(emailTextId)
+    }
+    if(passwordTextId != -1){
+        passwordText = context.getString(passwordTextId)
+    }
+    if(dialogTextId != -1){
+        dialogText = context.getString(dialogTextId)
+    }
 
     Scaffold (
         topBar = {
@@ -79,7 +95,7 @@ fun LoginScreen(
             }
 
             LoginScreenComponents.LoginButtonAndLink(
-                buttonText = stringResource(R.string.LOGIN_EMAIL_TEXT),
+                buttonText = stringResource(R.string.LOGIN_TEXT),
                 onClickFunction = { loginScreenViewModel.authLoginUser(emailTextValue, passwordTextValue) }
             )
         }

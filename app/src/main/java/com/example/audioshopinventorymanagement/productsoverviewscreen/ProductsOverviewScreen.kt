@@ -18,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -31,13 +32,20 @@ import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 fun ProductsOverviewScreen(
     viewModel: ProductsOverviewScreenViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+
     val productListState = viewModel.viewState.collectAsState().value.searchedProductList
     val searchFieldValue = viewModel.viewState.collectAsState().value.searchFieldValue
     val isExpandCard = viewModel.viewState.collectAsState().value.isExpandCard
     val allMatches = viewModel.viewState.collectAsState().value.allMatches
 
     val isShowErrorDialog = viewModel.viewState.collectAsState().value.isShowErrorDialog
-    val dialogText = viewModel.viewState.collectAsState().value.textShowErrorDialog
+    val dialogTextId = viewModel.viewState.collectAsState().value.textShowErrorDialogId
+
+    var dialogText = ""
+    if(dialogTextId != -1){
+        dialogText = context.getString(dialogTextId)
+    }
 
     Scaffold (
         topBar = {

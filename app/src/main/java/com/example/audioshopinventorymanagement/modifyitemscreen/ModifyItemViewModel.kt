@@ -1,15 +1,11 @@
 package com.example.audioshopinventorymanagement.modifyitemscreen
 
-import android.content.res.Resources
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.auth0.android.jwt.JWT
 import com.example.audioshopinventorymanagement.R
-import com.example.audioshopinventorymanagement.jwttokensdatastore.JwtTokenRepository
 import com.example.audioshopinventorymanagement.navigation.AppNavigator
 import com.example.audioshopinventorymanagement.navigation.Destination
-import com.example.audioshopinventorymanagement.productlistscreen.UserDetailsState
 import com.example.audioshopinventorymanagement.room.entities.BrandEntity
 import com.example.audioshopinventorymanagement.room.entities.CategoryEntity
 import com.example.audioshopinventorymanagement.room.entities.ModelEntity
@@ -21,7 +17,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.lang.StringBuilder
 import javax.inject.Inject
 
 @HiltViewModel
@@ -92,7 +87,7 @@ class ModifyItemViewModel @Inject constructor(
             val products = databaseRepo.getProductByBarcode(arg)
 
             if (warehouseTFValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_WAREHOUSE_ID_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_WAREHOUSE_ID_EMPTY)
                 return@launch
             }
             else{
@@ -102,7 +97,7 @@ class ModifyItemViewModel @Inject constructor(
             }
 
             if (storageTFValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_STORAGE_ID_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_STORAGE_ID_EMPTY)
                 return@launch
             }
             else{
@@ -112,7 +107,7 @@ class ModifyItemViewModel @Inject constructor(
             }
 
             if (brandDDValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_BRAND_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_BRAND_EMPTY)
                 return@launch
             }
             else{
@@ -124,7 +119,7 @@ class ModifyItemViewModel @Inject constructor(
             }
 
             if (categoryDDValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_CATEGORY_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_CATEGORY_EMPTY)
                 return@launch
             }
             else{
@@ -136,7 +131,7 @@ class ModifyItemViewModel @Inject constructor(
             }
 
             if (modelDDValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_MODEL_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_MODEL_EMPTY)
                 return@launch
             }
             else{
@@ -148,7 +143,7 @@ class ModifyItemViewModel @Inject constructor(
             }
 
             if (barcodeTFValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_BARCODE_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_BARCODE_EMPTY)
                 return@launch
             }
             else{
@@ -158,7 +153,7 @@ class ModifyItemViewModel @Inject constructor(
             }
 
             if (basePriceTFValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_BASE_PRICE_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_BASE_PRICE_EMPTY)
                 return@launch
             }
             else{
@@ -168,7 +163,7 @@ class ModifyItemViewModel @Inject constructor(
             }
 
             if (wholeSalePriceTFValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_WHOLESALE_PRICE_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_WHOLESALE_PRICE_EMPTY)
                 return@launch
             }
             else{
@@ -208,89 +203,89 @@ class ModifyItemViewModel @Inject constructor(
             val products = databaseRepo.getProductByBarcode(arg)
 
             if (warehouseTFValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_WAREHOUSE_ID_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_WAREHOUSE_ID_EMPTY)
                 return@launch
             }
             else{
                 if(warehouseTFValue != products.warehouseId){
-                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
+                    onOneDialogShow(dialogTextId = R.string.MODIFY_QUIT_WITHOUT_SAVE)
                     return@launch
                 }
             }
 
             if (storageTFValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_STORAGE_ID_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_STORAGE_ID_EMPTY)
                 return@launch
             }
             else{
                 if(storageTFValue != products.storageId){
-                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
+                    onOneDialogShow(dialogTextId = R.string.MODIFY_QUIT_WITHOUT_SAVE)
                     return@launch
                 }
             }
 
             if (brandDDValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_BRAND_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_BRAND_EMPTY)
                 return@launch
             }
             else{
                 if(brandDDValue != products.brandName){
-                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
+                    onOneDialogShow(dialogTextId = R.string.MODIFY_QUIT_WITHOUT_SAVE)
                     return@launch
                 }
             }
 
             if (categoryDDValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_CATEGORY_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_CATEGORY_EMPTY)
                 return@launch
             }
             else{
                 if(categoryDDValue != products.categoryName){
-                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
+                    onOneDialogShow(dialogTextId = R.string.MODIFY_QUIT_WITHOUT_SAVE)
                     return@launch
                 }
             }
 
             if (modelDDValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_MODEL_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_MODEL_EMPTY)
                 return@launch
             }
             else{
                 if(modelDDValue != products.modelName){
-                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
+                    onOneDialogShow(dialogTextId = R.string.MODIFY_QUIT_WITHOUT_SAVE)
                     return@launch
                 }
             }
 
             if (barcodeTFValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_BARCODE_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_BARCODE_EMPTY)
                 return@launch
             }
             else{
                 if(barcodeTFValue != products.barcode){
-                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
+                    onOneDialogShow(dialogTextId =  R.string.MODIFY_QUIT_WITHOUT_SAVE)
                     return@launch
                 }
             }
 
             if (basePriceTFValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_BASE_PRICE_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_BASE_PRICE_EMPTY)
                 return@launch
             }
             else{
                 if(basePriceTFValue != products.basePrice.toString()){
-                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
+                    onOneDialogShow(dialogTextId = R.string.MODIFY_QUIT_WITHOUT_SAVE)
                     return@launch
                 }
             }
 
             if (wholeSalePriceTFValue.isEmpty()) {
-                onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_WHOLESALE_PRICE_EMPTY))
+                onTwoDialogShow(dialogTextId = R.string.MODIFY_WHOLESALE_PRICE_EMPTY)
                 return@launch
             }
             else{
                 if(wholeSalePriceTFValue != products.wholeSalePrice.toString()){
-                    onDialogShow(dialogText = Resources.getSystem().getString(R.string.MODIFY_QUIT_WITHOUT_SAVE))
+                    onOneDialogShow(dialogTextId = R.string.MODIFY_QUIT_WITHOUT_SAVE)
                     return@launch
                 }
             }
@@ -529,27 +524,49 @@ class ModifyItemViewModel @Inject constructor(
     }
 
     fun onNavigateBackToProductListScreen() {
-        onDialogDismiss()
+        onOneDialogDismiss()
         onNavigateToProductListScreen()
     }
 
-    private fun onDialogShow(dialogText : String){
+    private fun onOneDialogShow(dialogTextId : Int){
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    textShowErrorDialog = dialogText,
-                    isShowErrorDialog = true
+                    textShowErrorDialogOneId = dialogTextId,
+                    isShowErrorDialogOne = true
                 )
             }
         }
     }
 
-    fun onDialogDismiss() {
+    fun onOneDialogDismiss() {
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    textShowErrorDialog = "",
-                    isShowErrorDialog = false
+                    textShowErrorDialogOneId = -1,
+                    isShowErrorDialogOne = false
+                )
+            }
+        }
+    }
+
+    private fun onTwoDialogShow(dialogTextId : Int){
+        viewModelScope.launch {
+            _viewState.update {
+                it.copy(
+                    textShowErrorDialogTwoId = dialogTextId,
+                    isShowErrorDialogTwo = true
+                )
+            }
+        }
+    }
+
+    fun onTwoDialogDismiss() {
+        viewModelScope.launch {
+            _viewState.update {
+                it.copy(
+                    textShowErrorDialogTwoId = -1,
+                    isShowErrorDialogTwo = false
                 )
             }
         }

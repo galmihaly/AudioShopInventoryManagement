@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,12 +31,19 @@ import com.example.audioshopinventorymanagement.ui.theme.LIGHT_GRAY
 fun WareHousesScreen(
     viewModel: WareHousesScreenViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+
     val warehouseListState = viewModel.viewState.collectAsState().value.warehouseList
     val currentCapacityColor = viewModel.viewState.collectAsState().value.currentCapacityColor
     val maxCapacityColor = viewModel.viewState.collectAsState().value.maxCapacityColor
 
     val isShowErrorDialog = viewModel.viewState.collectAsState().value.isShowErrorDialog
-    val dialogText = viewModel.viewState.collectAsState().value.textShowErrorDialog
+    val dialogTextId = viewModel.viewState.collectAsState().value.textShowErrorDialogId
+
+    var dialogText = ""
+    if(dialogTextId != -1){
+        dialogText = context.getString(dialogTextId)
+    }
 
     Scaffold (
         topBar = {

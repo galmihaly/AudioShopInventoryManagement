@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">AudioShopInventoryManagement</string>
 
-    <string name="ALL_MATCHES_TEXT">All Matches: </string>
+    <string name="ALL_MATCHES_TEXT">All Matches:</string>
     <string name="DIALOG_BUTTON_OK_TEXT">OK</string>
     <string name="DIALOG_BUTTON_YES_TEXT">YES</string>
     <string name="DIALOG_BUTTON_NO_TEXT">NO</string>
@@ -19,5 +19,6 @@
     <string name="EMAIL_INCORRECT">Incorrect email!</string>
     <string name="EMAIL_EMPTY">Email field is empty!</string>
     <string name="DATABASE_NAME">ProductDatabase</string>
+    <string name="SOMETHING_WENT_WRONG">Something went wrong!</string>
 
 </resources>

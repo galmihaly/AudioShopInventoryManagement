@@ -55,10 +55,10 @@ class ProductsOverviewScreenViewModel @Inject constructor(
                     }
                     is ProductApiResponse.ProductListError -> {
                         if(response.data.statusCode == 400){
-                            onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_API_READ_FAILED))
+                            onDialogShow(R.string.PRODUCT_API_READ_FAILED)
                         }
                         else if(response.data.statusCode == 401){
-                            onDialogShow(Resources.getSystem().getString(R.string.PRODUCT_API_READ_FAILED))
+                            onDialogShow(R.string.PRODUCT_API_READ_FAILED)
                         }
                     }
                     is ProductApiResponse.Exception -> {
@@ -95,11 +95,11 @@ class ProductsOverviewScreenViewModel @Inject constructor(
         appNavigator.tryNavigateBack(Destination.StoragesScreen.fullRoute)
     }
 
-    fun onDialogShow(dialogText : String){
+    fun onDialogShow(dialogTextId : Int){
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    textShowErrorDialog = dialogText,
+                    textShowErrorDialogId = dialogTextId,
                     isShowErrorDialog = true
                 )
             }
@@ -110,7 +110,7 @@ class ProductsOverviewScreenViewModel @Inject constructor(
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    textShowErrorDialog = "",
+                    textShowErrorDialogId = -1,
                     isShowErrorDialog = false
                 )
             }

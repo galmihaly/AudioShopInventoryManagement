@@ -1,5 +1,6 @@
 package com.example.audioshopinventorymanagement.di
 
+import android.content.Context
 import com.example.audioshopinventorymanagement.BuildConfig
 import com.example.audioshopinventorymanagement.api.AuthAuthenticator
 import com.example.audioshopinventorymanagement.api.apiinterfaces.LoginAuthAPI
@@ -20,6 +21,7 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -37,9 +39,10 @@ class RetrofitProvider {
     @Singleton
     @Provides
     fun provideAccessTokenInterceptor(
-        jwtTokenRepository: JwtTokenRepository
+        jwtTokenRepository: JwtTokenRepository,
+        @ApplicationContext context: Context
     ): AccessTokenInterceptor {
-        return AccessTokenInterceptor(jwtTokenRepository)
+        return AccessTokenInterceptor(jwtTokenRepository, context)
     }
 
     @Provides
@@ -205,6 +208,16 @@ class RetrofitProvider {
         productAPI: ProductAPI,
     ) : ProductApiRepository {
         return ProductApiRepositoryImpl(productAPI)
+    }
+
+    @Singleton
+    @Provides
+    fun providesAuthAuthenticator(
+        jwtTokenRepository: JwtTokenRepository,
+        loginAuthAPI: LoginAuthAPI,
+        @ApplicationContext context: Context
+    ) : AuthAuthenticator {
+        return AuthAuthenticator(jwtTokenRepository, loginAuthAPI, context)
     }
 }
 

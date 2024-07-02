@@ -7,10 +7,10 @@ import java.util.regex.Pattern
 
 class Formatter {
     companion object{
-        private val PRODUCT_NAME_SEPARATOR = Resources.getSystem().getString(R.string.PRODUCT_NAME_SEPARATOR)
-        private val PRICE_SEPARATOR = Resources.getSystem().getString(R.string.PRICE_SEPARATOR)
-        private val PRODUCT_ID_SEPARATOR = Resources.getSystem().getString(R.string.PRODUCT_ID_SEPARATOR)
-        private val PRICE_FORINT = Resources.getSystem().getString(R.string.PRICE_FORINT)
+        private const val PRODUCT_NAME_SEPARATOR = ' '
+        private const val PRICE_SEPARATOR = '.'
+        private const val PRODUCT_ID_SEPARATOR = '-'
+        private const val PRICE_FORINT = "Ft"
 
         private val  NUMERIC_PATTERN: Pattern = Pattern.compile(
             "-?[0-9]+(\\.[0-9]+)?"

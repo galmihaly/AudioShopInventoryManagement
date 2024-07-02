@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="LOGIN_AUTHENTICATION_FAILED">Authentication Failed!</string>
-    <string name="TOKEN_SEPARATOR">.</string>
     <string name="LOGIN_DEVICE_INACTIVE">Your device is currently inactive in the database.</string>
     <string name="LOGIN_TEXT">Login</string>
     <string name="LOGIN_TOPBAR_HEADLINE_TEXT">Inventory Management</string>

@@ -11,5 +11,5 @@ data class WarehouseViewState(
     var maxCapacityColor : Color = GREEN,
 
     val isShowErrorDialog : Boolean = false,
-    val textShowErrorDialog : String = "",
+    val textShowErrorDialogId : Int = -1,
 )

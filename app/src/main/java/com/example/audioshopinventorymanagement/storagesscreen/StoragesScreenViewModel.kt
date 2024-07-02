@@ -56,7 +56,7 @@ class StoragesScreenViewModel @Inject constructor(
                     }
                     is ProductApiResponse.StoragesError -> {
                         if(response.data.statusCode == 401){
-                            onDialogShow(Resources.getSystem().getString(R.string.STORAGE_API_READ_FAILED))
+                            onDialogShow(R.string.STORAGE_API_READ_FAILED)
                         }
                     }
                     is ProductApiResponse.Exception -> {
@@ -97,11 +97,11 @@ class StoragesScreenViewModel @Inject constructor(
         appNavigator.tryNavigateTo(Destination.WareHousesScreen.fullRoute)
     }
 
-    fun onDialogShow(dialogText : String){
+    fun onDialogShow(dialogTextId : Int){
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    textShowErrorDialog = dialogText,
+                    textShowErrorDialogId = dialogTextId,
                     isShowErrorDialog = true
                 )
             }
@@ -112,7 +112,7 @@ class StoragesScreenViewModel @Inject constructor(
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    textShowErrorDialog = "",
+                    textShowErrorDialogId = -1,
                     isShowErrorDialog = false
                 )
             }

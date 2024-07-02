@@ -67,16 +67,39 @@
         <li>A bejelentkezés <b>JWT (Json Web Token)</b> segítségével történik: az email és jelszó továbbítódik a backend oldalra, ahol az adatbázis segítségével a rendszer először ellenőrzi a személy azonosságát, majd az API visszaküld egy olyan üzenetet, amely tartalmaz két tokent.</li>
         <li>A tokennek két típusból állnak:
             <ol style="list-style-type: square;">
-                <li>Hozzáférési token</li>
-                <li>Frissítési token</li>
+                <li>Hozzáférési token (256 bites RSA kulccsal titkosítva)</li>
+                <li>Frissítési token: ha lejár a hozzáférési token (30 perc), akkor ezzel tudunk újat kérni backend oldaról.</li>
             </ol>
         </li>
     </ul>
 </div>
 
+---
+
 <div>
-    <h4>Hozzáférési token:</h4>
+    <div align="center">
+        <h3>Kezdő felület</h3>
+        <br>
+        <img src="readme_images/start_screen.png" alt="AudioShop Logo">
+    </div>
+    <br>
     <ul style="font-size: 20px">
-        <li>Asszimetrikus, 256 bites RSA kulccsal van titkosítva a token.</li>
+        <li>Sikeres bejelentkezés után ez a felület fogadja a felhasználót.</li>
+        <li>Itt tudja eldönteni a felhasználó, hogy készít egy új, termékekből álló listát, vagy megnézi, hogy mennyi és milyen termék van már elmentve az adatbázisban.</li>
+    </ul>
+</div>
+
+---
+
+<div>
+    <div align="center">
+        <h3>Kezdő felület</h3>
+        <br>
+        <img src="readme_images/start_screen.png" alt="AudioShop Logo">
+    </div>
+    <br>
+    <ul style="font-size: 20px">
+        <li>Sikeres bejelentkezés után ez a felület fogadja a felhasználót.</li>
+        <li>Itt tudja eldönteni a felhasználó, hogy készít egy új, termékekből álló listát, vagy megnézi, hogy mennyi és milyen termék van már elmentve az adatbázisban.</li>
     </ul>
 </div>

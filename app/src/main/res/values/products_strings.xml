@@ -2,10 +2,6 @@
 <resources>
     <string name="PRODUCT_OVERVIEW_TOPBAR_HEADLINE_TEXT">Products Overview</string>
     <string name="PRODUCT_OVERVIEW_SEARCHFIELD_LABEL_TEXT">Barcode</string>
-    <string name="PRODUCT_NAME_SEPARATOR"> </string>
-    <string name="PRICE_SEPARATOR">.</string>
-    <string name="PRODUCT_ID_SEPARATOR">-</string>
-    <string name="PRICE_FORINT">Ft</string>
     <string name="PRODUCT_API_READ_FAILED">Read of the products has been failed!</string>
     <string name="PRODUCT_BARCODE_TEXT1">Barcode:</string>
     <string name="PRODUCT_BARCODE_TEXT2">Barcode</string>

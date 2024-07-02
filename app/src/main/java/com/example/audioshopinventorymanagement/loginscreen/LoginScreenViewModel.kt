@@ -1,6 +1,5 @@
 package com.example.audioshopinventorymanagement.loginscreen
 
-import android.content.res.Resources
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -40,7 +39,7 @@ class LoginScreenViewModel @Inject constructor(
 
         if(!emailValidationResult.isValid){
             onErrorEmailTextBox(
-                text = emailValidationResult.validationMessage,
+                stringResourceId = emailValidationResult.validationResourceMessageId,
                 color = ERROR_RED
             )
 
@@ -48,7 +47,7 @@ class LoginScreenViewModel @Inject constructor(
         }
 
         onErrorEmailTextBox(
-            text = emailValidationResult.validationMessage,
+            stringResourceId = emailValidationResult.validationResourceMessageId,
             color = GREEN
         )
 
@@ -60,14 +59,14 @@ class LoginScreenViewModel @Inject constructor(
 
         if(!passwordValidationResult.isValid){
             onErrorPasswordTextBox(
-                text = passwordValidationResult.validationMessage,
+                stringResourceId = passwordValidationResult.validationResourceMessageId,
                 color = ERROR_RED
             )
 
             return passwordValidationResult.isValid
         }
         onErrorPasswordTextBox(
-            text = passwordValidationResult.validationMessage,
+            stringResourceId = passwordValidationResult.validationResourceMessageId,
             color = GREEN
         )
 
@@ -95,20 +94,20 @@ class LoginScreenViewModel @Inject constructor(
                         token = response.data.loginUserDetails.accessToken
                     }
                     else{
-                        onDialogShow(Resources.getSystem().getString(R.string.LOGIN_AUTHENTICATION_FAILED))
+                        onDialogShow(R.string.LOGIN_AUTHENTICATION_FAILED)
                     }
                 }
             }
             is LoginApiResponse.Error -> {
                 if(response.data.statusCode == 401){
-                    onDialogShow(Resources.getSystem().getString(R.string.LOGIN_AUTHENTICATION_FAILED))
+                    onDialogShow(R.string.LOGIN_AUTHENTICATION_FAILED)
                 }
                 else if(response.data.statusCode == 403){
-                    onDialogShow(Resources.getSystem().getString(R.string.LOGIN_AUTHENTICATION_FAILED))
+                    onDialogShow(R.string.LOGIN_AUTHENTICATION_FAILED)
                 }
             }
             is LoginApiResponse.Exception -> {
-                onDialogShow(response.exceptionMessage)
+                onDialogShow(response.exceptionMessageId)
             }
         }
         
@@ -116,7 +115,7 @@ class LoginScreenViewModel @Inject constructor(
     }
 
     private fun isUsefulTokenPartsCount(token : String) : Boolean {
-        val tokenParts = Integer.valueOf(token.split(Resources.getSystem().getString(R.string.TOKEN_SEPARATOR)).size)
+        val tokenParts = Integer.valueOf(token.split(".").size)
         return tokenParts > 2
     }
 
@@ -140,7 +139,7 @@ class LoginScreenViewModel @Inject constructor(
                         }
                     }
                     else{
-                        onDialogShow(Resources.getSystem().getString(R.string.LOGIN_DEVICE_INACTIVE))
+                        onDialogShow(R.string.LOGIN_DEVICE_INACTIVE)
                     }
                 }
             }
@@ -171,11 +170,11 @@ class LoginScreenViewModel @Inject constructor(
         }
     }
 
-    fun onDialogShow(dialogText : String){
+    fun onDialogShow(dialogTextId : Int){
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    textShowErrorDialog = dialogText,
+                    textShowErrorDialogId = dialogTextId,
                     isShowErrorDialog = true
                 )
             }
@@ -186,29 +185,29 @@ class LoginScreenViewModel @Inject constructor(
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    textShowErrorDialog = "",
+                    textShowErrorDialogId = -1,
                     isShowErrorDialog = false
                 )
             }
         }
     }
 
-    private fun onErrorEmailTextBox(text : String, color : Color){
+    private fun onErrorEmailTextBox(stringResourceId : Int, color : Color){
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    validationEmailText = text,
+                    validationEmailTextId = stringResourceId,
                     validationEmailColor = color
                 )
             }
         }
     }
 
-    private fun onErrorPasswordTextBox(text : String, color : Color){
+    private fun onErrorPasswordTextBox(stringResourceId : Int, color : Color){
         viewModelScope.launch {
             _viewState.update {
                 it.copy(
-                    validationPasswordText = text,
+                    validationPasswordTextId = stringResourceId,
                     validationPasswordColor = color
                 )
             }
