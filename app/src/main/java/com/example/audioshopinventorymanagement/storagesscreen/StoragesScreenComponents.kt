@@ -45,40 +45,6 @@ import com.example.audioshopinventorymanagement.utils.Formatter
 object StoragesScreenComponents {
 
     @Composable
-    fun CounterRowToCard(
-        currentQuantity: String,
-        currentQuantityColor : Color,
-        maxQuantity: String,
-        maxQuantityColor : Color
-    ){
-        Row (
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            horizontalArrangement = Arrangement.Center
-        ){
-            Text(
-                text = currentQuantity,
-                color = currentQuantityColor,
-                fontFamily = CustomFonts.RobotoMono_Regular,
-                fontSize = 25.sp
-            )
-            Text(
-                text = stringResource(R.string.STORAGE_FORWARD_SLASH),
-                color = Color.White,
-                fontFamily = CustomFonts.RobotoMono_Regular,
-                fontSize = 25.sp
-            )
-            Text(
-                text = maxQuantity,
-                color = maxQuantityColor,
-                fontFamily = CustomFonts.RobotoMono_Regular,
-                fontSize = 25.sp
-            )
-        }
-    }
-
-    @Composable
     fun StorageCard(
         cardNumber: Int,
         cardStorage: StoragesDetails,

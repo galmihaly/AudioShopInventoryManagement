@@ -28,7 +28,7 @@
         <li>A program grafikáját a jelenleg piacon lévő PDA-k közül a <b>ZEBRA TC-51</b> eszköz alapján terveztem meg, amellyel korábbi munkám során már valós projekt esetén is foglalkoztam.</li>
         <li>A projekt elkészítése során ilyen eszközzel azonban nem rendelkeztem, viszont Android Studio-ban a mobil emulátorok közül a <b>Google Pixel 2</b>-es telefon paraméterei pontosan megfeleltek a <b>TC-51</b>-es PDA eszköz paraméterei alapján.</li>
         <li>Az alkalmazás elemeinek elhelyezkedéseit, méreteit és megjelenésüket <b>Figma</b>-ban készítettem el.</li>
-        <li>A logót, valamint az alkalmazásban megtalálható összes ikont pedig az <b>Adobe Illustrator</b> nevű program alkottam meg.</li>
+        <li>A logót, valamint az alkalmazásban megtalálható összes ikont pedig az <b>Adobe Illustrator</b> nevű program segítségével alkottam meg.</li>
         <li>Az alkalmazás grafikája (logót és dizájnt egybevéve) nem tartozik egyetlen valós céghez sem, csak a projekt érdekéken készítettem el.</li>
     </ul>
 </div>
@@ -81,7 +81,7 @@
     <ul style="font-size: 20px">
         <li>Amikor az alkalmazás elindul, akkor ez az első oldal, amely megjelenik a felhasználó számára.</li>
         <li>Az adatbázisba beregisztrált felhasználó email és jelszó beírásával tud bejelentkezni.</li>
-        <li>A bejelentkezés <b>JWT (Json Web Token)</b> segítségével történik: az email és jelszó továbbítódik a backend oldalra, ahol az adatbázis segítségével a rendszer először ellenőrzi a személy azonosságát, majd az API visszaküld egy olyan üzenetet, amely tartalmaz két tokent.</li>
+        <li>A bejelentkezés <b>JWT (Json Web Token)</b> segítségével történik: az email és jelszó továbbítódik a backend oldalra, ahol az adatbázis segítségével a rendszer először ellenőrzi a személy azonosságát, majd ha sikeres a bejelentkezés, akkor az API visszaküld egy olyan üzenetet, amely tartalmaz két tokent.</li>
         <li>A tokennek két típusból állnak:
             <ol style="list-style-type: square;">
                 <li>Hozzáférési token (256 bites RSA kulccsal titkosítva)</li>
@@ -118,7 +118,7 @@
     <ul style="font-size: 20px">
         <li>A készlet (Stocks) gomb megnyomása után ez az oldal fogja fogadni a felhasználót.</li>
         <li>Ha egy nem <b>Admin</b> joggal beregisztrált felhasználó jelentkezik be, akkor csak azt az áruház adatait látja, ahová a beregisztrált felhasználó is be van jegyezve az adatbázisban.</li>
-        <li><b>Admin</b> jog esetén egy lista látható, ahol összes bejegyzett áruház látható, így minden áruház készlete látható válik a felhasználó számára.</li>
+         <li><b>Admin</b> jog esetén egy, az összes bejegyzett áruház adataiból álló lista lesz látható, így az ezzel a joggal bejelentkező személy látni fogja az összes áruház készletét.</li>
     </ul>
 </div>
 
@@ -128,16 +128,22 @@
     <div align="center">
         <h2>Tároló felület</h2>
         <br>
-        <img src="readme_images/warehouse_screen.png" alt="AudioShop Logo">
+        <img src="readme_images/storage_screen.png" alt="AudioShop Logo">
     </div>
     <br>
     <ul style="font-size: 20px">
-        <li>A készlet (Stocks) gomb megnyomása után ez az oldal fogja fogadni a felhasználót.</li>
-        <li>Ha egy nem <b>Admin</b> joggal beregisztrált felhasználó jelentkezik be, akkor csak azt az áruház adatait látja, ahová a beregisztrált felhasználó is be van jegyezve az adatbázisban.</li>
-        <li><b>Admin</b> jog esetén egy lista látható, ahol összes bejegyzett áruház látható, így minden áruház készlete látható válik a felhasználó számára.</li>
+        <li>Ha az <b>Áruház</b> felületen rákattintunk egy áruház "kártyára", akkor ez a felület fogja fogadni a felhasználót.</li>
+        <li>Itt fogjuk látni a kiválasztott áruházban megtalálható úgynevezett "tárolók" adatait.</li>
+        <li><b>Megjegyzés: A tárolók kezelése a programban le van egyszerűsítve egyetlen vonalkódra, a valóságban ennél többre van szükség.</b></li>
+        <li>Tároló lehet:
+            <ol style="list-style-type: square;">
+                <li>RFID kóddal ellátott doboz</li>
+                <li>Polcos kialakítású szekrény, ahol a szekrény egyes fiókjai (külön választott részei) szintén RFID kóddal van ellátva.</li>
+            </ol>
+        </li>
     </ul>
 </div>
 
-<style>
-    h1,h2,h3,h4 { text-decoration: none; }
-</style>
+<div align="center">
+        <a href="https://github.com/galmihaly/AudioShopInventoryManagement/blob/master/readme_images/all_screen.png"><img src="readme_images/inventory_management_with_RFID.gif" alt="AudioShop Logo"></a>
+</div>
