@@ -131,18 +131,14 @@
         <img src="readme_images/storage_screen.png" alt="AudioShop Logo">
     </div>
     <br>
-    <ul style="font-size: 20px">
-        <li>Ha az <b>Áruház</b> felületen rákattintunk egy áruház "kártyára", akkor ez a felület fogja fogadni a felhasználót.</li>
-        <li>Itt fogjuk látni a kiválasztott áruházban megtalálható úgynevezett "tárolók" adatait.</li>
-        <li><b>Megjegyzés: A tárolók kezelése a programban le van egyszerűsítve egyetlen vonalkódra, a valóságban ennél többre van szükség.</b></li>
-        <li>Tároló lehet:
-            <ol style="list-style-type: square;">
-                <li>RFID kóddal ellátott doboz</li>
-                <li>Polcos kialakítású szekrény, ahol a szekrény egyes fiókjai (külön választott részei) szintén RFID kóddal van ellátva.</li>
-            </ol>
-        </li>
-    </ul>
 </div>
+
+- Ha az <b>Áruház</b> felületen rákattintunk egy áruház "kártyára", akkor ez a felület fogja fogadni a felhasználót.
+- Itt fogjuk látni a kiválasztott áruházban megtalálható úgynevezett "tárolók" adatait.</li>
+- <b>Megjegyzés: A tárolók kezelése a programban le van egyszerűsítve egyetlen vonalkódra, a valóságban ennél többre van szükség.</b>
+- Tároló lehet:
+  - RFID kóddal ellátott doboz
+  - Polcos kialakítású szekrény, ahol a szekrény egyes fiókjai (külön választott részei) szintén RFID kóddal van ellátva.
 
 <div align="center">
         <a href="https://github.com/galmihaly/AudioShopInventoryManagement/blob/master/readme_images/all_screen.png"><img src="readme_images/inventory_management_with_RFID.gif" alt="AudioShop Logo"></a>
