@@ -36,6 +36,12 @@
 ---
 
 <div align="center">
+        <h3>Bejelentkező felület</h3>
+        <br>
+        <a href="https://github.com/galmihaly/AudioShopInventoryManagement/blob/master/readme_images/all_screen.png"><img src="readme_images/all_screen.png" alt="AudioShop Logo"></a>
+</div>
+
+<div align="center">
         <h3>A projekt részletes leírása</h3>
 </div>
 
@@ -93,13 +99,13 @@
 
 <div>
     <div align="center">
-        <h3>Kezdő felület</h3>
+        <h3>Áruház felület</h3>
         <br>
-        <img src="readme_images/start_screen.png" alt="AudioShop Logo">
+        <img src="readme_images/warehouse_screen.png" alt="AudioShop Logo">
     </div>
     <br>
     <ul style="font-size: 20px">
-        <li>Sikeres bejelentkezés után ez a felület fogadja a felhasználót.</li>
-        <li>Itt tudja eldönteni a felhasználó, hogy készít egy új, termékekből álló listát, vagy megnézi, hogy mennyi és milyen termék van már elmentve az adatbázisban.</li>
+        <li>A készlet (Stocks) gomb megnyomása után ez az oldal fogja fogadni a felhasználót.</li>
+        <li>Ha egy nem <b>Admin</b> joggal beregisztrált felhasználó ejelentkezik be, akkor csak azt az áruház adatait látja, ahová a beregisztrált felhasználó is be van jegyezve az adatbázisban.</li>
     </ul>
 </div>
