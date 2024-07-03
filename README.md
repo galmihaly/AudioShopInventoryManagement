@@ -131,7 +131,7 @@
 
 - Ha az <b>Áruház</b> felületen rákattintunk egy áruház "kártyára", akkor ez a felület fogja fogadni a felhasználót.
 - Itt fogjuk látni a kiválasztott áruházban megtalálható úgynevezett "tárolók" adatait.
-- <b>Megjegyzés: A tárolók kezelése a programban le van egyszerűsítve egyetlen vonalkódra, a valóságban ennél többre van szükség.</b>
+- <b>Megjegyzés: A tárolók vonalkód kezelése a programban le van egyszerűsítve egyetlen vonalkódra, a valóságban ennél többre van szükség.</b>
 - Tároló lehet:
   - RFID kóddal ellátott doboz
   - Polcos kialakítású szekrény, ahol a szekrény egyes, különválasztott részei szintén RFID kóddal van ellátva.
@@ -191,3 +191,48 @@
   - Az 1. gombbal vissza tudunk menni az előző oldalra
   - A 2. gombbal egy új terméket tudunk felvenni listára (új oldalra visz át)
   - A 3. gombbal magát az egész listát törölni tudjuk (nem visz át egy másik oldalra)
+
+---
+
+<div>
+    <div align="center">
+        <h2>Termék módosítása felület</h2>
+        <br>
+        <img src="readme_images/modify_product_screen.png" alt="AudioShop Logo">
+    </div>
+    <br>
+</div>
+
+- Ha az <b>Új termék lista készítése</b> felületen rákattintunk az egyik termék <b>Módosítás</b> gombjára, akkor ez a felület fogja fogadni a felhasználót.
+- Itt tudjuk megváltoztatni a termék:
+  - az Áruház azonosítóját
+  - az tároló azonosítóját
+  - márkáját (Brand)
+  - kategóriáját (Category)
+  - modeljét (Model)
+  - RFID kódját
+  - netto árát (áfa nélküli)
+  - bruttó árát (áfával számított)
+- Az alsó sávban 3 gomb található:
+  - Az 1. gombbal vissza tudunk menni az előző oldalra
+  - A 2. gombbal menteni tudjuk a változtatást (mentés után visszavisz az előző oldalra)
+  - A 3. gombbal törölni tudjuk az összes mező tartalmát
+- Az áruház azonosítója annyiban különbözik a többitől, hogy ezt a felhasználó jogától függően lehet változtatni. 
+  - Csak <b>Admin</b> joggal lehet változtani vagy törölni a változtatás vagy törlés.
+  - Egyéb jog esetén nem lehetséges a módosítás, ami azt jelenti, hogy egy bejelentkezett személy csak és kizárólag ahhoz az áruházhoz adhat hozzá terméket, amihez a személy be van regisztrálva.
+- Ha valamelyik mezőt módosítjuk, de mentés nélkül akarunk kilépni, akkor egy felúgró ablak fogja fogadni a felhasználót, amely a mentés nélküli kilépést fogja megkérdezni és a felhasználó dönthet hogy kilép-e mentés nélkül vagy sem.
+
+---
+
+<div>
+    <div align="center">
+        <h2>Új termék létrehozása felület</h2>
+        <br>
+        <img src="readme_images/new_product_screen.png" alt="AudioShop Logo">
+    </div>
+    <br>
+</div>
+
+- Ha az <b>Új termék lista készítése</b> felületen az alsó sávban rákkattintunk a 2. gombra, akkor ez a felület fogja fogadni a felhasználót.
+- Funkcionalitás szempontjából ugyanaz mint a <b>Termék módosítása</b> felület, annyi különbséggel, hogy mezők üresek a felület megnyítódásakor.
+  - Kivétel az áruház azonosító mező, ahol az <b>Admin</b> joggal ellentétben kitöltődik a felhasználóhoz regisztrált áruház azonosítójával (ezt a mezőt sem módosítani, sem törölni nem lehet).
