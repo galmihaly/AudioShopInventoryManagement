@@ -41,6 +41,7 @@
 <div align="center">
         <a href="https://github.com/galmihaly/AudioShopInventoryManagement/blob/master/readme_images/all_screen.png"><img src="readme_images/all_screen.png" alt="AudioShop Logo"></a>
         <p style="font-size: 15px">A különbőző felületek közti kapcsolatok és egyes felületek másik verzójának kinézetei</p>
+        <br>
 </div>
 
 [//]: # (<div>)
@@ -132,17 +133,19 @@
 - Ha az <b>Áruház</b> felületen rákattintunk egy áruház "kártyára", akkor ez a felület fogja fogadni a felhasználót.
 - Itt fogjuk látni a kiválasztott áruházban megtalálható úgynevezett "tárolók" adatait.
 - <b>Megjegyzés: A tárolók vonalkód kezelése a programban le van egyszerűsítve egyetlen vonalkódra, a valóságban ennél többre van szükség.</b>
-- Tároló lehet:
-  - RFID kóddal ellátott doboz
-  - Polcos kialakítású szekrény, ahol a szekrény egyes, különválasztott részei szintén RFID kóddal van ellátva.
 - Egy tároló kártyán látjuk a:
   - tároló azonosító kódját
   - jelenlegi mennyiséget, amit ott tárolunk
   - maximális mennyiséget, amit ott tárolhatunk
   - az itt található egyes áruk nettó (áfa nélküli) összegét
   - az itt található egyes áruk bruttó (áfával számított) összegét
+- Tároló lehet:
+  - RFID kóddal ellátott doboz
+  - Polcos kialakítású szekrény, ahol a szekrény egyes, különválasztott részei szintén RFID kóddal van ellátva.
 <div align="center">
-        <a href="https://github.com/galmihaly/AudioShopInventoryManagement/blob/master/readme_images/all_screen.png"><img src="readme_images/inventory_management_with_RFID.gif" alt="AudioShop Logo"></a>
+        <img src="readme_images/inventory_management_with_RFID.gif" alt="AudioShop Logo">
+        <p style="font-size: 15px">Egy valós példa a tároló vonalkódjára</p>
+        <br>
 </div>
 
 ---
