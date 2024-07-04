@@ -1,8 +1,8 @@
-<div style="text-align:center">
+<div align="center">
     <img src="readme_images/project_readme_banner_1500X450.png" alt="AudioShop Logo">
 </div>
 
-<div style="text-align:center">
+<div align="center">
     <h1 style="border-bottom: 0">AudioShop Inventory Management</h1>
     <h3>Mobil Alkalmazás (Frontend)</h3>
     <h4>Portfólió munka</h4>
@@ -47,7 +47,7 @@
 
 ---
 
-<div style="text-align:center">
+<div align="center">
         <br>
         <h2>A projekt részletes leírása</h2>
         <br>
@@ -62,7 +62,7 @@
 ---
 
 <div>
-    <div style="text-align:center">
+    <div align="center">
         <br>
         <h2>Bejelentkező felület</h2>
         <br>
@@ -82,7 +82,7 @@
 ---
 
 <div>
-    <div style="text-align:center">
+    <div align="center">
         <br>
         <h2>Kezdő felület</h2>
         <br>
@@ -99,7 +99,7 @@
 ---
 
 <div>
-    <div style="text-align:center">
+    <div align="center">
         <br>
         <h2>Áruház felület</h2>
         <br>
@@ -116,7 +116,7 @@
 ---
 
 <div>
-    <div style="text-align:center">
+    <div align="center">
         <br>
         <h2>Tároló felület</h2>
         <br>
@@ -137,7 +137,7 @@
 - Tároló lehet:
   - RFID kóddal ellátott doboz
   - Polcos kialakítású szekrény, ahol a szekrény egyes, különválasztott részei szintén RFID kóddal van ellátva.
-<div style="text-align:center">
+<div align="center">
         <img src="readme_images/inventory_management_with_RFID.gif" alt="AudioShop Logo">
         <p style="font-size: 15px">Egy valós példa a tároló vonalkódjára</p>
 </div>
@@ -145,7 +145,7 @@
 ---
 
 <div>
-    <div style="text-align:center">
+    <div align="center">
         <br>
         <h2>Termékek áttekintése felület</h2>
         <br>
@@ -171,7 +171,7 @@
 ---
 
 <div>
-    <div style="text-align:center">
+    <div align="center">
         <br>
         <h2>Új terméklista készítése felület</h2>
         <br>
@@ -194,7 +194,7 @@
 ---
 
 <div>
-    <div style="text-align:center">
+    <div align="center">
         <br>
         <h2>Termék módosítása felület</h2>
         <br>
@@ -225,7 +225,7 @@
 ---
 
 <div>
-    <div style="text-align:center">
+    <div align="center">
         <br>
         <h2>Új termék létrehozása felület</h2>
         <br>
