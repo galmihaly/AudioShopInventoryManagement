@@ -9,8 +9,6 @@
     <br>
 </div>
 
-<style>h1,h2,h3,h4 { border-bottom: 0; } </style>
-
 ---
 
 <div>
@@ -58,7 +56,6 @@
 <div align="center">
         <a href="https://github.com/galmihaly/AudioShopInventoryManagement/blob/master/readme_images/all_screen.png"><img src="readme_images/all_screen.png" alt="AudioShop Logo"></a>
         <p style="font-size: 15px">A különbőző felületek közti kapcsolatok és egyes felületek másik verzójának kinézetei</p>
-        <br>
 </div>
 
 ---
