@@ -16,8 +16,16 @@
 </div>
 
 - Az alkalmazás fő célja, hogy segítse a bolt leltározásának folyamatát.
-- A szoftver úgy lett megalkotva, hogy tudjon futni Android alapú, vonalkód olvasására képes PDA eszközökön, azon belül is az <b>Android 8 (Oreo)</b> vagy az a fölötti rendszereken.
-- Az alkalmazáshoz hozzátartozik az <a href="https://github.com/galmihaly/AudioShopInventoryManagementRestAPI">AudioShopInventoryManagementAPI</a> program is, ami az alkalmazás backend részét valósítja meg, ez fogja az adatokat szolgáltatni az alkalmazás számára.
+- A program futtatásához szükséges operációs rendszer: minimum <b>Android 8 (Oreo)</b>
+- Backend: <a href="https://github.com/galmihaly/AudioShopInventoryManagementRestAPI">AudioShopInventoryManagementAPI</a> (bíztosítja az alkalmazáshoz szükséges adatokat)
+
+---
+
+<div>
+    <h3>A projekt leírása:</h3>
+</div>
+
+- Az alkalmazás fő célja, hogy segítse a bolt leltározásának folyamatát.
 
 ---
 
@@ -30,6 +38,20 @@
 - Az alkalmazás elemeinek elhelyezkedéseit, méreteit és megjelenésüket <b>Figma</b>-ban készítettem el.
 - A logót, valamint az alkalmazásban megtalálható összes ikont pedig az <b>Adobe Illustrator</b> nevű program segítségével alkottam meg.
 - Az alkalmazás grafikája (logót és dizájnt egybevéve) nem tartozik egyetlen valós céghez sem, csak a projekt érdekéken készítettem el.
+
+---
+
+<div>
+    <h3>A projekthez felhasznált Kotlin főbb osztályok, csomagok:</h3>
+</div>
+
+- Ui: Jetpack Compose
+- Navigáció: Jetpack Compose Navigation
+- Dependency Injection: Hilt és Dagger
+- API kezelés: Retrofit, OkHttp
+- API válaszok kezelése: JSON Serializáció
+- Adatok tárolása: Room és ProtDatastore
+- JWT (JSON Web Token): JWT Decode (<a href="https://github.com/auth0/JWTDecode.Android">Auth0 by Okta</a>)
 
 ---
 
