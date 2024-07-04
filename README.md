@@ -48,6 +48,7 @@
 ---
 
 <div align="center">
+        <br>
         <h2>A projekt részletes leírása</h2>
         <br>
 </div>
@@ -58,34 +59,11 @@
         <br>
 </div>
 
-[//]: # (<div>)
-
-[//]: # (    <h3>A program részei:</h3>)
-
-[//]: # (    <ul style="font-size: 20px">)
-
-[//]: # (        <li>A progamnak 3 fő része van:)
-
-[//]: # (            <ol style="list-style-type: square;">)
-
-[//]: # (                <li>Bejelentkező felület</li>)
-
-[//]: # (                <li>Terméklista készítő felület</li>)
-
-[//]: # (                <li>Terméklista átekintő felület</li>)
-
-[//]: # (            </ol>)
-
-[//]: # (        </li>)
-
-[//]: # (    </ul>)
-
-[//]: # (</div>)
-
 ---
 
 <div>
     <div align="center">
+        <br>
         <h2>Bejelentkező felület</h2>
         <br>
         <img src="readme_images/login_screen.png" alt="AudioShop Logo">
@@ -105,6 +83,7 @@
 
 <div>
     <div align="center">
+        <br>
         <h2>Kezdő felület</h2>
         <br>
         <img src="readme_images/start_screen.png" alt="AudioShop Logo">
@@ -121,6 +100,7 @@
 
 <div>
     <div align="center">
+        <br>
         <h2>Áruház felület</h2>
         <br>
         <img src="readme_images/warehouse_screen.png" alt="AudioShop Logo">
@@ -137,6 +117,7 @@
 
 <div>
     <div align="center">
+        <br>
         <h2>Tároló felület</h2>
         <br>
         <img src="readme_images/storage_screen.png" alt="AudioShop Logo">
@@ -159,13 +140,13 @@
 <div align="center">
         <img src="readme_images/inventory_management_with_RFID.gif" alt="AudioShop Logo">
         <p style="font-size: 15px">Egy valós példa a tároló vonalkódjára</p>
-        <br>
 </div>
 
 ---
 
 <div>
     <div align="center">
+        <br>
         <h2>Termékek áttekintése felület</h2>
         <br>
         <img src="readme_images/products_overview_screen.png" alt="AudioShop Logo">
@@ -191,6 +172,7 @@
 
 <div>
     <div align="center">
+        <br>
         <h2>Új terméklista készítése felület</h2>
         <br>
         <img src="readme_images/product_list_screen.png" alt="AudioShop Logo">
@@ -213,6 +195,7 @@
 
 <div>
     <div align="center">
+        <br>
         <h2>Termék módosítása felület</h2>
         <br>
         <img src="readme_images/modify_product_screen.png" alt="AudioShop Logo">
@@ -243,6 +226,7 @@
 
 <div>
     <div align="center">
+        <br>
         <h2>Új termék létrehozása felület</h2>
         <br>
         <img src="readme_images/new_product_screen.png" alt="AudioShop Logo">
