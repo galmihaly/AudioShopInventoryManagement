@@ -22,27 +22,7 @@
 ---
 
 <div>
-    <h3>A projekt leírása:</h3>
-</div>
-
-- Az alkalmazás fő célja, hogy segítse a bolt leltározásának folyamatát.
-
----
-
-<div>
-    <h3>Az alkalmazás grafikai megjelenése:</h3>
-</div>
-
-- A program grafikáját a jelenleg piacon lévő PDA-k közül a <b>ZEBRA TC-51</b> eszköz alapján terveztem meg, amellyel korábbi munkám során már valós projekt esetén is foglalkoztam.
-- A projekt elkészítése során ilyen eszközzel azonban nem rendelkeztem, viszont Android Studio-ban a mobil emulátorok közül a <b>Google Pixel 2</b>-es telefon paraméterei pontosan megfeleltek a <b>TC-51</b>-es PDA eszköz paraméterei alapján.
-- Az alkalmazás elemeinek elhelyezkedéseit, méreteit és megjelenésüket <b>Figma</b>-ban készítettem el.
-- A logót, valamint az alkalmazásban megtalálható összes ikont pedig az <b>Adobe Illustrator</b> nevű program segítségével alkottam meg.
-- Az alkalmazás grafikája (logót és dizájnt egybevéve) nem tartozik egyetlen valós céghez sem, csak a projekt érdekéken készítettem el.
-
----
-
-<div>
-    <h3>A projekthez felhasznált Kotlin főbb osztályok, csomagok:</h3>
+    <h3>A projekthez felhasznált, Kotlin alapú főbb osztályok, csomagok:</h3>
 </div>
 
 - Ui: Jetpack Compose
@@ -52,6 +32,18 @@
 - API válaszok kezelése: JSON Serializáció
 - Adatok tárolása: Room és ProtDatastore
 - JWT (JSON Web Token): JWT Decode (<a href="https://github.com/auth0/JWTDecode.Android">Auth0 by Okta</a>)
+
+---
+
+<div>
+    <h3>Az alkalmazás grafikai megjelenése:</h3>
+</div>
+
+- A program grafikáját a jelenleg piacon lévő PDA-k közül a <b>ZEBRA TC-51</b> eszköz alapján terveztem meg, amellyel korábbi munkám során már valós projekt esetén is foglalkoztam.
+- A projekt elkészítése során ilyen eszközzel azonban nem rendelkeztem, viszont Android Studio-ban a mobil alapú emulátorok közül a <b>Google Pixel 2</b>-es telefon paraméterei pontosan megfeleltek a <b>TC-51</b>-es PDA eszköz paraméterei alapján.
+- Az alkalmazás elemeinek elhelyezkedéseit, méreteit és megjelenésüket <b>Figma</b>-ban készítettem el.
+- A logót, valamint az alkalmazásban megtalálható összes ikont pedig az <b>Adobe Illustrator</b> nevű program segítségével alkottam meg.
+- Az alkalmazás grafikája (logót és design-t egybevéve) nem tartozik egyetlen valós céghez sem, csak a projekt érdekéken készítettem el.
 
 ---
 
