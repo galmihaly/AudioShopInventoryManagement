@@ -176,7 +176,7 @@ fun previewComponent(){
                     deleteValueChange = {}
                 )
                 ProducListScreenComponents.MatchesTextAndSendButton(
-                    text = stringResource(R.string.ALL_MATCHES_TEXT) + "12345",
+                    text = stringResource(R.string.ALL_MATCHES_TEXT) + " 12345",
                     sendButtonFunction = {},
                     buttonLogoId = R.drawable.send_cube,
                     buttonLogoWidth = 40.dp,

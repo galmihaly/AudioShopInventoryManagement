@@ -74,9 +74,9 @@
 - Amikor az alkalmazás elindul, akkor ez az első oldal, amely megjelenik a felhasználó számára.
 - Az adatbázisba beregisztrált felhasználó email és jelszó beírásával tud bejelentkezni.
 - A bejelentkezés <b>JWT (Json Web Token)</b> segítségével történik: az email és jelszó továbbítódik a backend oldalra, ahol az adatbázis segítségével a rendszer először ellenőrzi a személy azonosságát, majd ha sikeres a bejelentkezés, akkor az API visszaküld egy olyan üzenetet, amely tartalmaz két tokent.
-- A tokennek két típusból állnak:
+- A tokenek két típusból állnak:
   - Hozzáférési token (256 bites RSA kulccsal titkosítva)
-  - Frissítési token: ha lejár a hozzáférési token (30 perc), akkor ezzel tudunk újat kérni backend oldaról.
+  - Frissítési token: random szám generált token, ha lejár a hozzáférési token (30 perc), akkor ezzel tudunk újat kérni backend oldaról.
 
 ---
 
@@ -136,6 +136,7 @@
 - Tároló lehet:
   - RFID kóddal ellátott doboz
   - Polcos kialakítású szekrény, ahol a szekrény egyes, különválasztott részei szintén RFID kóddal van ellátva.
+- <b>A tároló RFID azonosítójaként bármit be lehet írni, a program csak egy RFID-t kezel tárolók esetén</b>
 <div align="center">
         <img src="readme_images/inventory_management_with_RFID.gif" alt="AudioShop Logo">
         <p style="font-size: 15px">Egy valós példa a tároló vonalkódjára</p>

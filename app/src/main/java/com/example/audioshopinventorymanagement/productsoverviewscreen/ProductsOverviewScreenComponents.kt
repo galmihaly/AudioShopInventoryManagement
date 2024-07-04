@@ -274,7 +274,7 @@ fun previewComponent(){
                     deleteValueChange = {  }
                 )
                 AllViewComponents.MatchesText(
-                    text = stringResource(R.string.ALL_MATCHES_TEXT) + "0"
+                    text = stringResource(R.string.ALL_MATCHES_TEXT) + " 0"
                 )
                 ProductsOverviewScreenComponents.ExtendedItemCard(
                     cardNumber = 1,

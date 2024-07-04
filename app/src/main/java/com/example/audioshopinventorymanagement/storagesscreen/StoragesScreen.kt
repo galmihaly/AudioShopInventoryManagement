@@ -101,7 +101,7 @@ fun StoragesScreen(
                     deleteValueChange = { viewModel.filterListBySearchValue("") }
                 )
                 StoragesScreenComponents.MatchesText(
-                    text = stringResource(R.string.ALL_MATCHES_TEXT) + "$allMatches"
+                    text = stringResource(R.string.ALL_MATCHES_TEXT) + " $allMatches"
                 )
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),

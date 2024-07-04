@@ -103,7 +103,7 @@ fun ProductsOverviewScreen(
                     deleteValueChange = { viewModel.filterListBySearchValue("") }
                 )
                 AllViewComponents.MatchesText(
-                    text = stringResource(R.string.ALL_MATCHES_TEXT) + "$allMatches"
+                    text = stringResource(R.string.ALL_MATCHES_TEXT) + " $allMatches"
                 )
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(10.dp),

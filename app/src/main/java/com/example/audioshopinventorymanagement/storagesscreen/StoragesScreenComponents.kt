@@ -226,7 +226,7 @@ fun previewComponent(){
                     deleteValueChange = { }
                 )
                 StoragesScreenComponents.MatchesText(
-                    text = stringResource(R.string.ALL_MATCHES_TEXT) + "0"
+                    text = stringResource(R.string.ALL_MATCHES_TEXT) + " 0"
                 )
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
