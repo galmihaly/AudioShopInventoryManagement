@@ -31,7 +31,7 @@
 - API kezelés: Retrofit, OkHttp
 - API válaszok kezelése: JSON Serializáció
 - Adatok tárolása: Room és ProtDatastore
-- JWT (JSON Web Token): JWT Decode (<a href="https://github.com/auth0/JWTDecode.Android">Auth0 by Okta</a>)
+- JWT (JSON Web Token) dekódolása: JWT Decode (<a href="https://github.com/auth0/JWTDecode.Android">Auth0 by Okta</a>)
 
 ---
 
@@ -54,8 +54,8 @@
 </div>
 
 <div align="center">
-        <a href="https://github.com/galmihaly/AudioShopInventoryManagement/blob/master/readme_images/all_screen.png"><img src="readme_images/all_screen.png" alt="AudioShop Logo"></a>
-        <p style="font-size: 15px">A különbőző felületek közti kapcsolatok és egyes felületek másik verzójának kinézetei</p>
+        <a href="https://github.com/galmihaly/AudioShopInventoryManagement/blob/master/readme_images/all_screen.png"><img src="readme_images/all_screen.png" alt="AudioShop"></a>
+        <p>A különbőző felületek közti kapcsolatok és egyes felületek másik verzójának kinézetei</p>
 </div>
 
 ---
@@ -65,7 +65,7 @@
         <br>
         <h2>Bejelentkező felület</h2>
         <br>
-        <img src="readme_images/login_screen.png" alt="AudioShop Logo">
+        <img src="readme_images/login_screen.png" alt="AudioShop">
     </div>
     <br>
 </div>
@@ -85,7 +85,7 @@
         <br>
         <h2>Kezdő felület</h2>
         <br>
-        <img src="readme_images/start_screen.png" alt="AudioShop Logo">
+        <img src="readme_images/start_screen.png" alt="AudioShop">
     </div>
     <br>
 </div>
@@ -102,7 +102,7 @@
         <br>
         <h2>Áruház felület</h2>
         <br>
-        <img src="readme_images/warehouse_screen.png" alt="AudioShop Logo">
+        <img src="readme_images/warehouse_screen.png" alt="AudioShop">
     </div>
     <br>
 </div>
@@ -119,7 +119,7 @@
         <br>
         <h2>Tároló felület</h2>
         <br>
-        <img src="readme_images/storage_screen.png" alt="AudioShop Logo">
+        <img src="readme_images/storage_screen.png" alt="AudioShop">
     </div>
     <br>
 </div>
@@ -136,9 +136,8 @@
 - Tároló lehet:
   - RFID kóddal ellátott doboz
   - Polcos kialakítású szekrény, ahol a szekrény egyes, különválasztott részei szintén RFID kóddal van ellátva.
-- <b>A tároló RFID azonosítójaként bármit be lehet írni, a program csak egy RFID-t kezel tárolók esetén</b>
 <div align="center">
-        <img src="readme_images/inventory_management_with_RFID.gif" alt="AudioShop Logo">
+        <img src="readme_images/inventory_management_with_RFID.gif" alt="AudioShop">
         <p style="font-size: 15px">Egy valós példa a tároló vonalkódjára</p>
 </div>
 
@@ -149,7 +148,7 @@
         <br>
         <h2>Termékek áttekintése felület</h2>
         <br>
-        <img src="readme_images/products_overview_screen.png" alt="AudioShop Logo">
+        <img src="readme_images/products_overview_screen.png" alt="AudioShop">
     </div>
     <br>
 </div>
@@ -159,7 +158,7 @@
 - A termékek közt RFID alapján lehet keresni, amelyet a PDA segítségével tud beolvasni a rögzítő személy (be lehet manuálisan is írni a kódot)
 - Egy termék kártyán látjuk:
   - a termék egyedi RFID kódját
-  - a termék adatbázisban tárolt, termék kategóriájának (Brand-Categória-Model) azonosító kódját (erről később lesz magyarázat)
+  - a termék adatbázisban tárolt, termék kategóriájának (Brand-Categória-Model) azonosító kódját (erről a <a href="https://github.com/galmihaly/AudioShopInventoryManagementRestAPI">AudioShopInventoryManagementAPI</a> programnál lesz leírás)
   - a termék neve (Brand-Model)
   - a termék netto (áfa nélküli) árát
   - a termék brutto (áfával számított) árát
@@ -175,7 +174,7 @@
         <br>
         <h2>Új terméklista készítése felület</h2>
         <br>
-        <img src="readme_images/product_list_screen.png" alt="AudioShop Logo">
+        <img src="readme_images/product_list_screen.png" alt="AudioShop">
     </div>
     <br>
 </div>
@@ -198,7 +197,7 @@
         <br>
         <h2>Termék módosítása felület</h2>
         <br>
-        <img src="readme_images/modify_product_screen.png" alt="AudioShop Logo">
+        <img src="readme_images/modify_product_screen.png" alt="AudioShop">
     </div>
     <br>
 </div>
@@ -229,7 +228,7 @@
         <br>
         <h2>Új termék létrehozása felület</h2>
         <br>
-        <img src="readme_images/new_product_screen.png" alt="AudioShop Logo">
+        <img src="readme_images/new_product_screen.png" alt="AudioShop">
     </div>
     <br>
 </div>
