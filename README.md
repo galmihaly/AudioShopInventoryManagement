@@ -29,7 +29,7 @@
 - Navigáció: Jetpack Compose Navigation
 - Dependency Injection: Hilt és Dagger
 - API kezelés: Retrofit, OkHttp
-- API válaszok kezelése: JSON Serializáció
+- API válaszok kezelése: JSON Serialization
 - Adatok tárolása: Room és ProtoDatastore
 - JWT (JSON Web Token) dekódolása: JWT Decode (<a href="https://github.com/auth0/JWTDecode.Android">Auth0 by Okta</a>)
 
